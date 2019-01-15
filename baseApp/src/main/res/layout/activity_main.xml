@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.motor.connect.feature.data.UserViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/card_view"
+            layout="@layout/header_item_view" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/card_view"
+            android:layout_marginTop="5dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/card_view"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="46dp"
+                app:changedPositions="@{viewModel.changedPositions}"
+                app:data="@{viewModel.dataArea}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+            <LinearLayout
+                android:id="@+id/bottom_container"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_below="@+id/recyclerView"
+                android:layout_gravity="bottom"
+                android:background="@drawable/card_view_style"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btn_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_style"
+                    android:gravity="center|center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Màn Hình Chính"
+                    android:textSize="@dimen/general_text_size_medium" />
+
+                <TextView
+                    android:id="@+id/btn_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_style"
+                    android:gravity="center"
+
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Thêm Khu Vực"
+                    android:textSize="@dimen/general_text_size_medium" />
+
+                <TextView
+                    android:id="@+id/btn_notify"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_style"
+                    android:gravity="center"
+
+                    android:text="Thông Báo"
+                    android:textSize="@dimen/general_text_size_medium" />
+
+                <TextView
+                    android:id="@+id/btn_setting"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_style"
+                    android:gravity="center"
+
+                    android:text="Cài Đặt"
+                    android:textSize="@dimen/general_text_size_medium" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

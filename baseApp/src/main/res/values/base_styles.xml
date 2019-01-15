@@ -1,0 +1,11 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Widget" />
+
+    <style name="Widget.Button">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/general_text_size_medium</item>
+        <item name="android:minHeight">@dimen/general_list_item_height</item>
+        <item name="android:minWidth">@dimen/general_button_size</item>
+    </style>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="record_action_new_order">New Order</string>
+    <string name="record_action_add_contact">Add Contact</string>
+    <string name="record_action_add_note">Add note</string>
+    <string name="record_action_skip_later">Skip Later</string>
+    <string name="record_action_ignore_record">Ignore Record</string>
+</resources>
