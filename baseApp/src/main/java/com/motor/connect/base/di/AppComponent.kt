@@ -15,5 +15,4 @@ interface AppComponent {
 
     fun context(): Context
 
-    fun applicationBus(): ApplicationBus
 }
