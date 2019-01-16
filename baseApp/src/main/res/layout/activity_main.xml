@@ -48,51 +48,52 @@
 
                 <TextView
                     android:id="@+id/btn_home"
+                    style="@style/TextView.Screen.Menu"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|center"
                     android:layout_weight="1"
-                    android:background="@drawable/card_view_style"
+                    android:background="@drawable/item_view_style"
                     android:gravity="center|center_vertical"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Màn Hình Chính"
-                    android:textSize="@dimen/general_text_size_medium" />
+                    android:textSize="@dimen/connect_text_size_menu" />
 
                 <TextView
                     android:id="@+id/btn_add"
+                    style="@style/TextView.Screen.Menu"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/card_view_style"
+                    android:background="@drawable/item_view_style"
                     android:gravity="center"
-
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Thêm Khu Vực"
-                    android:textSize="@dimen/general_text_size_medium" />
+                    android:textSize="@dimen/connect_text_size_menu" />
 
                 <TextView
                     android:id="@+id/btn_notify"
+                    style="@style/TextView.Screen.Menu"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/card_view_style"
+                    android:background="@drawable/item_view_style"
                     android:gravity="center"
-
                     android:text="Thông Báo"
-                    android:textSize="@dimen/general_text_size_medium" />
+                    android:textSize="@dimen/connect_text_size_menu" />
 
                 <TextView
                     android:id="@+id/btn_setting"
+                    style="@style/TextView.Screen.Menu"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/card_view_style"
+                    android:background="@drawable/item_view_style"
                     android:gravity="center"
-
                     android:text="Cài Đặt"
-                    android:textSize="@dimen/general_text_size_medium" />
+                    android:textSize="@dimen/connect_text_size_menu" />
 
             </LinearLayout>
         </FrameLayout>

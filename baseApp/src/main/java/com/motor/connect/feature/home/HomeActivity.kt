@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity
+import com.motor.connect.base.view.BaseActivity_View
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
 import com.feature.area.R
@@ -12,7 +12,7 @@ import com.feature.area.databinding.HomeViewBinding
 import com.motor.connect.feature.data.MainActivity
 
 
-class HomeActivity : BaseActivity<HomeViewBinding, HomeViewModel>(), HomeView {
+class HomeActivity : BaseActivity_View<HomeViewBinding, HomeViewModel>(), HomeView {
 
     override fun viewLoaded() {
 

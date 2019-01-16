@@ -1,42 +1,27 @@
 package com.motor.connect.base.view
 
-import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.motor.connect.base.BaseViewModel
+import com.orhanobut.hawk.Hawk
 
-abstract class BaseActivity<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
-        RootActivity(), IBaseView {
+abstract class BaseActivity : AppCompatActivity() {
 
-    lateinit var mBinding: Binding
-
-    lateinit var mViewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = createViewModel()
-        mBinding = createDataBinding(mViewModel)
-    }
-
-    abstract fun createViewModel(): ViewModel
-
-    abstract fun createDataBinding(mViewModel: ViewModel): Binding
-
-    override fun onDestroy() {
-        mBinding.unbind()
-        mViewModel.destroy()
-        super.onDestroy()
-    }
-
-    override fun showLoadingView() {
-        // TODO("not implemented")
-    }
-
-    override fun hideLoadingView() {
-        // TODO("not implemented")
+        Hawk.init(applicationContext).build()
     }
 
     fun showUnderConstruction(methodName: String) {
         Toast.makeText(this, "=== $methodName ====", Toast.LENGTH_SHORT).show()
+    }
+
+    fun actionLeft() {
+        super.onBackPressed()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

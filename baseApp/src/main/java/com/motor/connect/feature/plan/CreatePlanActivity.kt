@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.Button
 import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity
+import com.motor.connect.base.view.BaseActivity_View
 import com.feature.area.R
 import com.feature.area.databinding.CreatePlanViewBinding
 import kotlinx.android.synthetic.main.create_plan_view.*
@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreatePlanActivity : BaseActivity<CreatePlanViewBinding, CreatePlanViewModel>(), CreatePlanView, View.OnClickListener {
+class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanViewModel>(), CreatePlanView, View.OnClickListener {
 
     override fun viewLoaded() {
 

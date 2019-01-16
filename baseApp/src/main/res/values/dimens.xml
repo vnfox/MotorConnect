@@ -1,54 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_horizontal_marginx2">32dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin_small">8dp</dimen>
-    <dimen name="activity_vertical_marginX2">32dp</dimen>
-    <!-- View -->
-    <dimen name="page_child_margin">12dp</dimen>
-    <dimen name="page_child_marginx2">24dp</dimen>
-    <dimen name="page_child_marginx3">36dp</dimen>
-
-    <!-- View -->
-    <dimen name="general_margin">6dp</dimen>
-    <dimen name="general_margin_small">4dp</dimen>
-    <dimen name="general_margin_medium">8dp</dimen>
-    <dimen name="general_margin_large">16dp</dimen>
-    <dimen name="general_margin_largex2">32dp</dimen>
-    <dimen name="general_margin_xlarge">22dp</dimen>
-    <dimen name="general_margin_xxlarge">58dp</dimen>
-    <!--  -->
-    <dimen name="general_button_height">42dp</dimen>
-    <dimen name="general_button_size_micro">24dp</dimen>
-    <dimen name="general_button_size_mini">38dp</dimen>
-    <dimen name="general_button_size_small">42dp</dimen>
-    <dimen name="general_button_size">48dp</dimen>
-    <dimen name="general_button_size_medium">64dp</dimen>
-    <dimen name="general_button_size_large">72dp</dimen>
-    <dimen name="general_button_size_xlarge">84dp</dimen>
-    <dimen name="general_button_corner">4dp</dimen>
-    <dimen name="general_card_corner">4dp</dimen>
-
-    <!--  -->
-    <dimen name="general_list_item_height_mini">32dp</dimen>
-    <dimen name="general_list_item_height_small">42dp</dimen>
-    <dimen name="general_list_item_height">48dp</dimen>
-    <dimen name="general_list_item_height_large">54dp</dimen>
-    <!--  -->
-    <dimen name="general_edittext_padding">18dp</dimen>
-    <!--  -->
-    <dimen name="general_text_size_micro">10sp</dimen>
-    <dimen name="general_text_size_small">12sp</dimen>
-    <dimen name="general_text_size_default">14sp</dimen>
-    <dimen name="general_text_size_medium">16sp</dimen>
-    <dimen name="general_text_size_large">22sp</dimen>
-    <dimen name="general_text_size_largex2">44sp</dimen>
-    <dimen name="general_text_size_xlarge">28sp</dimen>
-    <dimen name="general_text_size_xxlarge">32sp</dimen>
-    <!-- ================= -->
 
     <!-- dialog dimens -->
     <!-- ================= -->
@@ -66,8 +18,15 @@
     <dimen name="card_elevation">100dp</dimen>
     <dimen name="card_radius">6dp</dimen>
 
-    <dimen name="actionbar_height">56dp</dimen>
+    <dimen name="button_radius">6dp</dimen>
 
+    <dimen name="actionbar_height">56dp</dimen>
+    <dimen name="button_min_height">56dp</dimen>
+
+    <dimen name="connect_text_size_title">22sp</dimen>
+    <dimen name="connect_text_size_description">16sp</dimen>
+
+    <dimen name="connect_text_size_menu">16sp</dimen>
 
     <dimen name="connect_text_size_22">22sp</dimen>
     <dimen name="connect_text_size_16">16sp</dimen>

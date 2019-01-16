@@ -45,7 +45,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="test Card View end"
-                            android:textSize="@dimen/general_text_size_large" />
+                            android:textSize="@dimen/connect_text_size_title" />
 
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -74,7 +74,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="Màn Hình Chính"
-                android:textSize="@dimen/general_text_size_medium" />
+                android:textSize="@dimen/connect_text_size_menu" />
 
             <TextView
                 android:id="@+id/btn_add"
@@ -87,7 +87,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="Thêm Khu Vực"
-                android:textSize="@dimen/general_text_size_medium" />
+                android:textSize="@dimen/connect_text_size_menu" />
 
             <TextView
                 android:id="@+id/btn_notify"
@@ -98,7 +98,7 @@
                 android:gravity="center"
                 android:onClick="@{()-> viewModel.showNotification()}"
                 android:text="Thông Báo"
-                android:textSize="@dimen/general_text_size_medium" />
+                android:textSize="@dimen/connect_text_size_menu" />
 
             <TextView
                 android:id="@+id/btn_setting"
@@ -109,7 +109,7 @@
                 android:gravity="center"
                 android:onClick="@{()-> viewModel.showSetting()}"
                 android:text="Cài Đặt"
-                android:textSize="@dimen/general_text_size_medium" />
+                android:textSize="@dimen/connect_text_size_menu" />
 
         </LinearLayout>
     </FrameLayout>

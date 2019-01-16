@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
@@ -12,13 +11,16 @@ import android.widget.TextView
 import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.ActivityMainBinding
+import com.motor.connect.base.view.BaseActivity
+import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var spanCount = 1
@@ -31,11 +33,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Preferences
         Hawk.init(applicationContext).build()
-
 
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+
+        //Adapter item click
         val adapter = UserAdapter { areaModel ->
 
             Toast.makeText(this, "=== Item Click  ====  " + areaModel.getAreaName(),
@@ -44,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         arae = Hawk.get("shre")
-
         recyclerView.adapter = adapter
+
         binding.viewModel = viewModel
 
         viewModel.startUpdates()
@@ -59,11 +63,12 @@ class MainActivity : AppCompatActivity() {
         val actionAdd = findViewById<TextView>(R.id.btn_add)
         actionAdd?.setOnClickListener {
             Toast.makeText(this, "=== On actionAdd  ====", Toast.LENGTH_LONG).show()
+            AddAreaActivity.show(this)
         }
 
         val actionNotify = findViewById<TextView>(R.id.btn_notify)
         actionNotify?.setOnClickListener {
-            Toast.makeText(this, "=== On actionNotify  ====", Toast.LENGTH_LONG).show()
+            NotificationActivity.show(this)
         }
 
         val actionSetting = findViewById<TextView>(R.id.btn_setting)

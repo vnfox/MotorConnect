@@ -76,6 +76,10 @@ dependencies {
 
     //Share pref
     implementation "com.orhanobut:hawk:2.0.1"
+
+    //Timeout
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+
     // Dependency Injection framework
     implementation 'com.google.dagger:dagger-android:2.17'
     implementation 'com.google.dagger:dagger-android-support:2.17'

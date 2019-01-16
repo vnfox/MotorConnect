@@ -3,14 +3,14 @@ package com.motor.connect.feature.add
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity
+import android.os.Bundle
+import android.widget.ImageView
 import com.feature.area.R
 import com.feature.area.databinding.AddAreaViewBinding
+import com.motor.connect.base.view.BaseActivity
 
 
-class AddAreaActivity : BaseActivity<AddAreaViewBinding, AddAreaViewModel>(), com.motor.connect.feature.add.AddAreaView {
-
+class AddAreaActivity : BaseActivity() {
 
     companion object {
         fun show(context: Context) {
@@ -18,23 +18,19 @@ class AddAreaActivity : BaseActivity<AddAreaViewBinding, AddAreaViewModel>(), co
         }
     }
 
-    override fun createViewModel(): AddAreaViewModel {
-        val viewModel = AddAreaViewModel(this, BaseModel())
-        viewModel.mView = this
-        return viewModel
-    }
+    private val viewModel = AddAreaViewModel()
 
-    override fun createDataBinding(mViewModel: AddAreaViewModel): AddAreaViewBinding {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.add_area_view)
-        mBinding.viewModel = mViewModel
-        return mBinding
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: AddAreaViewBinding = DataBindingUtil.setContentView(this, R.layout.add_area_view)
 
-    override fun viewLoaded() {
+        binding.viewModel = viewModel
 
-    }
+        viewModel.startUpdates()
 
-    override fun actionLeft() {
-        super.onBackPressed()
+        val onClose = findViewById<ImageView>(R.id.action_left)
+        onClose?.setOnClickListener {
+            actionLeft()
+        }
     }
 }

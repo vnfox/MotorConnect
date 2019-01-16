@@ -3,14 +3,14 @@ package com.motor.connect.feature.notification
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.widget.Toast
-import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity
+import android.os.Bundle
+import android.widget.ImageView
 import com.feature.area.R
 import com.feature.area.databinding.NotificationViewBinding
+import com.motor.connect.base.view.BaseActivity
 
 
-class NotificationActivity : BaseActivity<NotificationViewBinding, NotificationViewModel>(), NotificationView {
+class NotificationActivity : BaseActivity() {
 
 
     companion object {
@@ -19,23 +19,20 @@ class NotificationActivity : BaseActivity<NotificationViewBinding, NotificationV
         }
     }
 
-    override fun createViewModel(): NotificationViewModel {
-        val viewModel = NotificationViewModel(this, BaseModel())
-        viewModel.mView = this
-        return viewModel
-    }
+    private val viewModel = NotificationViewModel()
 
-    override fun createDataBinding(mViewModel: NotificationViewModel): NotificationViewBinding {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.notification_view)
-        mBinding.viewModel = mViewModel
-        return mBinding
-    }
 
-    override fun viewLoaded() {
-        Toast.makeText(this, "=== showCalendarSelection ====", Toast.LENGTH_LONG).show()
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: NotificationViewBinding = DataBindingUtil.setContentView(this, R.layout.notification_view)
 
-    override fun actionLeft() {
-        super.onBackPressed()
+        binding.viewModel = viewModel
+
+        viewModel.startUpdates()
+
+        val onClose = findViewById<ImageView>(R.id.action_left)
+        onClose?.setOnClickListener {
+            actionLeft()
+        }
     }
 }

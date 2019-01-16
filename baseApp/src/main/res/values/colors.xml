@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#AFBEC5</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="transparent">#00000000</color>
+
+    <color name="color_black">#000000</color>
+
+
     <color name="color_blue">#1BBBEE</color>
     <color name="color_green">#52D69D</color>
 
@@ -14,5 +19,6 @@
     <color name="color_grey">#AFBEC5</color>
     <color name="color_grey_light">#E0E5E9</color>
     <color name="color_dark">#607D8B</color>
+
 
 </resources>

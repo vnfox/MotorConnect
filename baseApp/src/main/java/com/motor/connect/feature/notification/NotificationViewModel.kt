@@ -1,14 +1,10 @@
 package com.motor.connect.feature.notification
 
-import com.motor.connect.base.BaseModel
-import com.motor.connect.base.BaseViewModel
+import android.databinding.BaseObservable
 
-class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
-    : BaseViewModel<NotificationView, BaseModel>(mView, mModel) {
+class NotificationViewModel : BaseObservable() {
 
-    override fun initViewModel() {
-        mView!!.viewLoaded()
+    fun startUpdates() {
+
     }
-
-    fun actionLeft() = mView?.actionLeft()
 }

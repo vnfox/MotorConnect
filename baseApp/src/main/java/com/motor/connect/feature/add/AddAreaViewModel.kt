@@ -1,14 +1,13 @@
 package com.motor.connect.feature.add
 
+import android.databinding.BaseObservable
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 
-class AddAreaViewModel(mView: com.motor.connect.feature.add.AddAreaView?, mModel: BaseModel)
-    : BaseViewModel<com.motor.connect.feature.add.AddAreaView, BaseModel>(mView, mModel) {
+class AddAreaViewModel : BaseObservable() {
 
-    override fun initViewModel() {
-        mView!!.viewLoaded()
+
+    fun startUpdates() {
+
     }
-
-    fun actionLeft() = mView?.actionLeft()
 }
