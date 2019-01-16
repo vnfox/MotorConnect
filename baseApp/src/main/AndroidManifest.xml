@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
 
-
     <application
         android:name="com.motor.connect.base.app.BaseApplication"
         android:allowBackup="true"
@@ -33,6 +32,11 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name="com.motor.connect.service.SMSReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name="com.motor.connect.feature.plan.CreatePlanActivity" />
         <activity android:name="com.motor.connect.feature.setting.SettingActivity" />

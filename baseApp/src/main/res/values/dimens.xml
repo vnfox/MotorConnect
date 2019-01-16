@@ -20,9 +20,9 @@
 
     <dimen name="button_radius">6dp</dimen>
 
-    <dimen name="actionbar_height">56dp</dimen>
+    <dimen name="actionbar_height">46dp</dimen>
     <dimen name="button_min_height">56dp</dimen>
-
+F
     <dimen name="connect_text_size_title">22sp</dimen>
     <dimen name="connect_text_size_description">16sp</dimen>
 

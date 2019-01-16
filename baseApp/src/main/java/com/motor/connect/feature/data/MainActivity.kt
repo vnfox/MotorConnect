@@ -1,5 +1,7 @@
 package com.motor.connect.feature.data
 
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +23,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
+
+    companion object {
+        fun show(context: Context) {
+            context.startActivity(Intent(context, MainActivity::class.java))
+        }
+    }
 
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var spanCount = 1

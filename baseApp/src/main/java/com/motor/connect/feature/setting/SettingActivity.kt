@@ -57,6 +57,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         onSetting?.setOnClickListener {
             Toast.makeText(this, "=== Send SMS  ====", Toast.LENGTH_LONG).show()
 
+            //Open screen SMSs
             val smsNumber = "0947818171"
             val smsText = "Send sms test app putExtra"
 
@@ -71,11 +72,13 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
 
             if (checkPermission(Manifest.permission.SEND_SMS)) {
                 Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
+
+                //Send sms in background Work wells
                 val smsNumber = "0947818171"
                 val smsText = "Send sms test app SmsManager"
 
                 val smsManager = SmsManager.getDefault()
-                smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+                //smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
             } else {
                 Toast.makeText(this, "=== permission  Denied ====", Toast.LENGTH_LONG).show()
             }
@@ -119,7 +122,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         needPermissions = ArrayList()
 
         if (!PermissionUtils.isGranted(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        Manifest.permission.SEND_SMS)) {
             needPermissions.add(Manifest.permission.SEND_SMS)
         }
     }

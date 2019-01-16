@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -19,6 +20,7 @@
             android:layout_gravity="top"
             android:background="@drawable/card_view_style"
             android:gravity="center|left"
+
 
             android:orientation="horizontal">
 
@@ -43,16 +45,15 @@
 
         <!-- Action Bar End -->
 
-        <TextView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/re_sms"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:minHeight="46dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:text="Thông báo tin nhắn"
-            android:textSize="@dimen/connect_text_size_title" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/card_view"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingBottom="46dp"
+            app:data="@{viewModel.smsReceivers}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>

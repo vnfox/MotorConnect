@@ -12,7 +12,6 @@ import com.motor.connect.base.view.BaseActivity
 
 class NotificationActivity : BaseActivity() {
 
-
     companion object {
         fun show(context: Context) {
             context.startActivity(Intent(context, NotificationActivity::class.java))
