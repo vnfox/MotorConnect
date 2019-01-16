@@ -14,6 +14,4 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun context(): Context
-
-    fun applicationBus(): ApplicationBus
 }
