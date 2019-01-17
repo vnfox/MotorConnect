@@ -76,6 +76,8 @@ dependencies {
 
     //Share pref
     implementation "com.orhanobut:hawk:2.0.1"
+    implementation 'com.github.antonKozyriatskyi:CircularProgressIndicator:1.2.2'
+
 
     //Timeout
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'

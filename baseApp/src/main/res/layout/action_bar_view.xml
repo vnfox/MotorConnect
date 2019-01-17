@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,7 +23,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="@{()-> viewModel.actionLeft()}"
-            android:src="@mipmap/ic_back"
+            app:srcCompat="@mipmap/ic_back"
             android:textSize="@dimen/connect_text_size_description" />
 
         <TextView

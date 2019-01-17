@@ -1,15 +1,17 @@
 package com.motor.connect.feature.model
 
+import android.graphics.Bitmap
+
 class AreaModel {
 
     private var areaId: String? = null
     private var areaType: String? = null
-
     private var areaName: String? = null
     private var areaPhone: String? = null
-
     private var areaStatus: String? = null
     private var schedule: String? = null
+
+    private var imgAvatar: Bitmap? = null
 
     private var vanNUmber: Int? = null
 
@@ -60,6 +62,14 @@ class AreaModel {
 
     fun setSchedule(schedule: String?) {
         this.schedule = schedule
+    }
+
+    fun getAvatar(): Bitmap? {
+        return imgAvatar
+    }
+
+    fun setAvatar(bitmap: Bitmap?) {
+        this.imgAvatar = bitmap
     }
 
     fun getVanNumber(): Int? {

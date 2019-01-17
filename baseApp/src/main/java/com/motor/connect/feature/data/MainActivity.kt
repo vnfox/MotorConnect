@@ -15,6 +15,7 @@ import com.feature.area.R
 import com.feature.area.databinding.ActivityMainBinding
 import com.motor.connect.base.view.BaseActivity
 import com.motor.connect.feature.add.AddAreaActivity
+import com.motor.connect.feature.home.HomeActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
@@ -65,12 +66,11 @@ class MainActivity : BaseActivity() {
 
         val actionHome = findViewById<TextView>(R.id.btn_home)
         actionHome?.setOnClickListener {
-            Toast.makeText(this, "=== On Click  ====", Toast.LENGTH_LONG).show()
+            HomeActivity.show(this)
         }
 
         val actionAdd = findViewById<TextView>(R.id.btn_add)
         actionAdd?.setOnClickListener {
-            Toast.makeText(this, "=== On actionAdd  ====", Toast.LENGTH_LONG).show()
             AddAreaActivity.show(this)
         }
 
@@ -81,7 +81,6 @@ class MainActivity : BaseActivity() {
 
         val actionSetting = findViewById<TextView>(R.id.btn_setting)
         actionSetting?.setOnClickListener {
-            Toast.makeText(this, "=== On actionSetting  ====", Toast.LENGTH_LONG).show()
             SettingActivity.show(this)
         }
 

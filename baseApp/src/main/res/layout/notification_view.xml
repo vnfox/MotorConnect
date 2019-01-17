@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:src="@mipmap/ic_back" />
+                app:srcCompat="@mipmap/ic_back" />
 
             <TextView
                 android:id="@+id/txt_title"

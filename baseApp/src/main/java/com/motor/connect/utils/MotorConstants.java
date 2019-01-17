@@ -1,10 +1,21 @@
 package com.motor.connect.utils;
 
+import com.feature.area.BuildConfig;
+
 public class MotorConstants {
 
     public static final String KEY_PUT_AREA = "PUT_AREA";
     public static final String KEY_PUT_AREA_LIST = "PUT_AREA_LIST";
 
+    public static final int MSG_UNCOLOR_START = 0;
+    public static final int MSG_UNCOLOR_STOP = 1;
+    public static final int MSG_COLOR_START = 2;
+    public static final int MSG_COLOR_STOP = 3;
+
+    public static final String MESSENGER_INTENT_KEY
+            = BuildConfig.APPLICATION_ID + ".MESSENGER_INTENT_KEY";
+    public static final String WORK_DURATION_KEY =
+            BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
 
     // Todo remove UI Timeout
     public static final int TIMEOUT_IDLE_DURATION_IN_SECONDS = 120;

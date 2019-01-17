@@ -32,5 +32,13 @@ class AddAreaActivity : BaseActivity() {
         onClose?.setOnClickListener {
             actionLeft()
         }
+
+
+        val onImage = findViewById<ImageView>(R.id.img_wall)
+        onImage?.setOnClickListener {
+
+        }
+
+
     }
 }

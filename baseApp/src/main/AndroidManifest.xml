@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name="com.motor.connect.base.view.FragmentHostActivity" />
-        <activity android:name="com.motor.connect.feature.data.MainActivity">
+        <activity android:name="com.motor.connect.feature.splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,10 +38,14 @@
             </intent-filter>
         </receiver>
 
+
+        <activity android:name="com.motor.connect.feature.data.MainActivity"/>
         <activity android:name="com.motor.connect.feature.plan.CreatePlanActivity" />
         <activity android:name="com.motor.connect.feature.setting.SettingActivity" />
         <activity android:name="com.motor.connect.feature.notification.NotificationActivity" />
         <activity android:name="com.motor.connect.feature.add.AddAreaActivity" />
+
+        <activity android:name="com.motor.connect.feature.home.HomeActivity"/>
 
 
     </application>

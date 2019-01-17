@@ -1,12 +1,12 @@
 package com.motor.connect.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class PermissionUtils {
                 PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean isPermissionsGranted(Activity activity, String[] permissions, int requestCode) {
+    public static boolean isPermissionsGranted(AppCompatActivity activity, String[] permissions, int requestCode) {
 
         List<String> requestPermission = new ArrayList<>();
 
