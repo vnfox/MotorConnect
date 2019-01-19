@@ -13,21 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/card_view"
-            layout="@layout/header_item_view" />
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/card_view"
             android:layout_marginTop="5dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/card_view"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:paddingBottom="46dp"

@@ -31,9 +31,6 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private var mLayoutManager: RecyclerView.LayoutManager? = null
-    private var spanCount = 1
-
     private var arae: AreaModel? = null
 
     private val viewModel = UserViewModel()
@@ -84,31 +81,7 @@ class MainActivity : BaseActivity() {
             SettingActivity.show(this)
         }
 
-
-        //=========== Header Item ======================================
-
-        val gridView = findViewById<ImageView>(R.id.grid_view)
-        gridView?.setOnClickListener {
-
-            if (spanCount == 1) {
-                spanCount = 2
-                mLayoutManager = GridLayoutManager(this, spanCount)
-                recyclerView.layoutManager = mLayoutManager
-            } else {
-                spanCount = 1
-                mLayoutManager = GridLayoutManager(this, spanCount)
-                recyclerView.layoutManager = mLayoutManager
-            }
-            Toast.makeText(this, "=== On griview       " + spanCount, Toast.LENGTH_LONG).show()
-        }
-
-        val profileView = findViewById<ImageView>(R.id.ic_profile)
-        profileView?.setOnClickListener {
-            Toast.makeText(this, "=== On profileView  ====", Toast.LENGTH_LONG).show()
-        }
-
     }
-
 
     override fun onDestroy() {
         viewModel.stopUpdates()
