@@ -30,4 +30,10 @@
         <item name="android:textSize">@dimen/connect_text_size_menu</item>
         <item name="android:textColor">@color/color_black</item>
     </style>
+
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/color_red</item>
+        <item name="android:textSize">@dimen/connect_text_size_error</item>
+    </style>
+
 </resources>

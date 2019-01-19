@@ -26,4 +26,10 @@
     <string name="percent_value">65%</string>
     <string name="home_screen_observed_compliance">OBSERVED\nCOMPLIANCE</string>
     <string name="content_description">This is an image…</string>
+    <string name="add_input_name_empty">Vui lòng nhập tên khu vực</string>
+    <string name="add_input_phone_empty">Vui lòng nhập số điện thoại</string>
+    <string name="add_number_van_used">Số van sử dụng</string>
+    <string name="btn_chon">Chọn</string>
+    <string name="btn_huy">Hủy</string>
+    <string name="home_area_empty">Thêm\nKhu Vực</string>
 </resources>

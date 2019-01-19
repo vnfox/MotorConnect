@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.feature.area.R
+import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
 
 class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
@@ -41,11 +42,9 @@ class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<Recyc
         holder.itemView.setOnClickListener {
             onClick(areas[position])
         }
-        Log.d("hqdat", "===  position >>>>   $position")
         if (position == 0) {
             (holder as HeaderViewHolder).txtTitle.text = "Motor Connect"
         } else {
-            Log.d("hqdat", "===  Name   " + areas[position].areaName)
             (holder as ItemViewHolder).name.text = areas[position].areaName
             holder.phone.text = areas[position].areaPhone
             holder.status.text = areas[position].areaStatus

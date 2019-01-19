@@ -11,15 +11,15 @@ class NotificationViewModel : BaseObservable() {
     var smsReceivers: MutableList<SmsModel> = mutableListOf()
         private set(value) {
             field = value
-            notifyPropertyChanged(BR.dataArea)
+            notifyPropertyChanged(BR.smsReceivers)
         }
 
-    fun startUpdates() {
-        initData()
+    fun startUpdates(smsRecievers: MutableList<SmsModel>) {
+
+
+        smsReceivers = smsRecievers
+        notifyPropertyChanged(BR.smsReceivers)
+
     }
 
-    private fun initData() {
-
-
-    }
 }

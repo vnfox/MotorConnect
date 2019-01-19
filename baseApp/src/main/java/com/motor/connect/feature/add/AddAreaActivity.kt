@@ -16,6 +16,7 @@ import com.motor.connect.base.view.BaseActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.StringUtils
 import com.orhanobut.hawk.Hawk
 
 
@@ -73,10 +74,23 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
                 selectVanView()
             }
             R.id.btn_save -> {
+
+
+                if (StringUtils.isNullOrEmpty(areaName?.text.toString())) {
+                    areaName?.error = getString(R.string.add_input_name_empty)
+                    return
+                }
+                if (StringUtils.isNullOrEmpty(areaPhone?.text.toString())) {
+                    areaPhone?.error = getString(R.string.add_input_phone_empty)
+                    return
+                }
+
                 saveDataShref()
+                shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
             }
         }
     }
+
 
     private fun saveDataShref() {
         val dataModel = AreaModel()
@@ -113,13 +127,13 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
     private fun selectVanView() {
         var items = resources.getStringArray(R.array.number_van_choice)
         AlertDialog.Builder(this)
-                .setTitle("So Van Su Dung")
+                .setTitle(getString(R.string.add_number_van_used))
                 .setSingleChoiceItems(items, 0) { _, i ->
 
                     areaVan?.text = items[i].toString()
                 }
-                .setPositiveButton("Chon", null)
-                .setNegativeButton("Huy", null)
+                .setPositiveButton(getString(R.string.btn_chon), null)
+                .setNegativeButton(getString(R.string.btn_huy), null)
                 .show()
     }
 }

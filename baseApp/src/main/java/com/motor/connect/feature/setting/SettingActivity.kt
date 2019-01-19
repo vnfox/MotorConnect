@@ -21,6 +21,7 @@ import com.motor.connect.base.view.BaseActivity
 import com.motor.connect.utils.PermissionUtils
 import io.reactivex.annotations.NonNull
 import java.util.*
+import android.provider.ContactsContract
 
 
 class SettingActivity : BaseActivity(), View.OnClickListener {
@@ -86,7 +87,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
 
         val onNote = findViewById<TextView>(R.id.txt_note)
         onNote?.setOnClickListener {
-            grantPermissions()
+//            grantPermissions()
         }
 
         val onHowUse = findViewById<TextView>(R.id.txt_how_use)
@@ -111,11 +112,43 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         while (cur != null && cur.moveToNext()) {
             val address = cur.getString(cur.getColumnIndex("address"))
             val body = cur.getString(cur.getColumnIndexOrThrow("body"))
-            sms.add("Number: $address .Message: $body")
+            val type = cur.getString(cur.getColumnIndexOrThrow("type"))
+            val contact = getContactbyPhoneNumber(this, address)
+
+            sms.add("Number: $address Contact: $contact Type: $type .Message: $body")
         }
+
+        //String type = c.getString(c.getColumnIndexOrThrow("type"));
 
         cur?.close()
         return sms
+    }
+
+    fun getContactbyPhoneNumber(c: Context, phoneNumber: String): String {
+
+        try {
+            val uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber))
+            val projection = arrayOf(ContactsContract.PhoneLookup.DISPLAY_NAME)
+            val cursor = c.contentResolver.query(uri, projection, null, null, null)
+            if (cursor == null) {
+                return phoneNumber
+            } else {
+                var name = phoneNumber
+                try {
+
+                    if (cursor.moveToFirst()) {
+                        name = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME))
+                    }
+
+                } finally {
+                    cursor.close()
+                }
+
+                return name
+            }
+        } finally {
+            return phoneNumber
+        }
     }
 
     private fun verifyAppPermission() {

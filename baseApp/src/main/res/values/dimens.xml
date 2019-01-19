@@ -23,11 +23,12 @@
     <dimen name="actionbar_height">46dp</dimen>
     <dimen name="button_min_height">56dp</dimen>
 
+    <dimen name="connect_text_size_36">36sp</dimen>
     <dimen name="connect_text_size_title">22sp</dimen>
     <dimen name="connect_text_size_description">16sp</dimen>
+    <dimen name="connect_text_size_error">16sp</dimen>
 
     <dimen name="connect_text_size_menu">16sp</dimen>
-
     <dimen name="connect_text_size_22">22sp</dimen>
     <dimen name="connect_text_size_16">16sp</dimen>
 

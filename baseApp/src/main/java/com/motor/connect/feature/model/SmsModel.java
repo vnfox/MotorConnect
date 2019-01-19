@@ -6,6 +6,7 @@ public class SmsModel {
     private String phoneNumber;
     private String messageContent;
     private String smsType;
+    private String date;
 
     public String getContactName() {
         return contactName;
@@ -37,5 +38,13 @@ public class SmsModel {
 
     public void setSmsType(String smsType) {
         this.smsType = smsType;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

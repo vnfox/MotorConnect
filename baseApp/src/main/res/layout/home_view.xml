@@ -46,6 +46,12 @@
             android:minHeight="46dp"
             android:text="Demo" />
 
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/cirle_background"
+            android:text="Them khu vuc" />
+
 
         <FrameLayout
             android:id="@+id/circular_container"

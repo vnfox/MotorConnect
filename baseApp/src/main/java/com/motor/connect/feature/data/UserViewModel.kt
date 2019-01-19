@@ -17,13 +17,6 @@ class UserViewModel : BaseObservable() {
             notifyPropertyChanged(BR.dataArea)
         }
 
-    @get:Bindable
-    var changedPositions: Set<Int> = mutableSetOf()
-        private set(value) {
-            field = value
-            notifyPropertyChanged(BR.changedPositions)
-        }
-
     private val updateInterval = 1000L
     private val updateHandler = Handler()
 
@@ -40,13 +33,8 @@ class UserViewModel : BaseObservable() {
     }
 
     fun startUpdates() {
-//        dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-//        if (dataArea.isEmpty())
         initFakeData()
-
         notifyPropertyChanged(BR.dataArea)
-
-//        updateHandler.postDelayed(updateRunnable, updateInterval)
     }
 
     private fun initFakeData() {

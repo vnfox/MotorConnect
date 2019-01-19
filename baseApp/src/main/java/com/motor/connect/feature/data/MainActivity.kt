@@ -14,11 +14,9 @@ import com.feature.area.databinding.ActivityMainBinding
 import com.motor.connect.base.view.BaseActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.home.HomeActivity
-import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
 import com.motor.connect.utils.MotorConstants
-import com.motor.connect.utils.SharePrefUtil
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,8 +28,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
-
-    private var arae: AreaModel? = null
 
     private val viewModel = UserViewModel()
 
@@ -52,9 +48,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         binding.viewModel = viewModel
 
         if (shef!!.getFirstUserPref(MotorConstants.FIRST_USED)) {
-            viewModel.startUpdates()
-            shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
+            recyclerView.visibility = View.GONE
+            txt_empty.visibility = View.VISIBLE
+//            viewModel.startUpdates()
         } else {
+            recyclerView.visibility = View.VISIBLE
+            txt_empty.visibility = View.GONE
             viewModel.updateList()
         }
 

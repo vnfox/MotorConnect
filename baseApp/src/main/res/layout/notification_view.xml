@@ -46,13 +46,12 @@
         <!-- Action Bar End -->
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/re_sms"
+            android:id="@+id/recyclerView_sms_receivers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/card_view"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:paddingBottom="46dp"
             app:data="@{viewModel.smsReceivers}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </LinearLayout>
