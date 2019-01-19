@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.feature.area.R
 import com.motor.connect.feature.model.AreaModel
-import kotlinx.android.synthetic.main.item_data.view.*
 
 class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
 
@@ -42,19 +41,18 @@ class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<Recyc
         holder.itemView.setOnClickListener {
             onClick(areas[position])
         }
-
-        when (position) {
-            HEADER_TYPE -> {
-                (holder as HeaderViewHolder).txtTitle.text = "Title"
-            }
-            ITEM_TYPE -> {
-                (holder as ItemViewHolder).name.text = areas[position].getAreaName()
-                holder.phone.text = areas[position].getAreaPhone()
-                holder.status.text = areas[position].getStatus()
-                holder.schedule.text = areas[position].getSchedule()
-            }
+        Log.d("hqdat", "===  position >>>>   $position")
+        if (position == 0) {
+            (holder as HeaderViewHolder).txtTitle.text = "Motor Connect"
+        } else {
+            Log.d("hqdat", "===  Name   " + areas[position].areaName)
+            (holder as ItemViewHolder).name.text = areas[position].areaName
+            holder.phone.text = areas[position].areaPhone
+            holder.status.text = areas[position].areaStatus
+            holder.schedule.text = areas[position].areaSchedule
         }
     }
+
 
     class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
