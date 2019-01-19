@@ -5,8 +5,11 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
@@ -14,8 +17,6 @@ import com.feature.area.R
 import com.feature.area.databinding.HomeViewBinding
 import com.motor.connect.base.view.BaseActivity
 import java.util.*
-import com.orhanobut.hawk.Hawk.count
-import android.databinding.adapters.TextViewBindingAdapter.setText
 
 
 class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
@@ -30,12 +31,14 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
     private val viewModel = HomeViewModel()
     private var circularProgress: CircularProgressIndicator? = null
     private var seekbar: SeekBar? = null
-    private var countDownTimer: CountDownTimer? = null
 
-    private val timeTotal: Long? = 10000
-    private var timeStep: Int? = 0
 
-    private val timer: Timer? = null
+    private var mProgress: ProgressBar? = null
+
+    private val timeTotal: Int = 120
+    private var pStatus: Int = 0
+    private val handler = Handler()
+    private lateinit var tv: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,30 +53,40 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
         seekbar?.setOnSeekBarChangeListener(this)
 
         circularProgress = findViewById(R.id.circular_progress)
-        circularProgress?.setMaxProgress(10000.0)
+        circularProgress?.maxProgress = timeTotal.toDouble()
 
         circularProgress?.setProgressTextAdapter(TIME_TEXT_ADAPTER)
 
 
+        circularProgress?.setOnProgressChangeListener { progress, maxProgress ->
+
+            //            Log.d("PROGRESS", String.format("Current: %1$.0f, max: %2$.0f", progress, maxProgress))
+
+            Log.d("hqdat", "== setOnProgressChangeListener>>>>>>   $progress")
+        }
+
+
+        //Todo Progress
+        val res = resources
+        val drawable = res.getDrawable(R.drawable.circular)
+        mProgress = findViewById<View>(R.id.circularProgressbar) as ProgressBar?
+        mProgress?.progress = 0   // Main Progress
+
+        mProgress?.max = timeTotal // Maximum Progress
+        mProgress?.secondaryProgress = timeTotal // Secondary Progress
+        mProgress?.progressDrawable = drawable
+        tv = findViewById<View>(R.id.tv) as TextView
+
+
         val onNote = findViewById<Button>(R.id.btn_demo)
         onNote?.setOnClickListener {
-            onRunProgress()
+            //onRunProgress()
+
+
+            onStartThread()
         }
     }
 
-    fun onRunProgress() {
-
-//       circularProgress?.setCurrentProgress(i.toDouble())
-
-        timer?.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                runOnUiThread {
-
-                }
-            }
-        }, 1000, 1000)
-
-    }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         when (seekBar.id) {
@@ -92,15 +105,16 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
     private val TIME_TEXT_ADAPTER = CircularProgressIndicator.ProgressTextAdapter { time ->
         var time = time
-        val hours = (time / 3600).toInt()
+//        val hours = (time / 3600).toInt()
         time %= 3600.0
+
         val minutes = (time / 60).toInt()
         val seconds = (time % 60).toInt()
         val sb = StringBuilder()
-        if (hours < 10) {
-            sb.append(0)
-        }
-        sb.append(hours).append(":")
+//        if (hours < 10) {
+//            sb.append(0)
+//        }
+//        sb.append(hours).append(":")
         if (minutes < 10) {
             sb.append(0)
         }
@@ -111,4 +125,50 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
         sb.append(seconds)
         sb.toString()
     }
+
+    private fun onStartThread() {
+        Thread(Runnable {
+            // TODO Auto-generated method stub
+            while (pStatus < timeTotal) {
+                pStatus += 1
+
+                handler.post {
+                    // TODO Auto-generated method stub
+                    mProgress?.progress = pStatus
+                    tv.text = this.getStringMessage(pStatus)
+
+                    if (pStatus == timeTotal) {
+                        tv.text = "Done"
+                    }
+                }
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+
+            }
+        }).start()
+    }
+
+    private fun getStringMessage(time: Int): String {
+
+        val minutes = (time / 60)
+        val seconds = (time % 60)
+        val sb = StringBuilder()
+        if (minutes < 10) {
+            sb.append(0)
+        }
+        sb.append(minutes).append(":")
+        if (seconds < 10) {
+            sb.append(0)
+        }
+        sb.append(seconds)
+        sb.toString()
+        return sb.toString()
+    }
+
+
 }

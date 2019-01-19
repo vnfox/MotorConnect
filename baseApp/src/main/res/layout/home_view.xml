@@ -46,5 +46,34 @@
             android:minHeight="46dp"
             android:text="Demo" />
 
+
+        <FrameLayout
+            android:id="@+id/circular_container"
+            android:layout_width="250dp"
+            android:layout_height="250dp">
+
+            <ProgressBar
+
+                android:id="@+id/circularProgressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/circular"
+                android:secondaryProgress="100" />
+
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:gravity="center"
+                android:text="25%"
+                android:textColor="@color/color_blue"
+                android:textSize="20sp" />
+        </FrameLayout>
+
     </LinearLayout>
 </layout>
