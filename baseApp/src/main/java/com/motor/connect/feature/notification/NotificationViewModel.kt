@@ -15,8 +15,6 @@ class NotificationViewModel : BaseObservable() {
         }
 
     fun startUpdates(smsRecievers: MutableList<SmsModel>) {
-
-
         smsReceivers = smsRecievers
         notifyPropertyChanged(BR.smsReceivers)
 

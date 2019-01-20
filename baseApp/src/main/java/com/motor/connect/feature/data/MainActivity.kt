@@ -38,9 +38,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         //Adapter item click
-        val adapter = UserAdapter { areaModel ->
+        val adapter = UserAdapter { areaModel, position ->
 
-            Toast.makeText(this, "=== Item Click  ====  " + areaModel.areaName,
+            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
                     Toast.LENGTH_LONG).show()
         }
 
@@ -50,7 +50,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         if (shef!!.getFirstUserPref(MotorConstants.FIRST_USED)) {
             recyclerView.visibility = View.GONE
             txt_empty.visibility = View.VISIBLE
-//            viewModel.startUpdates()
         } else {
             recyclerView.visibility = View.VISIBLE
             txt_empty.visibility = View.GONE
@@ -66,12 +65,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         actionNotify?.setOnClickListener(this)
         val actionSetting = findViewById<TextView>(R.id.btn_setting)
         actionSetting?.setOnClickListener(this)
+        val emptyView = findViewById<TextView>(R.id.txt_empty)
+        emptyView?.setOnClickListener(this)
     }
 
     override fun onResume() {
         super.onResume()
         if (shef!!.getTriggerData(MotorConstants.KEY_TRIGGER_DATA)) {
             viewModel.updateList()
+            shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, false)
         }
     }
 
@@ -94,9 +96,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_setting -> {
                 SettingActivity.show(this)
             }
-            else -> {
+            R.id.txt_empty -> {
+                AddAreaActivity.show(this)
             }
         }
     }
-
 }

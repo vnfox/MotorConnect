@@ -45,6 +45,16 @@
         android:textSize="@dimen/connect_text_size_16" />
 
     <TextView
+        android:id="@+id/txt_van_number"
+        style="@style/TextView.Screen.Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="10dp"
+        android:text="So van su dung"
+        android:textSize="@dimen/connect_text_size_16" />
+
+    <TextView
         android:id="@+id/txt_schedule"
         style="@style/TextView.Screen.Description"
         android:layout_width="wrap_content"

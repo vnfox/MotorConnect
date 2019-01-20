@@ -32,31 +32,6 @@ class UserViewModel : BaseObservable() {
         notifyPropertyChanged(BR.dataArea)
     }
 
-    fun startUpdates() {
-        initFakeData()
-        notifyPropertyChanged(BR.dataArea)
-    }
-
-    private fun initFakeData() {
-        // populate the data from the source, such as the database.
-        for (i in 0..2) {
-            val dataModel = AreaModel()
-            dataModel.areaName = "Name  " + i.toString()
-            dataModel.areaPhone = "0906 >>  " + i.toString()
-            dataModel.areaStatus = "status  " + i.toString()
-            dataModel.areaSchedule = "Lich tuoi ngay tuoi 3 lan"
-            if (i == 1)
-                dataModel.areaSchedule = "Lich tuoi ngay tuoi 3 lan"
-
-            dataArea.add(dataModel)
-
-        }
-        //Save Data
-        Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
-
-        notifyPropertyChanged(BR.dataArea)
-    }
-
     fun stopUpdates() {
         updateHandler.removeCallbacks(updateRunnable)
     }

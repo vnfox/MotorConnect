@@ -1,7 +1,6 @@
 package com.motor.connect.feature.data
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,9 @@ import android.widget.TextView
 import com.feature.area.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.utils.StringUtils
 
-class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
-
-    private val HEADER_TYPE = 0
-    private val ITEM_TYPE = 1
+class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
 
     private var areas = emptyList<AreaModel>()
 
@@ -28,11 +25,7 @@ class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<Recyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return when (viewType) {
-            HEADER_TYPE -> HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.header_item_view, parent, false))
-            // item view
-            else -> ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_data, parent, false))
-        }
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_data, parent, false))
     }
 
     override fun getItemCount() = areas.size
@@ -40,22 +33,21 @@ class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<Recyc
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         holder.itemView.setOnClickListener {
-            onClick(areas[position])
+            onClick(areas[position], position)
         }
-        if (position == 0) {
-            (holder as HeaderViewHolder).txtTitle.text = "Motor Connect"
-        } else {
-            (holder as ItemViewHolder).name.text = areas[position].areaName
-            holder.phone.text = areas[position].areaPhone
-            holder.status.text = areas[position].areaStatus
-            holder.schedule.text = areas[position].areaSchedule
-        }
-    }
+        (holder as ItemViewHolder).name.text = areas[position].areaName
+        holder.phone.text = areas[position].areaPhone
+        holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
 
+        if (StringUtils.isNullOrEmpty(areas[position].areaStatus))
+            holder.status.text = "Trạng thái: Đang tắt "
+        else
+            holder.status.text = "Trạng thái: " + areas[position].areaStatus
 
-    class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        var txtTitle: TextView = itemView.findViewById(R.id.txt_title) as TextView
+        if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
+            holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
+        else
+            holder.schedule.text = "Lịch tưới: $areas[position].areaSchedule"
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -63,14 +55,7 @@ class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<Recyc
         var name: TextView = itemView.findViewById(R.id.txt_name) as TextView
         var phone: TextView = itemView.findViewById(R.id.txt_phone) as TextView
         var status: TextView = itemView.findViewById(R.id.txt_status) as TextView
+        var vanused: TextView = itemView.findViewById(R.id.txt_van_number) as TextView
         var schedule: TextView = itemView.findViewById(R.id.txt_schedule) as TextView
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> HEADER_TYPE
-            1 -> ITEM_TYPE
-            else -> ITEM_TYPE
-        }
     }
 }

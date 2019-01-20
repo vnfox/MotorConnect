@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.Button
@@ -27,6 +28,10 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
             context.startActivity(Intent(context, AddAreaActivity::class.java))
         }
     }
+
+    private val timeTotal: Int = 10
+    private var pStatus: Int = 0
+    private val handler = Handler()
 
     private val viewModel = AddAreaViewModel()
 
@@ -74,8 +79,6 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
                 selectVanView()
             }
             R.id.btn_save -> {
-
-
                 if (StringUtils.isNullOrEmpty(areaName?.text.toString())) {
                     areaName?.error = getString(R.string.add_input_name_empty)
                     return
@@ -85,12 +88,12 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
+                showProgressDialog()
                 saveDataShref()
-                shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
+
             }
         }
     }
-
 
     private fun saveDataShref() {
         val dataModel = AreaModel()
@@ -101,12 +104,18 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
         dataModel.areaId = areaPhone?.text.toString()
 
         //Save data
-        var areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        var areaModels: MutableList<AreaModel> = mutableListOf()
+
+        if (!shef!!.getFirstUserPref(MotorConstants.FIRST_USED))
+            areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+
         areaModels.add(dataModel)
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
 
+        shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
         shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, true)
-        actionLeft()
+
+        backToMainScreen()
     }
 
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
@@ -115,7 +124,7 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
         val van = VanModel()
         var numVan = vanSelected.substring(0, 1).toInt()
 
-        for (i in 0..numVan) {
+        for (i in 1..numVan) {
             van.vanId = "0$i"
             van.vanStatus = false
 
@@ -135,5 +144,27 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
                 .setPositiveButton(getString(R.string.btn_chon), null)
                 .setNegativeButton(getString(R.string.btn_huy), null)
                 .show()
+    }
+
+    private fun backToMainScreen() {
+        Thread(Runnable {
+            while (pStatus < timeTotal) {
+                pStatus += 1
+                handler.post {
+
+                    if (pStatus == timeTotal) {
+                        hideProgressDialog()
+                        onBackPressed()
+                    }
+                }
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }).start()
     }
 }
