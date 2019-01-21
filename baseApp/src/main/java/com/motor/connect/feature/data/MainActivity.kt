@@ -41,12 +41,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         //Adapter item click
         val adapter = UserAdapter { areaModel, position ->
 
-            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
-                    Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, AreaDetailActivity::class.java)
-//            intent.putExtra(AreaDetailActivity.EXTRA_NAME, areaModel.areaName)
-
             this.startActivity(intent)
         }
 
@@ -78,10 +74,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         if (shef!!.getTriggerData(MotorConstants.KEY_TRIGGER_DATA)) {
-//            if (recyclerView.adapter?.itemCount == 1) {
-//                recyclerView.visibility = View.VISIBLE
-//                txt_empty.visibility = View.GONE
-//            }
             viewModel.updateList()
             shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, false)
         }
