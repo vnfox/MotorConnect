@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.AddAreaViewBinding
 import com.motor.connect.base.view.BaseActivity
+import com.motor.connect.feature.data.MainActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
@@ -154,7 +155,8 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
 
                     if (pStatus == timeTotal) {
                         hideProgressDialog()
-                        onBackPressed()
+                        MainActivity.show(this)
+                        finish()
                     }
                 }
                 try {

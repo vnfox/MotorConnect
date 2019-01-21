@@ -13,6 +13,7 @@ import com.feature.area.R
 import com.feature.area.databinding.ActivityMainBinding
 import com.motor.connect.base.view.BaseActivity
 import com.motor.connect.feature.add.AddAreaActivity
+import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.home.HomeActivity
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
@@ -42,6 +43,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
             Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
                     Toast.LENGTH_LONG).show()
+
+            val intent = Intent(this, AreaDetailActivity::class.java)
+//            intent.putExtra(AreaDetailActivity.EXTRA_NAME, areaModel.areaName)
+
+            this.startActivity(intent)
         }
 
         recyclerView.adapter = adapter
@@ -72,6 +78,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         if (shef!!.getTriggerData(MotorConstants.KEY_TRIGGER_DATA)) {
+//            if (recyclerView.adapter?.itemCount == 1) {
+//                recyclerView.visibility = View.VISIBLE
+//                txt_empty.visibility = View.GONE
+//            }
             viewModel.updateList()
             shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, false)
         }

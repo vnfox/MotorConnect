@@ -14,6 +14,8 @@
     <dimen name="dialog_header_height">42dp</dimen>
     <dimen name="dialog_footer_height">42dp</dimen>
 
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
     <!-- ====== Motor Connect =========== -->
     <dimen name="card_elevation">100dp</dimen>
     <dimen name="card_radius">6dp</dimen>
