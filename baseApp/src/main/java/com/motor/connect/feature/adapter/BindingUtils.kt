@@ -1,4 +1,4 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.adapter
 
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView

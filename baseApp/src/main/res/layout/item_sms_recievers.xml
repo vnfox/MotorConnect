@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/border_rect_bg"
+    android:minHeight="60dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_contact"
+        style="@style/TextView.Screen.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="top|left"
+        android:text="Area name"
+        android:textSize="@dimen/connect_text_size_22" />
+
+    <TextView
+        android:id="@+id/txt_phone"
+        style="@style/TextView.Screen.Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:text="Sdt: 0906383956"
+        android:textSize="@dimen/connect_text_size_16" />
+
+    <TextView
+        android:id="@+id/txt_content"
+        style="@style/TextView.Screen.Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Status: dang tuoi"
+        android:textSize="@dimen/connect_text_size_16" />
+
+</LinearLayout>
+
+

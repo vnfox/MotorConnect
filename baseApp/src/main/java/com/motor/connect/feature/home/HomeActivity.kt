@@ -3,20 +3,23 @@ package com.motor.connect.feature.home
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity
-import com.motor.connect.feature.notification.NotificationActivity
-import com.motor.connect.feature.setting.SettingActivity
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.SeekBar
+import android.widget.TextView
+import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.feature.area.R
 import com.feature.area.databinding.HomeViewBinding
-import com.motor.connect.feature.data.MainActivity
+import com.motor.connect.base.view.BaseActivity
+import java.util.*
 
 
-class HomeActivity : BaseActivity<HomeViewBinding, HomeViewModel>(), HomeView {
-
-    override fun viewLoaded() {
-
-    }
+class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
     companion object {
         fun show(context: Context) {
@@ -24,39 +27,148 @@ class HomeActivity : BaseActivity<HomeViewBinding, HomeViewModel>(), HomeView {
         }
     }
 
-    override fun createViewModel(): HomeViewModel {
-        val viewModel = HomeViewModel(this, BaseModel())
-        viewModel.mView = this
-        return viewModel
+
+    private val viewModel = HomeViewModel()
+    private var circularProgress: CircularProgressIndicator? = null
+    private var seekbar: SeekBar? = null
+
+
+    private var mProgress: ProgressBar? = null
+
+    private val timeTotal: Int = 120
+    private var pStatus: Int = 0
+    private val handler = Handler()
+    private lateinit var tv: TextView
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val binding: HomeViewBinding = DataBindingUtil.setContentView(this, R.layout.home_view)
+        binding.viewModel = viewModel
+
+        viewModel.startUpdates()
+
+        seekbar = findViewById<SeekBar>(R.id.sb_progress)
+        seekbar?.setOnSeekBarChangeListener(this)
+
+        circularProgress = findViewById(R.id.circular_progress)
+        circularProgress?.maxProgress = timeTotal.toDouble()
+
+        circularProgress?.setProgressTextAdapter(TIME_TEXT_ADAPTER)
+
+
+        circularProgress?.setOnProgressChangeListener { progress, maxProgress ->
+
+            //            Log.d("PROGRESS", String.format("Current: %1$.0f, max: %2$.0f", progress, maxProgress))
+
+            Log.d("hqdat", "== setOnProgressChangeListener>>>>>>   $progress")
+        }
+
+
+        //Todo Progress
+        val res = resources
+        val drawable = res.getDrawable(R.drawable.circular)
+        mProgress = findViewById<View>(R.id.circularProgressbar) as ProgressBar?
+        mProgress?.progress = 0   // Main Progress
+
+        mProgress?.max = timeTotal // Maximum Progress
+        mProgress?.secondaryProgress = timeTotal // Secondary Progress
+        mProgress?.progressDrawable = drawable
+        tv = findViewById<View>(R.id.tv) as TextView
+
+
+        val onNote = findViewById<Button>(R.id.btn_demo)
+        onNote?.setOnClickListener {
+            //onRunProgress()
+
+
+            onStartThread()
+        }
     }
 
-    override fun createDataBinding(mViewModel: HomeViewModel): HomeViewBinding {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.home_view)
-        mBinding.viewModel = mViewModel
-        return mBinding
+
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        when (seekBar.id) {
+            R.id.sb_progress -> {
+                circularProgress?.setCurrentProgress(progress.toDouble())
+                Log.d("hqdat", "== Progress Change >>>>>>  $progress")
+            }
+        }
     }
 
-    override fun showHomePlanning() {
-//        CreatePlanActivity.show(this)
-//
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-
+    override fun onStartTrackingTouch(p0: SeekBar?) {
     }
 
-
-    override fun showAddArea() {
-        com.motor.connect.feature.add.AddAreaActivity.show(this)
+    override fun onStopTrackingTouch(p0: SeekBar?) {
     }
 
+    private val TIME_TEXT_ADAPTER = CircularProgressIndicator.ProgressTextAdapter { time ->
+        var time = time
+//        val hours = (time / 3600).toInt()
+        time %= 3600.0
 
-    override fun showNotification() {
-        NotificationActivity.show(this)
+        val minutes = (time / 60).toInt()
+        val seconds = (time % 60).toInt()
+        val sb = StringBuilder()
+//        if (hours < 10) {
+//            sb.append(0)
+//        }
+//        sb.append(hours).append(":")
+        if (minutes < 10) {
+            sb.append(0)
+        }
+        sb.append(minutes).append(":")
+        if (seconds < 10) {
+            sb.append(0)
+        }
+        sb.append(seconds)
+        sb.toString()
     }
 
+    private fun onStartThread() {
+        Thread(Runnable {
+            // TODO Auto-generated method stub
+            while (pStatus < timeTotal) {
+                pStatus += 1
 
-    override fun showSetting() {
-        SettingActivity.show(this)
+                handler.post {
+                    // TODO Auto-generated method stub
+                    mProgress?.progress = pStatus
+                    tv.text = this.getStringMessage(pStatus)
+
+                    if (pStatus == timeTotal) {
+                        tv.text = "Done"
+                    }
+                }
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+
+            }
+        }).start()
     }
+
+    private fun getStringMessage(time: Int): String {
+
+        val minutes = (time / 60)
+        val seconds = (time % 60)
+        val sb = StringBuilder()
+        if (minutes < 10) {
+            sb.append(0)
+        }
+        sb.append(minutes).append(":")
+        if (seconds < 10) {
+            sb.append(0)
+        }
+        sb.append(seconds)
+        sb.toString()
+        return sb.toString()
+    }
+
 
 }

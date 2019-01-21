@@ -1,17 +1,18 @@
 package com.motor.connect.feature.data
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import com.feature.area.R
+import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
-import kotlinx.android.synthetic.main.item_data.view.*
+import com.motor.connect.utils.StringUtils
 
+class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
 
-class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<UserAdapter.UserHolder>(), BindableAdapter<AreaModel> {
+    private var areas = emptyList<AreaModel>()
 
     override fun setData(items: List<AreaModel>) {
         areas = items
@@ -22,37 +23,39 @@ class UserAdapter(val onClick: (AreaModel) -> Unit) : RecyclerView.Adapter<UserA
         positions.forEach(this::notifyItemChanged)
     }
 
-    var areas = emptyList<AreaModel>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return UserHolder(inflater.inflate(R.layout.item_data, parent, false))
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_data, parent, false))
     }
 
     override fun getItemCount() = areas.size
 
-    override fun onBindViewHolder(holder: UserHolder, position: Int) {
-        holder.bind(areas[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         holder.itemView.setOnClickListener {
-            Log.d("hqdat", "===  Item Click ==== ")
-
-            onClick(areas[position])
+            onClick(areas[position], position)
         }
+        (holder as ItemViewHolder).name.text = areas[position].areaName
+        holder.phone.text = areas[position].areaPhone
+        holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
+
+        if (StringUtils.isNullOrEmpty(areas[position].areaStatus))
+            holder.status.text = "Trạng thái: Đang tắt "
+        else
+            holder.status.text = "Trạng thái: " + areas[position].areaStatus
+
+        if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
+            holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
+        else
+            holder.schedule.text = "Lịch tưới: $areas[position].areaSchedule"
     }
 
-    class UserHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(areaInfo: AreaModel) {
-
-            itemView.txt_name.text = "Name: ${areaInfo.getAreaName()}"
-            itemView.txt_phone.text = "Phone: ${areaInfo.getAreaPhone()}"
-            itemView.txt_status.text = "Status: ${areaInfo.getStatus()}"
-
-            if (areaInfo.getSchedule().isNullOrEmpty())
-                itemView.txt_schedule.visibility = View.GONE
-
-            itemView.txt_schedule.text = "Status: ${areaInfo.getSchedule()}"
-        }
+        var name: TextView = itemView.findViewById(R.id.txt_name) as TextView
+        var phone: TextView = itemView.findViewById(R.id.txt_phone) as TextView
+        var status: TextView = itemView.findViewById(R.id.txt_status) as TextView
+        var vanused: TextView = itemView.findViewById(R.id.txt_van_number) as TextView
+        var schedule: TextView = itemView.findViewById(R.id.txt_schedule) as TextView
     }
 }

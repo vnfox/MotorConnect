@@ -1,14 +1,23 @@
 package com.motor.connect.feature.notification
 
-import com.motor.connect.base.BaseModel
-import com.motor.connect.base.BaseViewModel
+import android.databinding.BaseObservable
+import android.databinding.Bindable
+import com.android.databinding.library.baseAdapters.BR
+import com.motor.connect.feature.model.SmsModel
 
-class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
-    : BaseViewModel<NotificationView, BaseModel>(mView, mModel) {
+class NotificationViewModel : BaseObservable() {
 
-    override fun initViewModel() {
-        mView!!.viewLoaded()
+    @get:Bindable
+    var smsReceivers: MutableList<SmsModel> = mutableListOf()
+        private set(value) {
+            field = value
+            notifyPropertyChanged(BR.smsReceivers)
+        }
+
+    fun startUpdates(smsRecievers: MutableList<SmsModel>) {
+        smsReceivers = smsRecievers
+        notifyPropertyChanged(BR.smsReceivers)
+
     }
 
-    fun actionLeft() = mView?.actionLeft()
 }

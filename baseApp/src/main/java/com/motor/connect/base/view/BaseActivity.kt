@@ -1,42 +1,47 @@
+@file:Suppress("DEPRECATION")
+
 package com.motor.connect.base.view
 
-import android.databinding.ViewDataBinding
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.motor.connect.base.BaseViewModel
+import com.motor.connect.utils.SharePrefUtil
+import com.orhanobut.hawk.Hawk
 
-abstract class BaseActivity<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
-        RootActivity(), IBaseView {
 
-    lateinit var mBinding: Binding
+abstract class BaseActivity : AppCompatActivity() {
 
-    lateinit var mViewModel: ViewModel
+    var shef: SharePrefUtil? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = createViewModel()
-        mBinding = createDataBinding(mViewModel)
-    }
+        Hawk.init(this).build()
+        this.shef = SharePrefUtil(this)
+        progressDialog = ProgressDialog(this)
 
-    abstract fun createViewModel(): ViewModel
-
-    abstract fun createDataBinding(mViewModel: ViewModel): Binding
-
-    override fun onDestroy() {
-        mBinding.unbind()
-        mViewModel.destroy()
-        super.onDestroy()
-    }
-
-    override fun showLoadingView() {
-        // TODO("not implemented")
-    }
-
-    override fun hideLoadingView() {
-        // TODO("not implemented")
     }
 
     fun showUnderConstruction(methodName: String) {
         Toast.makeText(this, "=== $methodName ====", Toast.LENGTH_SHORT).show()
+    }
+
+    fun actionLeft() {
+        super.onBackPressed()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
+    fun showProgressDialog() {
+        progressDialog?.setMessage("Loading...")
+        progressDialog?.setCanceledOnTouchOutside(false)
+        progressDialog?.show()
+    }
+
+    fun hideProgressDialog() {
+        progressDialog?.dismiss()
     }
 }

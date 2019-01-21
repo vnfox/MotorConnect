@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#AFBEC5</color>
-    <color name="colorPrimaryDark">#AFBEC5</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#607D8B</color>
+    <color name="colorAccent">#125D9D</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="color_black">#000000</color>
+
 
     <color name="color_blue">#1BBBEE</color>
     <color name="color_green">#52D69D</color>
@@ -15,4 +20,17 @@
     <color name="color_grey_light">#E0E5E9</color>
     <color name="color_dark">#607D8B</color>
 
+
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#ABBAC2</color>
+    <color name="text_gray">#6B767D</color>
+    <color name="coral_blue">#1DAEFA</color>
+    <color name="dark_blue">#125D9D</color>
+    <color name="black">#ff000000</color>
+
+
+    <color name="circleProgressCompleteStartGradient">@color/dark_blue</color>
+    <color name="circleProgressCompleteEndGradient">@color/coral_blue</color>
+    <color name="circleProgressIncompleteStartGradient">@color/light_gray</color>
+    <color name="circleProgressIncompleteEndGradient">@color/light_gray</color>
 </resources>

@@ -1,4 +1,46 @@
 <resources>
     <string name="app_name">Motor-Connect</string>
-    <string name="title_activity_maps">Map</string>
+
+    <string name="string_Yes">Yes</string>
+    <string name="string_No">No</string>
+    <string name="string_OK">OK</string>
+    <string name="string_Cancel">Cancel</string>
+    <string name="string_CANCEL">CANCEL</string>
+    <string name="string_Delete">Delete</string>
+    <string name="string_Crop">Crop</string>
+    <string name="string_DELETE">DELETE</string>
+    <string name="string_CROP">CROP</string>
+    <string name="string_ADD">ADD</string>
+    <string name="string_Clear">Clear</string>
+    <string name="string_Open">Open</string>
+    <string name="string_Copy">Copy</string>
+    <string name="string_Add">Add</string>
+    <string name="string_Add_photo">Add Photo</string>
+    <string name="string_Photo">Photo</string>
+    <string name="string_Retake">Retake</string>
+
+
+    <string name="curved_text_value">In/Out Facility</string>
+    <string name="home_screen_observations">OBSERVATIONS</string>
+    <string name="total_observations">2375</string>
+    <string name="percent_value">65%</string>
+    <string name="home_screen_observed_compliance">OBSERVED\nCOMPLIANCE</string>
+    <string name="content_description">This is an image…</string>
+    <string name="add_input_name_empty">Vui lòng nhập tên khu vực</string>
+    <string name="add_input_phone_empty">Vui lòng nhập số điện thoại</string>
+    <string name="add_number_van_used">Số van sử dụng</string>
+    <string name="btn_chon">Chọn</string>
+    <string name="btn_huy">Hủy</string>
+    <string name="home_area_empty">Thêm\nKhu Vực</string>
+
+
+
+
+
+    <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
+    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
+    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
+    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
+    the big cheese.</string>
+
 </resources>

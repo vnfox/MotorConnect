@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -28,18 +29,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:onClick="@{()-> viewModel.actionLeft()}"
-                android:src="@mipmap/ic_back"
-                android:textSize="@dimen/general_text_size_large" />
+                app:srcCompat="@mipmap/ic_back_arrow" />
 
             <TextView
                 android:id="@+id/txt_title"
+                style="@style/TextView.Screen.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center|left"
-                android:text="Cài Đặt"
-                android:textSize="@dimen/general_text_size_large" />
+                android:text="Cài Đặt" />
 
         </LinearLayout>
 
@@ -56,6 +55,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txt_area"
+                style="@style/TextView.Screen.Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,14 +65,14 @@
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
                 android:minHeight="46dp"
-                android:onClick="@{()-> viewModel.showSettingArea()}"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Cài đặt lịch tưới khu vực"
-                android:textSize="@dimen/general_text_size_large" />
+                android:text="Cài đặt lịch tưới khu vực" />
 
 
             <TextView
+                android:id="@+id/txt_config"
+                style="@style/TextView.Screen.Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -80,13 +81,13 @@
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
                 android:minHeight="46dp"
-                android:onClick="@{()->viewModel.showConfigSystem()}"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Cài đặt hệ thống"
-                android:textSize="@dimen/general_text_size_large" />
+                android:text="Cài đặt hệ thống" />
 
             <TextView
+                android:id="@+id/txt_note"
+                style="@style/TextView.Screen.Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -95,13 +96,13 @@
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
                 android:minHeight="46dp"
-                android:onClick="@{()->viewModel.showReminder()}"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Ghi chú"
-                android:textSize="@dimen/general_text_size_large" />
+                android:text="Ghi chú" />
 
             <TextView
+                android:id="@+id/txt_how_use"
+                style="@style/TextView.Screen.Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -110,13 +111,13 @@
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
                 android:minHeight="46dp"
-                android:onClick="@{()->viewModel.showHowToUse()}"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Hướng dẫn sử dụng"
-                android:textSize="@dimen/general_text_size_large" />
+                android:text="Hướng dẫn sử dụng" />
 
             <TextView
+                android:id="@+id/txt_help"
+                style="@style/TextView.Screen.Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -125,11 +126,9 @@
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
                 android:minHeight="46dp"
-                android:onClick="@{()->viewModel.showHelpFeedback()}"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Trợ giúp - Phản hồi"
-                android:textSize="@dimen/general_text_size_large" />
+                android:text="Trợ giúp - Phản hồi" />
 
         </LinearLayout>
     </LinearLayout>

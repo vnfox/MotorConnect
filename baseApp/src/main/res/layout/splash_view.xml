@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/txt_title"
+        style="@style/TextView.Screen.Title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white_light"
+        android:gravity="center|left"
+        android:scaleType="centerInside" />
+
+</LinearLayout>

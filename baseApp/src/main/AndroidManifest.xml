@@ -8,6 +8,12 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
 
     <application
         android:name="com.motor.connect.base.app.BaseApplication"
@@ -19,7 +25,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name="com.motor.connect.base.view.FragmentHostActivity" />
-        <activity android:name="com.motor.connect.feature.data.MainActivity">
+        <activity android:name="com.motor.connect.feature.splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,11 +33,21 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name="com.motor.connect.service.SMSReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
+
+        <activity android:name="com.motor.connect.feature.data.MainActivity" />
         <activity android:name="com.motor.connect.feature.plan.CreatePlanActivity" />
         <activity android:name="com.motor.connect.feature.setting.SettingActivity" />
         <activity android:name="com.motor.connect.feature.notification.NotificationActivity" />
         <activity android:name="com.motor.connect.feature.add.AddAreaActivity" />
+        <activity android:name="com.motor.connect.feature.details.AreaDetailActivity" />
+
+        <activity android:name="com.motor.connect.feature.home.HomeActivity" />
 
 
     </application>

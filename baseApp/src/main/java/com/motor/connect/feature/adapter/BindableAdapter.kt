@@ -1,4 +1,4 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.adapter
 
 interface BindableAdapter<T> {
     fun setData(items: List<T>)
