@@ -46,11 +46,17 @@
             android:minHeight="46dp"
             android:text="Demo" />
 
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/cirle_background"
-            android:text="Them khu vuc" />
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/add_container"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_grey"
+            android:gravity="center"
+            android:minHeight="46dp"
+            android:text="Test Function" />
 
 
         <FrameLayout

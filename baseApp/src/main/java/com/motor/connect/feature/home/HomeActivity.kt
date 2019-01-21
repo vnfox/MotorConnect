@@ -1,6 +1,8 @@
 package com.motor.connect.feature.home
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -8,10 +10,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.SeekBar
-import android.widget.TextView
+import android.widget.*
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.feature.area.R
 import com.feature.area.databinding.HomeViewBinding
@@ -26,7 +25,6 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
             context.startActivity(Intent(context, HomeActivity::class.java))
         }
     }
-
 
     private val viewModel = HomeViewModel()
     private var circularProgress: CircularProgressIndicator? = null
@@ -85,6 +83,15 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
             onStartThread()
         }
+
+        val onTest = findViewById<Button>(R.id.btn_test)
+        onTest.setOnClickListener {
+            onDemoFunction()
+        }
+    }
+
+    private fun onDemoFunction() {
+
     }
 
 
