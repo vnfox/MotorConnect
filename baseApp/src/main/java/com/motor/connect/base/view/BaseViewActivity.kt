@@ -1,23 +1,26 @@
 package com.motor.connect.base.view
 
+import android.app.ProgressDialog
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.widget.Toast
 import com.motor.connect.base.BaseViewModel
 import com.orhanobut.hawk.Hawk
 
-abstract class BaseActivity_View<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
+abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
         RootActivity(), IBaseView {
 
     lateinit var mBinding: Binding
 
     lateinit var mViewModel: ViewModel
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel = createViewModel()
         mBinding = createDataBinding(mViewModel)
         Hawk.init(this).build()
+        progressDialog = ProgressDialog(this)
     }
 
     abstract fun createViewModel(): ViewModel
@@ -30,12 +33,18 @@ abstract class BaseActivity_View<Binding : ViewDataBinding, ViewModel : BaseView
         super.onDestroy()
     }
 
-    override fun showLoadingView() {
+    fun actionLeft() {
+        onBackPressed()
+    }
 
+    override fun showLoadingView() {
+        progressDialog?.setMessage("Loading...")
+        progressDialog?.setCanceledOnTouchOutside(false)
+        progressDialog?.show()
     }
 
     override fun hideLoadingView() {
-
+        progressDialog?.dismiss()
     }
 
     fun showUnderConstruction(methodName: String) {

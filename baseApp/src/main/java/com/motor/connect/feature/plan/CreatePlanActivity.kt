@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity_View
+import com.motor.connect.base.view.BaseViewActivity
 import com.feature.area.R
 import com.feature.area.databinding.CreatePlanViewBinding
 import kotlinx.android.synthetic.main.create_plan_view.*
@@ -19,11 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanViewModel>(), CreatePlanView, View.OnClickListener {
-
-    override fun viewLoaded() {
-
-    }
+class CreatePlanActivity : BaseViewActivity<CreatePlanViewBinding, CreatePlanViewModel>(), CreatePlanView, View.OnClickListener {
 
     companion object {
         fun show(context: Context) {
@@ -56,10 +52,6 @@ class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanVi
     override fun updateUI() {
         Toast.makeText(this, "=== updateUI  ====  ",
                 Toast.LENGTH_LONG).show()
-    }
-
-    override fun actionLeft() {
-        super.onBackPressed()
     }
 
     override fun typeYourIdea() {

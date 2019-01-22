@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.ActivityMainBinding
 import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity_View
+import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
@@ -20,14 +20,7 @@ import com.motor.connect.utils.MotorConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseActivity_View<ActivityMainBinding, UserViewModel>(), MainAearView, View.OnClickListener {
-
-    override fun viewLoaded() {
-    }
-
-    override fun actionLeft() {
-        onBackPressed()
-    }
+class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), MainAreaView, View.OnClickListener {
 
     companion object {
         fun show(context: Context) {

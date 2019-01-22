@@ -52,7 +52,6 @@
             android:layout_below="@+id/card_view"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            app:data="@{viewModel.smsReceivers}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>
