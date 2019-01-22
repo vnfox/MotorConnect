@@ -32,7 +32,7 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
     private var mProgress: ProgressBar? = null
 
-    private val timeTotal: Int = 120
+    private val timeTotal: Int = 1800
     private var pStatus: Int = 0
     private val handler = Handler()
     private lateinit var tv: TextView
@@ -90,7 +90,24 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     private fun onDemoFunction() {
+            Thread(Runnable {
+                // TODO Auto-generated method stub
+                while (pStatus < timeTotal) {
+                    pStatus += 1
 
+                    handler.post {
+                        circularProgress?.setCurrentProgress(pStatus.toDouble())
+                    }
+                    try {
+                        // Sleep for 200 milliseconds.
+                        // Just to display the progress slowly
+                        Thread.sleep(100) //thread will take approx 3 seconds to finish
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
+
+                }
+            }).start()
     }
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -12,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.feature.area.R;
 import com.motor.connect.base.view.BaseActivity;
 
-public class AreaDetailActivity extends BaseActivity {
+public class AreaDetailActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String EXTRA_NAME = "cheese_name";
 
@@ -21,13 +22,17 @@ public class AreaDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_view);
 
-//        Intent intent = getIntent();
-//        final String cheeseName = intent.getStringExtra(EXTRA_NAME);
-
+        //Setup Account Bar
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actionLeft();
+            }
+        });
 
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle("Details View");
@@ -41,8 +46,18 @@ public class AreaDetailActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.sample_actions, menu);
-        return true;
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.action_left:
+
+                break;
+
+            default:
+        }
     }
 }
