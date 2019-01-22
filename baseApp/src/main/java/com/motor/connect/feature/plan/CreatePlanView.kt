@@ -12,4 +12,6 @@ interface CreatePlanView : ActionBarView {
     fun setTimeDuration()
 
     fun inviteFriends()
+
+    fun updateUI()
 }

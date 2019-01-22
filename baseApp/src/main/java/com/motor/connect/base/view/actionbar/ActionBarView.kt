@@ -9,7 +9,4 @@ interface ActionBarView : IBaseView {
 
     fun actionLeft()
 
-    fun actionRight()
-
-    fun setUpActionBar()
 }

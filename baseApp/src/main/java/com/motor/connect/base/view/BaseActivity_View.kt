@@ -4,6 +4,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.widget.Toast
 import com.motor.connect.base.BaseViewModel
+import com.orhanobut.hawk.Hawk
 
 abstract class BaseActivity_View<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
         RootActivity(), IBaseView {
@@ -16,6 +17,7 @@ abstract class BaseActivity_View<Binding : ViewDataBinding, ViewModel : BaseView
         super.onCreate(savedInstanceState)
         mViewModel = createViewModel()
         mBinding = createDataBinding(mViewModel)
+        Hawk.init(this).build()
     }
 
     abstract fun createViewModel(): ViewModel
@@ -29,11 +31,11 @@ abstract class BaseActivity_View<Binding : ViewDataBinding, ViewModel : BaseView
     }
 
     override fun showLoadingView() {
-        // TODO("not implemented")
+
     }
 
     override fun hideLoadingView() {
-        // TODO("not implemented")
+
     }
 
     fun showUnderConstruction(methodName: String) {

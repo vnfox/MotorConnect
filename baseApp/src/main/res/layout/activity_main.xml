@@ -44,7 +44,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:paddingBottom="@dimen/actionbar_height"
-                app:data="@{viewModel.dataArea}"
+
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 
