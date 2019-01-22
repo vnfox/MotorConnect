@@ -12,6 +12,7 @@ import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
+import com.motor.connect.feature.home.HomeActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.plan.CreatePlanActivity
@@ -44,8 +45,8 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         //Adapter item click
         adapter = UserAdapter { areaModel, position ->
 
-            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
-                    Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
+//                    Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, AreaDetailActivity::class.java)
 
@@ -102,8 +103,8 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btn_home -> {
-//                HomeActivity.show(this)
-                CreatePlanActivity.show(this)
+                HomeActivity.show(this)
+//                CreatePlanActivity.show(this)
             }
             R.id.btn_add -> {
                 AddAreaActivity.show(this)

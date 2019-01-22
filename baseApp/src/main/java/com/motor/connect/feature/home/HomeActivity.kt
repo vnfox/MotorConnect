@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -46,6 +47,8 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
         viewModel.startUpdates()
 
+        showProgressDialog()
+
         seekbar = findViewById<SeekBar>(R.id.sb_progress)
         seekbar?.setOnSeekBarChangeListener(this)
 
@@ -80,7 +83,8 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
             //onRunProgress()
 
 
-            onStartThread()
+//            onStartThread()
+
         }
 
         val onTest = findViewById<Button>(R.id.btn_test)
@@ -90,24 +94,24 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     private fun onDemoFunction() {
-            Thread(Runnable {
-                // TODO Auto-generated method stub
-                while (pStatus < timeTotal) {
-                    pStatus += 1
+        Thread(Runnable {
+            // TODO Auto-generated method stub
+            while (pStatus < timeTotal) {
+                pStatus += 1
 
-                    handler.post {
-                        circularProgress?.setCurrentProgress(pStatus.toDouble())
-                    }
-                    try {
-                        // Sleep for 200 milliseconds.
-                        // Just to display the progress slowly
-                        Thread.sleep(100) //thread will take approx 3 seconds to finish
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-
+                handler.post {
+                    circularProgress?.setCurrentProgress(pStatus.toDouble())
                 }
-            }).start()
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+
+            }
+        }).start()
     }
 
 
@@ -192,6 +196,8 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
         sb.toString()
         return sb.toString()
     }
+
+
 
 
 }

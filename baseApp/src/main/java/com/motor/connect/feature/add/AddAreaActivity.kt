@@ -1,5 +1,6 @@
 package com.motor.connect.feature.add
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -96,14 +97,13 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
     }
 
     override fun goBackMainScreen() {
-        hideLoadingView()
         shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
         shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, true)
         backToMainScreen()
     }
 
     private fun prepareDate() {
-        showLoadingView()
+        viewModel.showProgressView()
         val dataModel = AreaModel()
         dataModel.areaName = areaName?.text.toString()
         dataModel.areaPhone = areaPhone?.text.toString()
@@ -114,6 +114,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         val isFirstUsed = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.saveDataArea(isFirstUsed, dataModel)
     }
+
 
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
 
@@ -150,9 +151,9 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
                 handler.post {
 
                     if (pStatus == timeTotal) {
-                        hideLoadingView()
+                        viewModel.hideProgressView()
                         actionLeft()
-                        finish()
+//                        finish()
                     }
                 }
                 try {

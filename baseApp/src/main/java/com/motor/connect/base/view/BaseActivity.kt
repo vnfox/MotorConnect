@@ -37,6 +37,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showProgressDialog() {
         progressDialog?.setMessage("Loading...")
+        progressDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         progressDialog?.setCanceledOnTouchOutside(false)
         progressDialog?.show()
     }
