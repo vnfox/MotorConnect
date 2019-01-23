@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.motor.connect.base.BaseViewModel
 import com.orhanobut.hawk.Hawk
 
+@Suppress("DEPRECATION")
 abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
         RootActivity(), IBaseView {
 
@@ -40,6 +41,7 @@ abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewM
     override fun showLoadingView() {
         progressDialog?.setMessage("Loading...")
         progressDialog?.setCanceledOnTouchOutside(false)
+        progressDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         progressDialog?.show()
     }
 

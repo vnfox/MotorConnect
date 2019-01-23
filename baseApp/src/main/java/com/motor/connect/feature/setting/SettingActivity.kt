@@ -24,7 +24,7 @@ import java.util.*
 import android.provider.ContactsContract
 
 
-class SettingActivity : BaseActivity(), View.OnClickListener {
+class SettingActivity : BaseActivity() {
 
     companion object {
         fun show(context: Context) {
@@ -33,7 +33,6 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
     }
 
     lateinit var needPermissions: MutableList<String>
-
 
     private val viewModel = SettingViewModel()
 
@@ -53,104 +52,32 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
             actionLeft()
         }
 
-
-        val onSetting = findViewById<TextView>(R.id.txt_area)
-        onSetting?.setOnClickListener {
-            Toast.makeText(this, "=== Send SMS  ====", Toast.LENGTH_LONG).show()
-
-            //Open screen SMSs
-            val smsNumber = "0947818171"
-            val smsText = "Send sms test app putExtra"
-
-            val uri = Uri.parse("smsto:$smsNumber")
-            val intent = Intent(Intent.ACTION_SENDTO, uri)
-            intent.putExtra("sms_body", smsText)
-            startActivity(intent)
-        }
-
-        val onConfig = findViewById<TextView>(R.id.txt_config)
-        onConfig?.setOnClickListener {
-
-            if (checkPermission(Manifest.permission.SEND_SMS)) {
-                Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
-
-                //Send sms in background Work wells
-                val smsNumber = "0947818171"
-                val smsText = "Send sms test app SmsManager"
-
-                val smsManager = SmsManager.getDefault()
-                //smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
-            } else {
-                Toast.makeText(this, "=== permission  Denied ====", Toast.LENGTH_LONG).show()
-            }
-        }
-
-        val onNote = findViewById<TextView>(R.id.txt_note)
-        onNote?.setOnClickListener {
-//            grantPermissions()
-        }
-
-        val onHowUse = findViewById<TextView>(R.id.txt_how_use)
-        onHowUse?.setOnClickListener {
-
-        }
-
-
-        val onHelp = findViewById<TextView>(R.id.txt_help)
-        onHelp?.setOnClickListener {
-
-            getSMS()
-            Log.d("hqdat", "== SMS content:   " + getSMS()[0])
-        }
     }
 
-    fun getSMS(): List<String> {
-        val sms = ArrayList<String>()
-        val uriSMSURI = Uri.parse("content://sms/inbox")
-        val cur = contentResolver.query(uriSMSURI, null, null, null, null)
-
-        while (cur != null && cur.moveToNext()) {
-            val address = cur.getString(cur.getColumnIndex("address"))
-            val body = cur.getString(cur.getColumnIndexOrThrow("body"))
-            val type = cur.getString(cur.getColumnIndexOrThrow("type"))
-            val contact = getContactbyPhoneNumber(this, address)
-
-            sms.add("Number: $address Contact: $contact Type: $type .Message: $body")
-        }
-
-        //String type = c.getString(c.getColumnIndexOrThrow("type"));
-
-        cur?.close()
-        return sms
+    fun openSettingScheduler(v: View) {
+        Toast.makeText(this, "=== openSettingScheduler====", Toast.LENGTH_LONG).show()
     }
 
-    fun getContactbyPhoneNumber(c: Context, phoneNumber: String): String {
-
-        try {
-            val uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber))
-            val projection = arrayOf(ContactsContract.PhoneLookup.DISPLAY_NAME)
-            val cursor = c.contentResolver.query(uri, projection, null, null, null)
-            if (cursor == null) {
-                return phoneNumber
-            } else {
-                var name = phoneNumber
-                try {
-
-                    if (cursor.moveToFirst()) {
-                        name = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME))
-                    }
-
-                } finally {
-                    cursor.close()
-                }
-
-                return name
-            }
-        } finally {
-            return phoneNumber
-        }
+    fun openConfigScreen(v: View) {
+        Toast.makeText(this, "=== openConfigScreen ====", Toast.LENGTH_LONG).show()
     }
 
+    fun openNotedScreen(v: View) {
+        Toast.makeText(this, "=== openNotedScreen ====", Toast.LENGTH_LONG).show()
+    }
+
+
+    fun openHowToUseScreen(v: View) {
+        Toast.makeText(this, "=== openHowToUseScreen ====", Toast.LENGTH_LONG).show()
+    }
+
+
+    fun openHelpFeedbackScreen(v: View) {
+        Toast.makeText(this, "=== openHelpFeedbackScreen ====", Toast.LENGTH_LONG).show()
+    }
+
+
+    //============= Todo check remove =======================
     private fun verifyAppPermission() {
         needPermissions = ArrayList()
 
@@ -185,13 +112,18 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.action_left -> {
+    fun onSendSms() {
+        if (checkPermission(Manifest.permission.SEND_SMS)) {
+            Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
 
-            }
-            R.id.txt_area -> {/* you can omit the braces if there is only a single expression */
-            }
+            //Send sms in background Work wells
+            val smsNumber = "0947818171"
+            val smsText = "Send sms test app SmsManager"
+
+            val smsManager = SmsManager.getDefault()
+            //smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+        } else {
+            Toast.makeText(this, "=== permission  Denied ====", Toast.LENGTH_LONG).show()
         }
     }
 }

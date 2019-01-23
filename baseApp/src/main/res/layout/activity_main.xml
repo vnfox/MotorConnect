@@ -33,6 +33,7 @@
                 android:background="@drawable/cirle_background"
                 android:gravity="center"
                 android:text="@string/home_area_empty"
+                android:onClick="openEmptyScreen"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/connect_text_size_36"
                 android:visibility="gone" />
@@ -67,6 +68,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/item_view_style"
                     android:gravity="center|center_vertical"
+                    android:onClick="openMainScreen"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Màn Hình Chính"
@@ -80,6 +82,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/item_view_style"
                     android:gravity="center"
+                    android:onClick="openAddAreaScreen"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Thêm Khu Vực"
@@ -93,6 +96,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/item_view_style"
                     android:gravity="center"
+                    android:onClick="openNotificationScreen"
                     android:text="Thông Báo"
                     android:textSize="@dimen/connect_text_size_menu" />
 
@@ -104,6 +108,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/item_view_style"
                     android:gravity="center"
+                    android:onClick="openSettingScreen"
                     android:text="Cài Đặt"
                     android:textSize="@dimen/connect_text_size_menu" />
 

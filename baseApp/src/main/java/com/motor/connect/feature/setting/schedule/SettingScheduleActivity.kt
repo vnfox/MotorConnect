@@ -1,46 +1,43 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.setting.schedule
 
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.view.View
 import com.feature.area.R
-import com.feature.area.databinding.ActivityMainBinding
+import com.feature.area.databinding.SettingScheduleActivityBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
-import com.motor.connect.feature.home.HomeActivity
 import com.motor.connect.feature.model.AreaModel
-import com.motor.connect.feature.notification.NotificationActivity
-import com.motor.connect.feature.setting.SettingActivity
 import com.motor.connect.utils.MotorConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), MainAreaView {
+class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding, SettingScheduleViewModel>(), SettingScheduleView {
 
     companion object {
         fun show(context: Context) {
-            context.startActivity(Intent(context, MainActivity::class.java))
+            context.startActivity(Intent(context, SettingScheduleActivity::class.java))
         }
     }
 
-    private val viewModel = UserViewModel(this, BaseModel())
-    private var adapter: UserAdapter? = null
+    private val viewModel = SettingScheduleViewModel(this, BaseModel())
+    private var adapter: SettingScheduleAdapter? = null
 
 
-    override fun createViewModel(): UserViewModel {
+    override fun createViewModel(): SettingScheduleViewModel {
         viewModel.mView = this
         return viewModel
     }
 
-    override fun createDataBinding(mViewModel: UserViewModel): ActivityMainBinding {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+    override fun createDataBinding(mViewModel: SettingScheduleViewModel): SettingScheduleActivityBinding {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.setting_schedule_activity)
         mBinding.viewModel = mViewModel
 
         //Adapter item click
-        adapter = UserAdapter { areaModel, position ->
+        adapter = SettingScheduleAdapter { areaModel, position ->
 
             //            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
 //                    Toast.LENGTH_LONG).show()
@@ -86,21 +83,5 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
 
     fun openEmptyScreen(v: View) {
         AddAreaActivity.show(this)
-    }
-
-    fun openMainScreen(v: View) {
-        HomeActivity.show(this)
-    }
-
-    fun openAddAreaScreen(v: View) {
-        AddAreaActivity.show(this)
-    }
-
-    fun openNotificationScreen(v: View) {
-        NotificationActivity.show(this)
-    }
-
-    fun openSettingScreen(v: View) {
-        SettingActivity.show(this)
     }
 }
