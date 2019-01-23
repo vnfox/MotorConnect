@@ -36,13 +36,7 @@ class SettingScheduleAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerVi
             onClick(areas[position], position)
         }
         (holder as ItemViewHolder).name.text = areas[position].areaName
-        holder.phone.text = areas[position].areaPhone
         holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
-
-        if (StringUtils.isNullOrEmpty(areas[position].areaStatus))
-            holder.status.text = "Trạng thái: Đang tắt "
-        else
-            holder.status.text = "Trạng thái: " + areas[position].areaStatus
 
         if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
@@ -53,8 +47,6 @@ class SettingScheduleAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerVi
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var name: TextView = itemView.findViewById(R.id.txt_name) as TextView
-        var phone: TextView = itemView.findViewById(R.id.txt_phone) as TextView
-        var status: TextView = itemView.findViewById(R.id.txt_status) as TextView
         var vanused: TextView = itemView.findViewById(R.id.txt_van_number) as TextView
         var schedule: TextView = itemView.findViewById(R.id.txt_schedule) as TextView
     }

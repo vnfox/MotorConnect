@@ -4,17 +4,24 @@ import android.app.ProgressDialog
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.widget.Toast
+import android.widget.Toolbar
 import com.motor.connect.base.BaseViewModel
+import com.motor.connect.base.view.actionbar.ActionBarView
 import com.orhanobut.hawk.Hawk
 
 @Suppress("DEPRECATION")
 abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewModel<*, *>> :
-        RootActivity(), IBaseView {
+        RootActivity(), ActionBarView {
+
+    override fun actionLeft() {
+        onBackPressed()
+    }
 
     lateinit var mBinding: Binding
 
     lateinit var mViewModel: ViewModel
     private var progressDialog: ProgressDialog? = null
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +41,6 @@ abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewM
         super.onDestroy()
     }
 
-    fun actionLeft() {
-        onBackPressed()
-    }
 
     override fun showLoadingView() {
         progressDialog?.setMessage("Loading...")

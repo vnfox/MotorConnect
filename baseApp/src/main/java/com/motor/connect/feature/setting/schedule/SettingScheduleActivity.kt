@@ -3,6 +3,7 @@ package com.motor.connect.feature.setting.schedule
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.feature.area.R
 import com.feature.area.databinding.SettingScheduleActivityBinding
@@ -11,6 +12,7 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.utils.MotorConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,19 +41,20 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         //Adapter item click
         adapter = SettingScheduleAdapter { areaModel, position ->
 
-            //            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
-//                    Toast.LENGTH_LONG).show()
-
-            val intent = Intent(this, AreaDetailActivity::class.java)
-
-            this.startActivity(intent)
+            //Setting schedule area
+            SettingAreaScheduleActivity.show(this)
         }
 
         recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+
         val isUser = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.initData(isUser)
-
         return mBinding
+    }
+
+    fun onBackSettingScreen(v: View) {
+        actionLeft()
     }
 
     override fun showEmptyView() {
@@ -66,7 +69,6 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         adapter?.setData(dataArea)
         recyclerView.adapter?.notifyDataSetChanged()
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -83,5 +85,9 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
 
     fun openEmptyScreen(v: View) {
         AddAreaActivity.show(this)
+    }
+
+    fun openSettingAllArea(v: View) {
+        showUnderConstruction("Setting all Area")
     }
 }

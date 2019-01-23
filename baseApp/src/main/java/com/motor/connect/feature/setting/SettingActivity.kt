@@ -5,26 +5,23 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
-import android.net.Uri
-import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.telephony.SmsManager
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.SettingViewBinding
-import com.motor.connect.base.view.BaseActivity
+import com.motor.connect.base.BaseModel
+import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.feature.setting.schedule.SettingScheduleActivity
 import com.motor.connect.utils.PermissionUtils
 import io.reactivex.annotations.NonNull
 import java.util.*
-import android.provider.ContactsContract
 
 
-class SettingActivity : BaseActivity() {
+class SettingActivity : BaseViewActivity<SettingViewBinding, SettingViewModel>(), SettingView {
+
 
     companion object {
         fun show(context: Context) {
@@ -34,46 +31,43 @@ class SettingActivity : BaseActivity() {
 
     lateinit var needPermissions: MutableList<String>
 
-    private val viewModel = SettingViewModel()
+    private val viewModel = SettingViewModel(this, BaseModel())
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding: SettingViewBinding = DataBindingUtil.setContentView(this, R.layout.setting_view)
+    override fun createViewModel(): SettingViewModel {
+        viewModel.mView = this
+        return viewModel
+    }
 
-        binding.viewModel = viewModel
-
-        viewModel.startUpdates()
+    override fun createDataBinding(mViewModel: SettingViewModel): SettingViewBinding {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.setting_view)
+        mBinding.viewModel = mViewModel
 
         verifyAppPermission()
+        return mBinding
+    }
 
-
-        val onClose = findViewById<ImageView>(R.id.action_left)
-        onClose?.setOnClickListener {
-            actionLeft()
-        }
-
+    fun gotoPreviousScreen(v: View) {
+        actionLeft()
     }
 
     fun openSettingScheduler(v: View) {
-        Toast.makeText(this, "=== openSettingScheduler====", Toast.LENGTH_LONG).show()
+        SettingScheduleActivity.show(this)
     }
 
     fun openConfigScreen(v: View) {
-        Toast.makeText(this, "=== openConfigScreen ====", Toast.LENGTH_LONG).show()
+        showUnderConstruction("Config system")
     }
 
     fun openNotedScreen(v: View) {
-        Toast.makeText(this, "=== openNotedScreen ====", Toast.LENGTH_LONG).show()
+        showUnderConstruction("Note")
     }
-
 
     fun openHowToUseScreen(v: View) {
-        Toast.makeText(this, "=== openHowToUseScreen ====", Toast.LENGTH_LONG).show()
+        showUnderConstruction("How to use")
     }
 
-
     fun openHelpFeedbackScreen(v: View) {
-        Toast.makeText(this, "=== openHelpFeedbackScreen ====", Toast.LENGTH_LONG).show()
+        showUnderConstruction("Help")
     }
 
 
