@@ -7,6 +7,13 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     : BaseViewModel<AreaDetailView, BaseModel>(mView, mModel) {
 
     override fun initViewModel() {
+        //get data
+        mView?.viewLoaded()
 
+        //get more info
+
+        mView?.viewMotorInfo()
+
+        mView?.viewMotorWorking()
     }
 }

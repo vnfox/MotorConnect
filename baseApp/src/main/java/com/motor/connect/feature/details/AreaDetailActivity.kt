@@ -3,6 +3,7 @@ package com.motor.connect.feature.details
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.Toolbar
@@ -15,12 +16,11 @@ import com.feature.area.R
 import com.feature.area.databinding.DetailViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
-import com.motor.connect.feature.data.MainActivity
+import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
+import com.motor.connect.feature.setting.van.SettingAreaVanActivity
 
 
-class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewModel>(), AreaDetailView,
-        View.OnClickListener, PopupMenu.OnMenuItemClickListener {
-
+class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewModel>(), AreaDetailView {
 
     companion object {
         fun show(context: Context) {
@@ -29,6 +29,10 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     private val viewModel = AreaDetailViewModel(this, BaseModel())
+
+    private var collapsingToolbarLayout: CollapsingToolbarLayout? = null
+
+    private var bottomSheetDialog: BottomSheetDialog? = null
 
     override fun createViewModel(): AreaDetailViewModel {
         viewModel.mView = this
@@ -45,47 +49,60 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationIcon(R.mipmap.ic_back)
-        toolbar.setNavigationOnClickListener { actionLeft() }
+        toolbar.setNavigationOnClickListener {
 
-        val collapsingToolbar = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
-        collapsingToolbar.title = "Details View"
+            actionLeft()
+        }
 
-        loadBackdrop()
+        //Setup info
+        viewModel.initViewModel()
+
+        //Setup CollapsingToolbarLayout View
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar)
+        collapsingToolbarLayout?.title = "Details View"
+
         return mBinding
+    }
+
+
+    override fun viewLoaded() {
+        loadBackdrop()
+    }
+
+    override fun viewMotorWorking() {
+        showUnderConstruction("update info viewMotorWorking")
+    }
+
+    override fun viewMotorInfo() {
+        showUnderConstruction("update info  viewMotorInfo")
     }
 
     private fun loadBackdrop() {
         val imageView = findViewById<ImageView>(R.id.backdrop)
+        //Todo Will get list Backdrop
         Glide.with(this).load(Cheeses.getRandomCheeseDrawable()).apply(RequestOptions.centerCropTransform()).into(imageView)
     }
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.action_left -> {
-                actionLeft()
-            }
-        }
-    }
 
     fun selectSettingView(v: View) {
-        val popup = PopupMenu(this, v)
-        popup.setOnMenuItemClickListener(this)
-        popup.inflate(R.menu.dialog_select_setting)
-        popup.show()
+        bottomSheetDialog = BottomSheetDialog(this)
+        val sheetView = this.layoutInflater.inflate(R.layout.dialog_bottom_sheet_view, null)
+        bottomSheetDialog?.setContentView(sheetView)
+        bottomSheetDialog?.show()
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.setting_schedule_area -> {
-                showUnderConstruction("setting_schedule_area")
+    fun setupScheduleArea(v: View) {
+        bottomSheetDialog?.dismiss()
+        SettingAreaScheduleActivity.show(this)
+    }
 
-                true
-            }
-            R.id.setting_vans_area -> {
-                showUnderConstruction("setting_vans_area")
-                true
-            }
-            else -> false
-        }
+    fun setupVanUsedArea(v: View) {
+        bottomSheetDialog?.dismiss()
+        SettingAreaVanActivity.show(this)
+    }
+
+    fun scheduleStopArea(v: View) {
+        showUnderConstruction("scheduleStopArea")
+        bottomSheetDialog?.dismiss()
     }
 }

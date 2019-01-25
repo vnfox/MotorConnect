@@ -97,7 +97,7 @@
                         <TextView
                             android:id="@+id/txt_area_van"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Tong so van" />
+                            android:text="So van" />
 
                         <TextView
                             android:id="@+id/txt_area_scheduler"
@@ -186,7 +186,7 @@
                         <TextView
                             android:id="@+id/txt_area_van_used"
                             style="@style/TextView.Screen.Detail"
-                            android:text="So van dang mo (van 01,02 ..)" />
+                            android:text="Van dang mo (van 01,02 ..)" />
 
                         <TextView
                             android:id="@+id/txt_time_reminder"
@@ -238,12 +238,14 @@
             android:id="@+id/btn_action_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:clickable="true"
             android:onClick="selectSettingView"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             android:src="@mipmap/ic_setting"
-            app:layout_anchor="@id/appbar"
-            app:layout_anchorGravity="bottom|right|end" />
+            app:fabCustomSize="46dp"
+            app:layout_anchor="@id/backdrop"
+            app:layout_anchorGravity="bottom|right|end"
+            app:maxImageSize="36dp" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

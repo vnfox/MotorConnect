@@ -46,5 +46,7 @@
     the big cheese.</string>
 
     <string name="setting_schedule_empty">Chua co khu vuc nao\nduoc them vao</string>
+    <string name="connect_setting_warning">Máy bơm sẽ không hoạt động nếu tất cả\ncác van đều tắt</string>
+    <string name="connect_setting_van">Thiết Lập Van Tưới</string>
 
 </resources>

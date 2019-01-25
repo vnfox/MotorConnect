@@ -43,4 +43,9 @@
     <dimen name="curvedTextViewTextSize">15sp</dimen>
     <dimen name="curvedTextRadius">70dp</dimen>
     <dimen name="curvedTextPadding">3dp</dimen>
+
+    <!--Padding size-->
+    <dimen name="connect_margin_5">5dp</dimen>
+    <dimen name="connect_margin_10">10dp</dimen>
+    <dimen name="connect_margin_16">16dp</dimen>
 </resources>
