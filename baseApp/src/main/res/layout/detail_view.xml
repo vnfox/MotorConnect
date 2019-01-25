@@ -240,6 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:clickable="true"
+            android:onClick="selectSettingView"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_setting"
             app:layout_anchor="@id/appbar"

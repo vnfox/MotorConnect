@@ -27,4 +27,23 @@
         <item>7 Van</item>
         <item>8 Van</item>
     </string-array>
+
+    <string-array name="times_day">
+        <item>2 Van</item>
+        <item>3 Van</item>
+        <item>4 Van</item>
+        <item>5 Van</item>
+        <item>6 Van</item>
+        <item>7 Van</item>
+        <item>8 Van</item>
+    </string-array>
+
+    <string-array name="times_working">
+        <item>10 phút</item>
+        <item>20 phút</item>
+        <item>30 phút</item>
+        <item>40 phút</item>
+        <item>50 phút</item>
+        <item>60 phút</item>
+    </string-array>
 </resources>

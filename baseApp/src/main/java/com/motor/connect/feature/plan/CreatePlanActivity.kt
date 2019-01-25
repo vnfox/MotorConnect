@@ -90,6 +90,7 @@ class CreatePlanActivity : BaseViewActivity<CreatePlanViewBinding, CreatePlanVie
     }
 
     fun setDateTime(dateResult: String) {
+
         val cal = Calendar.getInstance()
         val timeSetListener = OnTimeSetListener { timePicker, hour, minute ->
 
