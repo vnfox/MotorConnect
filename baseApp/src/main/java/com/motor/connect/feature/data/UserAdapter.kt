@@ -1,5 +1,6 @@
 package com.motor.connect.feature.data
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.TextView
 import com.feature.area.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.utils.StringUtil
 import com.motor.connect.utils.StringUtils
 
 class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
@@ -30,6 +32,7 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
 
     override fun getItemCount() = areas.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         holder.itemView.setOnClickListener {
@@ -47,7 +50,7 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
         else
-            holder.schedule.text = "Lịch tưới: " + areas[position].areaSchedule
+            holder.schedule.text = "Lịch tuới: ngày tưới " + StringUtil.getCountWorkingDay(areas[position].areaSchedule) + " lần"
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

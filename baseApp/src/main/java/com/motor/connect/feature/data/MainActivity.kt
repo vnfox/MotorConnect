@@ -15,6 +15,7 @@ import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
 import com.motor.connect.utils.MotorConstants
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -42,11 +43,8 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         //Adapter item click
         adapter = UserAdapter { areaModel, position ->
 
-            //            Toast.makeText(this, "=== Item Click  ====  $position    " + areaModel.areaName,
-//                    Toast.LENGTH_LONG).show()
-
+            Hawk.put(MotorConstants.KEY_PUT_AREA, areaModel)
             val intent = Intent(this, AreaDetailActivity::class.java)
-
             this.startActivity(intent)
         }
         recyclerView.adapter = adapter

@@ -63,10 +63,11 @@ class HomeActivity : BaseActivity() {
             onDemoFunction()
 
         }
-
+        //4,6,8
         //Dn1234 01 01 0601 030
         //Dn1234 01 03 0601 030 1100 060 1600 090
 
+        //5,7,9
         //De1234 01 01 0601 030 01
         //De1234 01 03 0601 030 1100 060 1600 090 01
         val onTest = findViewById<Button>(R.id.btn_test)

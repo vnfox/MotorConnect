@@ -1,6 +1,7 @@
 package com.motor.connect.feature.details
 
 import com.motor.connect.base.view.actionbar.ActionBarView
+import com.motor.connect.feature.model.AreaModel
 
 interface AreaDetailView : ActionBarView {
 
@@ -8,5 +9,5 @@ interface AreaDetailView : ActionBarView {
 
     fun viewMotorWorking()
 
-    fun viewMotorInfo()
+    fun viewMotorInfo(model: AreaModel)
 }

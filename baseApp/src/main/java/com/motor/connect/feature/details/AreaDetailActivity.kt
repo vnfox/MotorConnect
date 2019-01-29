@@ -5,9 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -16,8 +14,14 @@ import com.feature.area.R
 import com.feature.area.databinding.DetailViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.feature.setting.van.SettingAreaVanActivity
+import com.motor.connect.utils.EnumHelper
+import com.motor.connect.utils.EnumHelper.*
+import com.motor.connect.utils.StringUtil
+import com.motor.connect.utils.StringUtil.*
+import kotlinx.android.synthetic.main.detail_view.*
 
 
 class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewModel>(), AreaDetailView {
@@ -69,12 +73,45 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         loadBackdrop()
     }
 
-    override fun viewMotorWorking() {
-        showUnderConstruction("update info viewMotorWorking")
+    override fun viewMotorInfo(model: AreaModel) {
+        txt_area_name.text = model.areaName
+        txt_area_phone.text = model.areaPhone
+        txt_area_van.text = "So van " + model.areaVans.size.toString()
+
+
+        //03 0601 030 1100 060 1600 090    <01> repeat
+        //"Lịch tuới: ngày tưới " + StringUtil.getCountWorkingDay(model.areaSchedule) + "lần"
+
+        txt_area_scheduler.text = getScheduleWorking(model.areaSchedule)
+
+
     }
 
-    override fun viewMotorInfo() {
-        showUnderConstruction("update info  viewMotorInfo")
+    override fun viewMotorWorking() {
+        // get data done => show
+        //showUnderConstruction("update info viewMotorWorking")
+    }
+
+    private fun getScheduleWorking(value: String): String {
+        val result = "chua co lich tuoi"
+
+        if (value.isEmpty())
+            return result
+
+        val count = StringUtil.getCountWorkingDay(value)
+        when (count) {
+            ScheduleDays.ONE_DAY.key -> {
+
+                return getScheduleWorkingOneDay(value)
+            }
+            ScheduleDays.TWO_DAY.key -> {
+                return getScheduleWorkingTwoDay(value)
+            }
+            ScheduleDays.THREE_DAY.key -> {
+                return getScheduleWorkingThreeDay(value)
+            }
+        }
+        return result!!
     }
 
     private fun loadBackdrop() {

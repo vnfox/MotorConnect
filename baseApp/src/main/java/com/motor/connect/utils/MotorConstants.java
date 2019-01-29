@@ -36,8 +36,10 @@ public class MotorConstants {
         public static final int AREA_CODE_1 = 1000;
         public static final int AREA_CODE_2 = 1001;
 
-    }
+        public static final String PREFIX_REPEAT = "De";
+        public static final String PREFIX_NONE_REPEAT = "Dn";
 
+    }
     public class VanCode {
         private VanCode() {
             // do nothing

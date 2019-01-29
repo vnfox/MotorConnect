@@ -51,7 +51,6 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
     }
 
     fun initData(isFirst: Boolean?) {
-        Log.d("hqdat", "===  isFirst =   $isFirst")
         if (isFirst!!) {
             mView?.showEmptyView()
         } else {
