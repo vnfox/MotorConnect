@@ -14,7 +14,7 @@ import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.utils.MotorConstants
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.setting_schedule_activity.*
 
 
 class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding, SettingScheduleViewModel>(), SettingScheduleView {
@@ -58,13 +58,13 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
     }
 
     override fun showEmptyView() {
-        recyclerView.visibility = View.GONE
+        setting_container.visibility = View.GONE
         txt_empty.visibility = View.VISIBLE
 
     }
 
     override fun updateUI(dataArea: MutableList<AreaModel>) {
-        recyclerView.visibility = View.VISIBLE
+        setting_container.visibility = View.VISIBLE
         txt_empty.visibility = View.GONE
         adapter?.setData(dataArea)
         recyclerView.adapter?.notifyDataSetChanged()

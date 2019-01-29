@@ -13,8 +13,8 @@
         style="@style/TextView.Screen.Title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white_light"
-        android:gravity="center|left"
+        android:background="@mipmap/bg_plash"
+        android:gravity="center"
         android:scaleType="centerInside" />
 
 </LinearLayout>

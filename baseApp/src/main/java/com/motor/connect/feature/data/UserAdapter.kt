@@ -47,7 +47,7 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
         else
-            holder.schedule.text = "Lịch tưới: $areas[position].areaSchedule"
+            holder.schedule.text = "Lịch tưới: " + areas[position].areaSchedule
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

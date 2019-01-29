@@ -19,7 +19,7 @@ import java.util.*
 
 class SplashScreen : AppCompatActivity() {
 
-    private val REQUEST_CODE_MULTI_PERMISSIONS = 124
+    private val multiPERMISSIONS = 124
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class SplashScreen : AppCompatActivity() {
                             if (Build.VERSION.SDK_INT >= 23) {
                                 // Marshmallow+
                                 requestPermissions(permissionsList.toTypedArray(),
-                                        REQUEST_CODE_MULTI_PERMISSIONS)
+                                        multiPERMISSIONS)
                             }
                         })
                 return
@@ -77,7 +77,7 @@ class SplashScreen : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= 23) {
                 // Marshmallow+
                 requestPermissions(permissionsList.toTypedArray(),
-                        REQUEST_CODE_MULTI_PERMISSIONS)
+                        multiPERMISSIONS)
             }
             return
         } else {
@@ -124,7 +124,7 @@ class SplashScreen : AppCompatActivity() {
                 Toast.makeText(this, "Permission Needed To Run The App", Toast.LENGTH_LONG).show()
             }
         }
-        if (requestCode == REQUEST_CODE_MULTI_PERMISSIONS) {
+        if (requestCode == multiPERMISSIONS) {
             val perms = HashMap<String, Int>()
             // Initial
             perms[Manifest.permission.ACCESS_FINE_LOCATION] = PackageManager.PERMISSION_GRANTED
@@ -155,14 +155,14 @@ class SplashScreen : AppCompatActivity() {
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                     val uri = Uri.fromParts("package", packageName, null)
                     intent.data = uri
-                    startActivityForResult(intent, REQUEST_CODE_MULTI_PERMISSIONS)
+                    startActivityForResult(intent, multiPERMISSIONS)
                     finish()
                 }, 3000)
             }
         }
     }
 
-    fun openMainScreen() {
+    private fun openMainScreen() {
         MainActivity.show(this@SplashScreen)
         this@SplashScreen.finish()
     }

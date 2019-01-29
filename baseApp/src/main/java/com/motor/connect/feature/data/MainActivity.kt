@@ -49,8 +49,12 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
 
             this.startActivity(intent)
         }
-
         recyclerView.adapter = adapter
+
+        //Todo fake default Item
+        viewModel.initViewModel()
+        shef!!.setTriggerData(MotorConstants.FIRST_USED, false)
+
         val isUser = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.initData(isUser)
 

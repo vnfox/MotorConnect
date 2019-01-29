@@ -5,20 +5,17 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AlertDialog
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.SeekBar
 import android.widget.TextView
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.feature.area.R
 import com.feature.area.databinding.HomeViewBinding
 import com.motor.connect.base.view.BaseActivity
+import com.motor.connect.utils.StringUtil
 
 
-class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
+class HomeActivity : BaseActivity() {
 
     companion object {
         fun show(context: Context) {
@@ -28,15 +25,13 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
     private val viewModel = HomeViewModel()
     private var circularProgress: CircularProgressIndicator? = null
-    private var seekbar: SeekBar? = null
-
-
-    private var mProgress: ProgressBar? = null
 
     private val timeTotal: Int = 1800
     private var pStatus: Int = 0
     private val handler = Handler()
     private lateinit var tv: TextView
+
+    private var arrStrings: Array<String>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,10 +42,7 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
         viewModel.startUpdates()
 
-        showProgressDialog()
-
-        seekbar = findViewById<SeekBar>(R.id.sb_progress)
-        seekbar?.setOnSeekBarChangeListener(this)
+//        showProgressDialog()
 
         circularProgress = findViewById(R.id.circular_progress)
         circularProgress?.maxProgress = timeTotal.toDouble()
@@ -65,31 +57,26 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
             Log.d("hqdat", "== setOnProgressChangeListener>>>>>>   $progress")
         }
 
-
-        //Todo Progress
-        val res = resources
-        val drawable = res.getDrawable(R.drawable.circular)
-        mProgress = findViewById<View>(R.id.circularProgressbar) as ProgressBar?
-        mProgress?.progress = 0   // Main Progress
-
-        mProgress?.max = timeTotal // Maximum Progress
-        mProgress?.secondaryProgress = timeTotal // Secondary Progress
-        mProgress?.progressDrawable = drawable
-        tv = findViewById<View>(R.id.tv) as TextView
-
-
         val onNote = findViewById<Button>(R.id.btn_demo)
         onNote?.setOnClickListener {
-            //onRunProgress()
 
-
-//            onStartThread()
+            onDemoFunction()
 
         }
 
+        //Dn1234 01 01 0601 030
+        //Dn1234 01 03 0601 030 1100 060 1600 090
+
+        //De1234 01 01 0601 030 01
+        //De1234 01 03 0601 030 1100 060 1600 090 01
         val onTest = findViewById<Button>(R.id.btn_test)
         onTest.setOnClickListener {
-            onDemoFunction()
+
+            val string = "01 03 0601 030 1100 060 1600 090 01"
+            arrStrings = StringUtil.getCheckSchedule(string)
+
+            Log.d("hqdat", "== StringUtil>>>>>> " + arrStrings?.size)
+            Log.d("hqdat", "== item>>>>>> " + arrStrings?.get(2))
         }
     }
 
@@ -112,22 +99,6 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
             }
         }).start()
-    }
-
-
-    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        when (seekBar.id) {
-            R.id.sb_progress -> {
-                circularProgress?.setCurrentProgress(progress.toDouble())
-                Log.d("hqdat", "== Progress Change >>>>>>  $progress")
-            }
-        }
-    }
-
-    override fun onStartTrackingTouch(p0: SeekBar?) {
-    }
-
-    override fun onStopTrackingTouch(p0: SeekBar?) {
     }
 
     private val TIME_TEXT_ADAPTER = CircularProgressIndicator.ProgressTextAdapter { time ->
@@ -153,33 +124,6 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
         sb.toString()
     }
 
-    private fun onStartThread() {
-        Thread(Runnable {
-            // TODO Auto-generated method stub
-            while (pStatus < timeTotal) {
-                pStatus += 1
-
-                handler.post {
-                    // TODO Auto-generated method stub
-                    mProgress?.progress = pStatus
-                    tv.text = this.getStringMessage(pStatus)
-
-                    if (pStatus == timeTotal) {
-                        tv.text = "Done"
-                    }
-                }
-                try {
-                    // Sleep for 200 milliseconds.
-                    // Just to display the progress slowly
-                    Thread.sleep(100) //thread will take approx 3 seconds to finish
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-
-            }
-        }).start()
-    }
-
     private fun getStringMessage(time: Int): String {
 
         val minutes = (time / 60)
@@ -196,8 +140,6 @@ class HomeActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
         sb.toString()
         return sb.toString()
     }
-
-
 
 
 }
