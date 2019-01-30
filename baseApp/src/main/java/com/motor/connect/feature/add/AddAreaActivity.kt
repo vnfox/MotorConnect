@@ -119,13 +119,13 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
 
         var areaVans: MutableList<VanModel> = mutableListOf()
-        val van = VanModel()
+
         var numVan = vanSelected.substring(0, 1).toInt()
 
         for (i in 1..numVan) {
+            val van = VanModel()
             van.vanId = "0$i"
             van.vanStatus = false
-
             areaVans.add(van)
         }
         return areaVans

@@ -42,23 +42,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         actionLeft()
     }
 
-//    fun openSettingScheduler(v: View) {
-//        SettingScheduleActivity.show(this)
-//    }
-//
-//    fun openConfigScreen(v: View) {
-//        showUnderConstruction("Config system")
-//    }
-//
-//    fun openNotedScreen(v: View) {
-//        showUnderConstruction("Note")
-//    }
-//
-//    fun openHowToUseScreen(v: View) {
-//        showUnderConstruction("How to use")
-//    }
-//
-//    fun openHelpFeedbackScreen(v: View) {
-//        showUnderConstruction("Help")
-//    }
+    fun setupVanUsed(v: View) {
+        showUnderConstruction("setupVanUsed")
+    }
 }

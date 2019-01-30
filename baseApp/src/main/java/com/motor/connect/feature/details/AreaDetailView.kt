@@ -7,7 +7,9 @@ interface AreaDetailView : ActionBarView {
 
     fun viewLoaded()
 
-    fun viewMotorWorking()
+    fun viewMotorWorking(s: String, s1: String, maxValue: Int, currentTime: Int)
 
-    fun viewMotorInfo(model: AreaModel)
+    fun viewAreaInfo(model: AreaModel, schedules: String)
+
+    fun updateInfoMotor(areaStatus: String?, vansUsed: String, scheduleWorking: String?)
 }

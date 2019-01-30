@@ -24,7 +24,7 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
         model.areaPhone = "0974818171"
         model.areaStatus = "dang hoat dong"
         model.areaType = "Admin"
-        model.areaSchedule = "03 0601 030 1100 060 1600 090 01"
+        model.areaSchedule = "03 0601 030 1100 060 1720 030 01"
         model.areaVans = getAreaVans("5 Van")
         model.timeRemain = 30 // count from schedule
         model.timeReminder = 60
@@ -38,12 +38,15 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
 
         var areaVans: MutableList<VanModel> = mutableListOf()
-        val van = VanModel()
+
         var numVan = vanSelected.substring(0, 1).toInt()
 
         for (i in 1..numVan) {
+            val van = VanModel()
             van.vanId = "0$i"
-            van.vanStatus = false
+            van.vanStatus = true
+            if (i == 3)
+                van.vanStatus = false
 
             areaVans.add(van)
         }

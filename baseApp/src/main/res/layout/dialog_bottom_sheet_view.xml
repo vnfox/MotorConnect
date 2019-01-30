@@ -55,4 +55,17 @@
         android:onClick="scheduleStopArea"
         android:paddingLeft="@dimen/connect_margin_16"
         android:text="Ngắt lịch tưới trong ngày" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_grey" />
+
+    <TextView
+        style="@style/TextView.Screen.Title"
+        android:gravity="left|center"
+        android:minHeight="@dimen/actionbar_height"
+        android:onClick="editInfoArea"
+        android:paddingLeft="@dimen/connect_margin_16"
+        android:text="Sửa thông tin" />
 </LinearLayout>

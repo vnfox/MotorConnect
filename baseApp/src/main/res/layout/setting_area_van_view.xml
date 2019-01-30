@@ -358,7 +358,7 @@
                 android:background="@drawable/border_rect_bg"
                 android:gravity="center"
                 android:minHeight="50dp"
-                android:onClick="setupSchedule"
+                android:onClick="setupVanUsed"
                 android:text="@string/connect_setting_van"
                 android:textSize="@dimen/connect_text_size_title" />
         </LinearLayout>
