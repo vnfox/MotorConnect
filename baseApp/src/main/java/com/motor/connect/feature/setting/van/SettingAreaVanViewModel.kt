@@ -8,7 +8,10 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 
     override fun initViewModel() {
 
+
         //Get data
         mView?.viewLoaded()
+
+        //Hawk.put(MotorConstants.KEY_VANS_USED, model.areaVans)
     }
 }

@@ -39,6 +39,19 @@
         style="@style/TextView.Screen.Title"
         android:gravity="left|center"
         android:minHeight="@dimen/actionbar_height"
+        android:onClick="reviewScheduleArea"
+        android:paddingLeft="@dimen/connect_margin_16"
+        android:text="Xem laị lịch tưới" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_grey" />
+
+    <TextView
+        style="@style/TextView.Screen.Title"
+        android:gravity="left|center"
+        android:minHeight="@dimen/actionbar_height"
         android:onClick="setupVanUsedArea"
         android:paddingLeft="@dimen/connect_margin_16"
         android:text="Thiết lập van sử dụng" />

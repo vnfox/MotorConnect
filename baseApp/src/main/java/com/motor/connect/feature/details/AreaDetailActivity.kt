@@ -159,6 +159,10 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         SettingAreaScheduleActivity.show(this)
     }
 
+    fun reviewScheduleArea(v: View) {
+        showUnderConstruction("reviewScheduleArea")
+    }
+
     fun setupVanUsedArea(v: View) {
         bottomSheetDialog?.dismiss()
         SettingAreaVanActivity.show(this)

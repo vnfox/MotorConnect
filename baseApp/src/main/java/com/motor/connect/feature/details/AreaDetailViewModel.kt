@@ -24,6 +24,7 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
         mView?.viewLoaded()
 
         updateAreaInfo(model)
+        Hawk.put(MotorConstants.KEY_VANS_USED, model.areaVans)
     }
 
     fun updateMotorWorking(scheduleWorking: String?) {
