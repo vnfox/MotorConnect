@@ -160,6 +160,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     fun reviewScheduleArea(v: View) {
+        //Send SMS
         showUnderConstruction("reviewScheduleArea")
     }
 
