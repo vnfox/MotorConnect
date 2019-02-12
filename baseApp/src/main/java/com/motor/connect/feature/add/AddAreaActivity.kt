@@ -1,15 +1,12 @@
 package com.motor.connect.feature.add
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.AddAreaViewBinding
@@ -21,7 +18,7 @@ import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtils
 
 
-class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>(), AddAreaView, View.OnClickListener {
+class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>(), AddAreaView {
 
 
     companion object {
@@ -55,45 +52,33 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         areaDetail = findViewById(R.id.input_detail)
         areaVan = findViewById(R.id.txt_van)
 
-        val onClose = findViewById<ImageView>(R.id.action_left)
-        onClose?.setOnClickListener(this)
-
-        val onImage = findViewById<ImageView>(R.id.img_wall)
-        onImage?.setOnClickListener(this)
-
-        val onSave = findViewById<Button>(R.id.btn_save)
-        onSave?.setOnClickListener(this)
-
-        val onVanSelect = findViewById<TextView>(R.id.txt_van)
-        onVanSelect?.setOnClickListener(this)
-
         return mBinding
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.action_left -> {
-                actionLeft()
-            }
-            R.id.img_wall -> {
-                AddAreaActivity.show(this)
-            }
-            R.id.txt_van -> {
-                selectVanView()
-            }
-            R.id.btn_save -> {
-                if (StringUtils.isNullOrEmpty(areaName?.text.toString())) {
-                    areaName?.error = getString(R.string.add_input_name_empty)
-                    return
-                }
-                if (StringUtils.isNullOrEmpty(areaPhone?.text.toString())) {
-                    areaPhone?.error = getString(R.string.add_input_phone_empty)
-                    return
-                }
+    fun actionClose(view: View?) {
+        actionLeft()
+    }
 
-                prepareDate()
-            }
+    fun selectBackdrop(view: View?) {
+        showUnderConstruction()
+    }
+
+    fun onSelectVanUsed(view: View?) {
+        selectVanView()
+
+    }
+
+    fun onSaveData(view: View?) {
+        if (StringUtils.isNullOrEmpty(areaName?.text.toString())) {
+            areaName?.error = getString(R.string.add_input_name_empty)
+            return
         }
+        if (StringUtils.isNullOrEmpty(areaPhone?.text.toString())) {
+            areaPhone?.error = getString(R.string.add_input_phone_empty)
+            return
+        }
+
+        prepareDate()
     }
 
     override fun goBackMainScreen() {
@@ -153,7 +138,6 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
                     if (pStatus == timeTotal) {
                         viewModel.hideProgressView()
                         actionLeft()
-//                        finish()
                     }
                 }
                 try {

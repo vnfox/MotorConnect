@@ -21,15 +21,14 @@
             android:layout_gravity="top"
             android:background="@drawable/card_view_style"
             android:gravity="center|left"
-
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/action_left"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
+                android:onClick="actionClose"
                 app:srcCompat="@mipmap/ic_close" />
 
             <TextView
@@ -61,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:onClick="selectBackdrop"
                 app:srcCompat="@mipmap/ic_movies" />
 
             <android.support.design.widget.TextInputLayout
@@ -142,6 +142,7 @@
                     android:background="@drawable/border_rect_bg"
                     android:gravity="center"
                     android:minHeight="40dp"
+                    android:onClick="onSelectVanUsed"
                     android:text="2 Van"
                     android:textSize="@dimen/connect_text_size_title" />
 
@@ -160,6 +161,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_grey"
             android:minHeight="46dp"
+            android:onClick="onSaveData"
             android:text="Luu Thong Tin" />
 
     </FrameLayout>

@@ -56,4 +56,8 @@ abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewM
     fun showUnderConstruction(methodName: String) {
         Toast.makeText(this, "=== $methodName ====", Toast.LENGTH_SHORT).show()
     }
+
+    fun showUnderConstruction() {
+        Toast.makeText(this, "=== Feature will be implement in the future ====", Toast.LENGTH_SHORT).show()
+    }
 }
