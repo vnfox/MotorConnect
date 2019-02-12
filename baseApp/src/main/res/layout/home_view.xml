@@ -13,21 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_white"
-        android:gravity="center"
+        android:gravity="top"
         android:orientation="vertical">
-
-        <SeekBar
-            android:id="@+id/sb_progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="10000"
-            android:min="0"
-            android:progress="0" />
 
         <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
             android:id="@+id/circular_progress"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp"
@@ -46,40 +38,25 @@
             android:minHeight="46dp"
             android:text="Demo" />
 
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/add_container"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_grey"
+            android:gravity="center"
+            android:minHeight="46dp"
+            android:text="Test Function" />
+
         <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/cirle_background"
-            android:text="Them khu vuc" />
-
-
-        <FrameLayout
-            android:id="@+id/circular_container"
-            android:layout_width="250dp"
-            android:layout_height="250dp">
-
-            <ProgressBar
-
-                android:id="@+id/circularProgressbar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="0"
-                android:progressDrawable="@drawable/circular"
-                android:secondaryProgress="100" />
-
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:gravity="center"
-                android:text="25%"
-                android:textColor="@color/color_blue"
-                android:textSize="20sp" />
-        </FrameLayout>
-
+            android:id="@+id/txt_demo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="test demo" />
     </LinearLayout>
 </layout>

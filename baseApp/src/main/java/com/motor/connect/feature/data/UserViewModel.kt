@@ -1,38 +1,73 @@
 package com.motor.connect.feature.data
 
-import android.databinding.BaseObservable
-import android.databinding.Bindable
-import android.os.Handler
-import com.android.databinding.library.baseAdapters.BR
+import android.util.Log
+import com.motor.connect.base.BaseModel
+import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
 import com.orhanobut.hawk.Hawk
 
-class UserViewModel : BaseObservable() {
+class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
+    : BaseViewModel<MainAreaView, BaseModel>(mView, mModel) {
 
-    @get:Bindable
     var dataArea: MutableList<AreaModel> = mutableListOf()
-        private set(value) {
-            field = value
-            notifyPropertyChanged(BR.dataArea)
+
+    override fun initViewModel() {
+        genFakeData()
+    }
+
+    private fun genFakeData() {
+        val model = AreaModel()
+        model.areaId = "01"
+        model.areaName = "Area Data kv1"
+        model.areaPhone = "0974818171"
+        model.areaStatus = "dang hoat dong"
+        model.areaType = "Admin"
+        model.areaSchedule = "03 0601 030 1100 060 1720 030 01"
+        model.areaVans = getAreaVans("5 Van")
+        model.timeRemain = 30 // count from schedule
+        model.timeReminder = 60
+        model.areaScheduleRepeat = "01"
+
+        dataArea.add(model)
+
+        Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
+    }
+
+    private fun getAreaVans(vanSelected: String): List<VanModel>? {
+
+        var areaVans: MutableList<VanModel> = mutableListOf()
+
+        var numVan = vanSelected.substring(0, 1).toInt()
+
+        for (i in 1..numVan) {
+            val van = VanModel()
+            van.vanId = "0$i"
+            van.vanStatus = true
+            if (i == 3)
+                van.vanStatus = false
+
+            areaVans.add(van)
         }
+        return areaVans
+    }
 
-    private val updateInterval = 1000L
-    private val updateHandler = Handler()
-
-    private var updateRunnable: Runnable = object : Runnable {
-        override fun run() {
-            updateList()
-            updateHandler.postDelayed(this, updateInterval)
+    fun initData(isFirst: Boolean?) {
+        if (isFirst!!) {
+            mView?.showEmptyView()
+        } else {
+            dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+            mView?.updateUI(dataArea)
         }
     }
 
-    fun updateList() {
+    fun updateData() {
         dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-        notifyPropertyChanged(BR.dataArea)
+        mView?.updateUI(dataArea)
     }
 
     fun stopUpdates() {
-        updateHandler.removeCallbacks(updateRunnable)
+
     }
 }

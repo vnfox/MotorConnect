@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/setting_schedule_review"
+        android:title="Xem lại lịch tưới" />
+
+    <item
+        android:id="@+id/setting_schedule_area"
+        android:title="Cài đặt lịch tưới" />
+
+    <item
+        android:id="@+id/setting_vans_area"
+        android:title="Thiết lập van sử dụng" />
+
+    <item
+        android:id="@+id/setting_schedule_stop"
+        android:title="Ngắt lịch tưới trong ngày" />
+
+</menu>

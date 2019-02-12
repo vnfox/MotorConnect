@@ -12,6 +12,7 @@ public class AreaModel {
     private String areaSchedule;
     private String areaStatus;
     private List<VanModel> areaVans;
+    private String areaScheduleRepeat;
     private int timeReminder;
     private int timeRemain;
 
@@ -77,6 +78,14 @@ public class AreaModel {
 
     public void setAreaVans(List<VanModel> areaVans) {
         this.areaVans = areaVans;
+    }
+
+    public String getAreaScheduleRepeat() {
+        return areaScheduleRepeat;
+    }
+
+    public void setAreaScheduleRepeat(String areaScheduleRepeat) {
+        this.areaScheduleRepeat = areaScheduleRepeat;
     }
 
     public int getTimeReminder() {

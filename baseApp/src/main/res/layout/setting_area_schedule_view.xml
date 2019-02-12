@@ -1,0 +1,459 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.motor.connect.feature.setting.area.SettingAreaScheduleViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:onClick="actionClose"
+                android:scaleType="centerInside"
+                app:srcCompat="@mipmap/ic_close" />
+
+            <!-- Schedule days-->
+
+            <TextView
+                style="@style/TextView.Screen.Title"
+                android:layout_marginLeft="20dp"
+                android:text="So lan tuoi trong ngay"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:minHeight="@dimen/actionbar_height"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rd_schedule1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectSchedule1"
+                        android:paddingLeft="5dp"
+                        android:text="1 lan"
+                        android:textSize="@dimen/connect_text_size_18" />
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectSchedule2"
+                        android:paddingLeft="5dp"
+                        android:text="2 lan"
+                        android:textSize="@dimen/connect_text_size_18" />
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectSchedule3"
+                        android:paddingLeft="5dp"
+                        android:text="3 lan"
+                        android:textSize="@dimen/connect_text_size_18" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Loop days-->
+
+            <TextView
+                style="@style/TextView.Screen.Title"
+                android:layout_marginLeft="20dp"
+                android:text="Lich tuoi lap lai"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:minHeight="@dimen/actionbar_height"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rd_schedule_loop_none"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectLoopNone"
+                        android:text="khong"
+                        android:textSize="@dimen/connect_text_size_18" />
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectLoop1"
+                        android:text="1 ngay"
+                        android:textSize="@dimen/connect_text_size_18" />
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectLoop2"
+                        android:text="2 ngay"
+                        android:textSize="@dimen/connect_text_size_18" />
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectLoop3"
+                        android:text="3 ngay"
+                        android:textSize="@dimen/connect_text_size_18" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- First -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_grey" />
+
+            <TextView
+                style="@style/TextView.Screen.Title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="Lan 1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center|left"
+                android:minHeight="@dimen/actionbar_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextView.Screen.Description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="center|left"
+                    android:text="Bat dau"
+                    android:textSize="@dimen/connect_text_size_title" />
+
+                <TextView
+                    android:id="@+id/txt_time1_start"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/border_rect_bg"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:onClick="selectTimeStart1"
+                    android:text="06:00"
+                    android:textSize="@dimen/connect_text_size_title" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center|left"
+                android:minHeight="@dimen/actionbar_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextView.Screen.Description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="center|left"
+                    android:text="Hoat dong"
+                    android:textSize="@dimen/connect_text_size_title" />
+
+                <TextView
+                    android:id="@+id/txt_time1_run"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/border_rect_bg"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:onClick="selectTimeWorking1"
+                    android:text="30 phut"
+                    android:textSize="@dimen/connect_text_size_title" />
+
+            </LinearLayout>
+
+            <!-- First End -->
+
+            <!-- Second -->
+            <LinearLayout
+                android:id="@+id/second_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_grey" />
+
+                <TextView
+                    style="@style/TextView.Screen.Title"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Lan 2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center|left"
+                    android:minHeight="@dimen/actionbar_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextView.Screen.Description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:text="Bat dau"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                    <TextView
+                        android:id="@+id/txt_time2_start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border_rect_bg"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:onClick="selectTimeStart2"
+                        android:text="11:00"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center|left"
+                    android:minHeight="@dimen/actionbar_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextView.Screen.Description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:text="Hoat dong"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                    <TextView
+                        android:id="@+id/txt_time2_run"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border_rect_bg"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:onClick="selectTimeWorking2"
+                        android:text="30 phut"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Second End -->
+
+            <!-- Third -->
+
+            <LinearLayout
+                android:id="@+id/third_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_grey" />
+
+                <TextView
+                    style="@style/TextView.Screen.Title"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Lan 3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center|left"
+                    android:minHeight="@dimen/actionbar_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextView.Screen.Description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:text="Bat dau"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                    <TextView
+                        android:id="@+id/txt_time3_start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border_rect_bg"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:onClick="selectTimeStart3"
+                        android:text="17:00"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center|left"
+                    android:minHeight="@dimen/actionbar_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextView.Screen.Description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:text="Hoat dong"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                    <TextView
+                        android:id="@+id/txt_time3_run"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/border_rect_bg"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:onClick="selectTimeWorking3"
+                        android:text="30 phut"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Third End -->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/container"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextView.Screen.Description"
+                android:layout_below="@+id/container"
+                android:layout_gravity="bottom"
+                android:gravity="center|bottom"
+                android:text="Thoi gian hoat dong tu 05h den 17h" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/border_rect_bg"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:onClick="setupSchedule"
+                android:text="Thiet Lap Lich Tuoi"
+                android:textSize="@dimen/connect_text_size_title" />
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

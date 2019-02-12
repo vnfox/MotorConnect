@@ -9,8 +9,9 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.motor.connect.base.BaseModel
-import com.motor.connect.base.view.BaseActivity_View
+import com.motor.connect.base.view.BaseViewActivity
 import com.feature.area.R
 import com.feature.area.databinding.CreatePlanViewBinding
 import kotlinx.android.synthetic.main.create_plan_view.*
@@ -18,11 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanViewModel>(), CreatePlanView, View.OnClickListener {
-
-    override fun viewLoaded() {
-
-    }
+class CreatePlanActivity : BaseViewActivity<CreatePlanViewBinding, CreatePlanViewModel>(), CreatePlanView, View.OnClickListener {
 
     companion object {
         fun show(context: Context) {
@@ -30,10 +27,11 @@ class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanVi
         }
     }
 
+    val viewModel = CreatePlanViewModel(this, BaseModel())
     var dateResult: String = ""
 
     override fun createViewModel(): CreatePlanViewModel {
-        val viewModel = CreatePlanViewModel(this, BaseModel())
+//        viewModel = CreatePlanViewModel(this, BaseModel())
         viewModel.mView = this
         return viewModel
     }
@@ -42,7 +40,8 @@ class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanVi
         mBinding = DataBindingUtil.setContentView(this, R.layout.create_plan_view)
         mBinding.viewModel = mViewModel
 
-        setUpActionBar()
+
+        viewModel.checkUpdateUI()
 
         val btnTime = findViewById<Button>(R.id.btn_time)
         btnTime.setOnClickListener(this)
@@ -50,16 +49,9 @@ class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanVi
         return mBinding
     }
 
-    override fun setUpActionBar() {
-        //Implement later
-    }
-
-    override fun actionRight() {
-        super.onBackPressed()
-    }
-
-    override fun actionLeft() {
-        super.onBackPressed()
+    override fun updateUI() {
+        Toast.makeText(this, "=== updateUI  ====  ",
+                Toast.LENGTH_LONG).show()
     }
 
     override fun typeYourIdea() {
@@ -98,6 +90,7 @@ class CreatePlanActivity : BaseActivity_View<CreatePlanViewBinding, CreatePlanVi
     }
 
     fun setDateTime(dateResult: String) {
+
         val cal = Calendar.getInstance()
         val timeSetListener = OnTimeSetListener { timePicker, hour, minute ->
 

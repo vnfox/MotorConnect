@@ -10,6 +10,7 @@ public class MotorConstants {
     public static final String KEY_UPDATE = "PUT_UPDATE";
     public static final String FIRST_USED = "FIRST_USED";
     public static final String KEY_TRIGGER_DATA = "KEY_TRIGGER_DATA";
+    public static final String KEY_VANS_USED = "KEY_VANS_USED";
 
     public static final int MSG_UNCOLOR_START = 0;
     public static final int MSG_UNCOLOR_STOP = 1;
@@ -36,8 +37,10 @@ public class MotorConstants {
         public static final int AREA_CODE_1 = 1000;
         public static final int AREA_CODE_2 = 1001;
 
-    }
+        public static final String PREFIX_REPEAT = "De";
+        public static final String PREFIX_NONE_REPEAT = "Dn";
 
+    }
     public class VanCode {
         private VanCode() {
             // do nothing

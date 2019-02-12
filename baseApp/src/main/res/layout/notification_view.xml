@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/action_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
                 app:srcCompat="@mipmap/ic_back" />
@@ -52,7 +52,6 @@
             android:layout_below="@+id/card_view"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            app:data="@{viewModel.smsReceivers}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>

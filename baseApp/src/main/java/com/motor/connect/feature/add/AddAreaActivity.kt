@@ -1,9 +1,9 @@
 package com.motor.connect.feature.add
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -13,16 +13,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.AddAreaViewBinding
-import com.motor.connect.base.view.BaseActivity
-import com.motor.connect.feature.data.MainActivity
+import com.motor.connect.base.BaseModel
+import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtils
-import com.orhanobut.hawk.Hawk
 
 
-class AddAreaActivity : BaseActivity(), View.OnClickListener {
+class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>(), AddAreaView, View.OnClickListener {
+
 
     companion object {
         fun show(context: Context) {
@@ -34,26 +34,26 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
     private var pStatus: Int = 0
     private val handler = Handler()
 
-    private val viewModel = AddAreaViewModel()
+    private val viewModel = AddAreaViewModel(this, BaseModel())
 
     private var areaName: EditText? = null
     private var areaPhone: EditText? = null
     private var areaDetail: EditText? = null
     private var areaVan: TextView? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding: AddAreaViewBinding = DataBindingUtil.setContentView(this, R.layout.add_area_view)
+    override fun createViewModel(): AddAreaViewModel {
+        viewModel.mView = this
+        return viewModel
+    }
 
-        binding.viewModel = viewModel
-
-        viewModel.startUpdates()
+    override fun createDataBinding(mViewModel: AddAreaViewModel): AddAreaViewBinding {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.add_area_view)
+        mBinding.viewModel = viewModel
 
         areaName = findViewById(R.id.input_name)
         areaPhone = findViewById(R.id.input_phone)
         areaDetail = findViewById(R.id.input_detail)
         areaVan = findViewById(R.id.txt_van)
-
 
         val onClose = findViewById<ImageView>(R.id.action_left)
         onClose?.setOnClickListener(this)
@@ -66,6 +66,8 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
 
         val onVanSelect = findViewById<TextView>(R.id.txt_van)
         onVanSelect?.setOnClickListener(this)
+
+        return mBinding
     }
 
     override fun onClick(view: View?) {
@@ -89,14 +91,19 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                showProgressDialog()
-                saveDataShref()
-
+                prepareDate()
             }
         }
     }
 
-    private fun saveDataShref() {
+    override fun goBackMainScreen() {
+        shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
+        shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, true)
+        backToMainScreen()
+    }
+
+    private fun prepareDate() {
+        viewModel.showProgressView()
         val dataModel = AreaModel()
         dataModel.areaName = areaName?.text.toString()
         dataModel.areaPhone = areaPhone?.text.toString()
@@ -104,31 +111,21 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
         dataModel.areaVans = getAreaVans(areaVan?.text.toString())
         dataModel.areaId = areaPhone?.text.toString()
 
-        //Save data
-        var areaModels: MutableList<AreaModel> = mutableListOf()
-
-        if (!shef!!.getFirstUserPref(MotorConstants.FIRST_USED))
-            areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-
-        areaModels.add(dataModel)
-        Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
-
-        shef!!.setFirstUserPref(MotorConstants.FIRST_USED, false)
-        shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, true)
-
-        backToMainScreen()
+        val isFirstUsed = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
+        viewModel.saveDataArea(isFirstUsed, dataModel)
     }
+
 
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
 
         var areaVans: MutableList<VanModel> = mutableListOf()
-        val van = VanModel()
+
         var numVan = vanSelected.substring(0, 1).toInt()
 
         for (i in 1..numVan) {
+            val van = VanModel()
             van.vanId = "0$i"
             van.vanStatus = false
-
             areaVans.add(van)
         }
         return areaVans
@@ -154,9 +151,9 @@ class AddAreaActivity : BaseActivity(), View.OnClickListener {
                 handler.post {
 
                     if (pStatus == timeTotal) {
-                        hideProgressDialog()
-                        MainActivity.show(this)
-                        finish()
+                        viewModel.hideProgressView()
+                        actionLeft()
+//                        finish()
                     }
                 }
                 try {

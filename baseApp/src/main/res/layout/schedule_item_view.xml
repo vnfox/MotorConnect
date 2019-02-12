@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_root"
+    style="@style/Widget.CardItem"
+    android:layout_margin="5dp"
+    android:background="@drawable/border_rect_bg"
+    android:minHeight="60dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_name"
+        style="@style/TextView.Screen.Title"
+        android:text="Area name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/txt_schedule"
+        style="@style/TextView.Screen.Description"
+        android:ellipsize="end"
+        android:text="Lich tuoi" />
+
+    <TextView
+        android:id="@+id/txt_van_number"
+        style="@style/TextView.Screen.Description"
+        android:ellipsize="end"
+        android:text="Van tuoi" />
+
+</LinearLayout>
+
+

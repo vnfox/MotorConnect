@@ -8,19 +8,17 @@
     </style>
 
     <style name="TextView.Screen.Title" parent="android:Widget.TextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/connect_text_size_title</item>
-        <item name="android:textColor">@color/color_black</item>
     </style>
 
     <style name="TextView.Screen.Description" parent="android:Widget.TextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/connect_text_size_description</item>
-        <item name="android:textColor">@color/color_black</item>
     </style>
 
     <style name="TextView.Screen.Menu" parent="android:Widget.TextView">
@@ -36,14 +34,53 @@
         <item name="android:textSize">@dimen/connect_text_size_error</item>
     </style>
 
+    <style name="TextView.Screen.Detail" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/connect_text_size_description</item>
+    </style>
 
 
     <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Widget.CardItem" parent="android:Widget">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">24dp</item>
-        <item name="android:paddingBottom">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
         <item name="android:orientation">vertical</item>
+    </style>
+
+
+    <style name="TransparentProgressDialog" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/color_grey_light</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textSize">@dimen/connect_text_size_title</item>
+    </style>
+
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/color_blue</item>
     </style>
 
 </resources>

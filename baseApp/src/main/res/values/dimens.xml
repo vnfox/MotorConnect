@@ -25,6 +25,7 @@
     <dimen name="actionbar_height">46dp</dimen>
     <dimen name="button_min_height">56dp</dimen>
 
+    <dimen name="connect_text_size_30">30sp</dimen>
     <dimen name="connect_text_size_36">36sp</dimen>
     <dimen name="connect_text_size_title">22sp</dimen>
     <dimen name="connect_text_size_description">16sp</dimen>
@@ -32,6 +33,7 @@
 
     <dimen name="connect_text_size_menu">16sp</dimen>
     <dimen name="connect_text_size_22">22sp</dimen>
+    <dimen name="connect_text_size_18">18sp</dimen>
     <dimen name="connect_text_size_16">16sp</dimen>
 
 
@@ -41,4 +43,9 @@
     <dimen name="curvedTextViewTextSize">15sp</dimen>
     <dimen name="curvedTextRadius">70dp</dimen>
     <dimen name="curvedTextPadding">3dp</dimen>
+
+    <!--Padding size-->
+    <dimen name="connect_margin_5">5dp</dimen>
+    <dimen name="connect_margin_10">10dp</dimen>
+    <dimen name="connect_margin_16">16dp</dimen>
 </resources>

@@ -25,11 +25,12 @@
 
             <ImageView
                 android:id="@+id/btn_action_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                app:srcCompat="@mipmap/ic_back_arrow" />
+                android:onClick="gotoPreviousScreen"
+                app:srcCompat="@mipmap/ic_back" />
 
             <TextView
                 android:id="@+id/txt_title"
@@ -49,13 +50,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:gravity="top"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt_area"
+                android:id="@+id/txt_area_setting"
                 style="@style/TextView.Screen.Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,10 +64,11 @@
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
+                android:onClick="openSettingScheduler"
                 android:minHeight="46dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Cài đặt lịch tưới khu vực" />
+                android:text="Cài đặt lịch tưới" />
 
 
             <TextView
@@ -79,6 +80,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
+                android:onClick="openConfigScreen"
                 android:gravity="center|left"
                 android:minHeight="46dp"
                 android:paddingLeft="20dp"
@@ -95,6 +97,7 @@
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
+                android:onClick="openNotedScreen"
                 android:minHeight="46dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
@@ -110,6 +113,7 @@
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
+                android:onClick="openHowToUseScreen"
                 android:minHeight="46dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
@@ -126,6 +130,7 @@
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
                 android:minHeight="46dp"
+                android:onClick="openHelpFeedbackScreen"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:text="Trợ giúp - Phản hồi" />
