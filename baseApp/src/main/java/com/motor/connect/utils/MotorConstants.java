@@ -4,10 +4,10 @@ import com.feature.area.BuildConfig;
 
 public class MotorConstants {
 
-    public static final String KEY_PUT_AREA = "PUT_AREA";
-    public static final String KEY_UPDATE_AREA = "UPDATE_AREA";
+    public static final String KEY_PUT_AREA_DETAIL = "PUT_AREA";
     public static final String KEY_PUT_AREA_LIST = "PUT_AREA_LIST";
-    public static final String KEY_UPDATE = "PUT_UPDATE";
+    public static final String KEY_EDIT_AREA = "EDIT_DATA_AREA";
+    public static final String KEY_POSITION = "KEY_POSITION";
     public static final String FIRST_USED = "FIRST_USED";
     public static final String KEY_TRIGGER_DATA = "KEY_TRIGGER_DATA";
     public static final String KEY_VANS_USED = "KEY_VANS_USED";
@@ -22,11 +22,8 @@ public class MotorConstants {
     public static final String WORK_DURATION_KEY =
             BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
 
-    // Todo remove UI Timeout
-    public static final int TIMEOUT_IDLE_DURATION_IN_SECONDS = 120;
-    public static final int TIMEOUT_COUNT_DOWN_30_SECONDS = 30;
-    public static final int TIMEOUT_API_REQUEST_IN_SECONDS = 60;
-    public static final int TIMEOUT_COUNT_DOWN_SESSION_EXPIRED_POP_UP = 15;
+    public static final int PERMISSION_REQUEST_CODE = 101;
+
 
 
     public class AreaCode {

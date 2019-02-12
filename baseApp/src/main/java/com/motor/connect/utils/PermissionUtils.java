@@ -29,14 +29,6 @@ public class PermissionUtils {
         return sharedPreferences.getBoolean(PREFS_FIRST_TIME_KEY, true);
     }
 
-    public static void setLaunchedFirstTime(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILE_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(PREFS_FIRST_TIME_KEY, false);
-        editor.apply();
-    }
-
     public static boolean isRuntimePermissionRequired() {
         return (Build.VERSION.SDK_INT >= 23);
     }

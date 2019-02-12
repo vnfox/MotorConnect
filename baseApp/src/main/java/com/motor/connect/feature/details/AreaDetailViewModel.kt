@@ -17,7 +17,7 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
 
     override fun initViewModel() {
 
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA)
+        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
 
         mView?.showLoadingView()
         //get data
@@ -36,7 +36,7 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     }
 
     fun updateInfoMotor() {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA)
+        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
         mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans),
                 StringUtil.getScheduleWorking(model.areaSchedule))
     }
@@ -113,5 +113,10 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
             }
         }
         return result!!
+    }
+
+    fun reloadDataWhenEdit() {
+        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        mView?.updateAreaInfoWhenEdit(model)
     }
 }

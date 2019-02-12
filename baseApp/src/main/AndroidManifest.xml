@@ -51,6 +51,8 @@
         <activity android:name="com.motor.connect.feature.setting.area.SettingAreaScheduleActivity"/>
         <activity android:name="com.motor.connect.feature.setting.van.SettingAreaVanActivity"/>
 
+        <activity android:name="com.motor.connect.feature.edit.EditAreaActivity"/>
+
         <activity android:name="com.motor.connect.feature.home.HomeActivity" />
 
 

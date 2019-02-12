@@ -42,8 +42,8 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
 
         //Adapter item click
         adapter = UserAdapter { areaModel, position ->
-
-            Hawk.put(MotorConstants.KEY_PUT_AREA, areaModel)
+            Hawk.put(MotorConstants.KEY_POSITION, position)
+            Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
             val intent = Intent(this, AreaDetailActivity::class.java)
             this.startActivity(intent)
         }
@@ -72,12 +72,12 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
-
     override fun onResume() {
         super.onResume()
-        if (shef!!.getTriggerData(MotorConstants.KEY_TRIGGER_DATA)) {
+        if (shef!!.getTriggerData(MotorConstants.KEY_TRIGGER_DATA) || shef!!.getUpdateData(MotorConstants.KEY_EDIT_AREA)) {
             viewModel.updateData()
             shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, false)
+            shef!!.setUpdateData(MotorConstants.KEY_EDIT_AREA, false)
         }
     }
 

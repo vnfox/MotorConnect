@@ -1,16 +1,20 @@
 package com.motor.connect.feature.details
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.Toolbar
+import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -18,9 +22,13 @@ import com.feature.area.R
 import com.feature.area.databinding.DetailViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.feature.edit.EditAreaActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.feature.setting.van.SettingAreaVanActivity
+import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.PermissionUtils
+import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.detail_view.*
 
 
@@ -41,6 +49,10 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     private val maxProgress: Int = 1800
     private var currentProgress: Int = 0
     private val handler = Handler()
+
+    private lateinit var needPermissions: MutableList<String>
+    private var smsPhone = String()
+    private var smsContent = String()
 
     override fun createViewModel(): AreaDetailViewModel {
         viewModel.mView = this
@@ -74,11 +86,26 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         return mBinding
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (shef!!.getUpdateData(MotorConstants.KEY_EDIT_AREA)) {
+            viewModel.reloadDataWhenEdit()
+        }
+    }
+
+    override fun updateAreaInfoWhenEdit(model: AreaModel) {
+        smsPhone = model.areaPhone
+        txt_area_name.text = model.areaName
+        txt_area_phone.text = model.areaPhone
+        txt_area_van.text = "So van " + model.areaVans.size.toString()
+    }
+
     override fun viewLoaded() {
         loadBackdrop()
     }
 
     override fun viewAreaInfo(model: AreaModel, schedules: String) {
+        smsPhone = model.areaPhone
         txt_area_name.text = model.areaName
         txt_area_phone.text = model.areaPhone
         txt_area_van.text = "So van " + model.areaVans.size.toString()
@@ -160,8 +187,9 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     fun reviewScheduleArea(v: View) {
-        //Send SMS
-        showUnderConstruction("reviewScheduleArea")
+        smsContent = "review scheduler prefix"
+        setupSchedulerDetail(smsContent)
+        bottomSheetDialog?.dismiss()
     }
 
     fun setupVanUsedArea(v: View) {
@@ -170,12 +198,14 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     fun scheduleStopArea(v: View) {
-        showUnderConstruction("scheduleStopArea")
+        smsContent = "stop scheduler prefix"
+        setupSchedulerDetail(smsContent)
         bottomSheetDialog?.dismiss()
     }
 
     fun editInfoArea(v: View) {
-        showUnderConstruction("editInfoArea")
+        EditAreaActivity.show(this)
+        bottomSheetDialog?.dismiss()
     }
 
     private fun onWorkingProgress() {
@@ -193,5 +223,38 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
                 }
             }
         }).start()
+    }
+
+    private fun setupSchedulerDetail(smsContent: String) {
+        //Send SMS
+        if (PermissionUtils.isGranted(this,
+                        Manifest.permission.SEND_SMS)) {
+            //Setup van used
+            onSendSms(smsContent)
+        } else {
+            //Add permission
+            needPermissions.add(Manifest.permission.SEND_SMS)
+            PermissionUtils.isPermissionsGranted(this, needPermissions.toTypedArray(), MotorConstants.PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
+        when (requestCode) {
+            MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
+                onSendSms(smsContent)
+            }
+        }
+    }
+
+    private fun onSendSms(smsContent: String) {
+        //Send sms in background
+        Toast.makeText(this, "=== onSendSms ====  ", Toast.LENGTH_LONG).show()
+        Log.d("hqdat", ">>> smsNumber  $smsPhone")
+        Log.d("hqdat", ">>> smsContent  $smsContent")
+
+        val smsManager = SmsManager.getDefault()
+        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
     }
 }

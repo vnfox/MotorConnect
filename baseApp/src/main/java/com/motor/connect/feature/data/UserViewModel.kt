@@ -1,6 +1,5 @@
 package com.motor.connect.feature.data
 
-import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
@@ -14,13 +13,18 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
     var dataArea: MutableList<AreaModel> = mutableListOf()
 
     override fun initViewModel() {
-        genFakeData()
+
+        genFakeData("01")
+        genFakeData("02")
+        genFakeData("03")
+        genFakeData("04")
+        genFakeData("05")
     }
 
-    private fun genFakeData() {
+    private fun genFakeData(id: String) {
         val model = AreaModel()
-        model.areaId = "01"
-        model.areaName = "Area Data kv1"
+        model.areaId = id
+        model.areaName = "Area Data $id"
         model.areaPhone = "0974818171"
         model.areaStatus = "dang hoat dong"
         model.areaType = "Admin"
@@ -29,6 +33,7 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
         model.timeRemain = 30 // count from schedule
         model.timeReminder = 60
         model.areaScheduleRepeat = "01"
+        model.areaDetails = "Khu vuon buoi 2 nam tuoi"
 
         dataArea.add(model)
 

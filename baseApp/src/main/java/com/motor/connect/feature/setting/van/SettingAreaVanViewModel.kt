@@ -12,16 +12,20 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 
 
     override fun initViewModel() {
-
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA)
+        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
 
         //Update UIS
         mView?.viewLoaded(model.areaVans)
 
     }
 
-    //Save data
+    //Todo Save data
     fun updateDataModel(areaVans: MutableList<VanModel>) {
 
+    }
+
+    fun getPhoneNumber(): String {
+        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        return model.areaPhone
     }
 }

@@ -12,4 +12,6 @@ interface AreaDetailView : ActionBarView {
     fun viewAreaInfo(model: AreaModel, schedules: String)
 
     fun updateInfoMotor(areaStatus: String?, vansUsed: String, scheduleWorking: String?)
+
+    fun updateAreaInfoWhenEdit(model: AreaModel)
 }

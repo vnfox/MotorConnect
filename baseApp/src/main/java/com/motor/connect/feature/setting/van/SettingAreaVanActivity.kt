@@ -1,18 +1,24 @@
 package com.motor.connect.feature.setting.van
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.GridLayoutManager
+import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.SettingAreaVanViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.VanModel
+import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.PermissionUtils
+import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.setting_area_van_view.*
-import java.lang.StringBuilder
 
 
 class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, SettingAreaVanViewModel>(), SettingAreaVanView {
@@ -22,6 +28,9 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
             context.startActivity(Intent(context, SettingAreaVanActivity::class.java))
         }
     }
+
+    private lateinit var needPermissions: MutableList<String>
+    private var vanUsed = StringBuilder()
 
     private val viewModel = SettingAreaVanViewModel(this, BaseModel())
     private var adapter: SettingAreaVanAdapter? = null
@@ -44,7 +53,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 1)
 
-
         viewModel.initViewModel()
 
         return mBinding
@@ -60,20 +68,50 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     }
 
     fun setupVanUsed(v: View) {
-        showUnderConstruction("setupVanUsed")
-        var countItem = adapter?.itemCount
         var listVans = adapter?.getDataView()
-        var stringVans = StringBuilder()
 
-
-        for (i in 0 ..listVans!!.size-1){
-            if(listVans!![i].vanStatus){
-                stringVans.append(listVans!![i].vanId).append(" ")
+        for (i in 0 until listVans!!.size) {
+            if (listVans!![i].vanStatus) {
+                vanUsed.append(listVans!![i].vanId).append(" ")
             }
         }
-
-        Log.d("hqdat",">>>  String  " + stringVans.toString().trim())
-
         //Send SMS
+        setupVanUsedDetail(vanUsed.toString())
+    }
+
+    private fun setupVanUsedDetail(smsContent: String) {
+        //Send SMS
+        if (PermissionUtils.isGranted(this,
+                        Manifest.permission.SEND_SMS)) {
+            //Setup van used
+            onSendSms(smsContent)
+        } else {
+            //Add permission
+            needPermissions.add(Manifest.permission.SEND_SMS)
+            PermissionUtils.isPermissionsGranted(this, needPermissions.toTypedArray(), MotorConstants.PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
+        when (requestCode) {
+            MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
+                onSendSms(vanUsed.toString())
+            }
+        }
+    }
+
+    private fun onSendSms(vanUsed: String) {
+        //Send sms in background
+        val smsNumber = viewModel.getPhoneNumber()
+        val smsText = "Prefix vs van used"
+
+        Toast.makeText(this, "=== onSendSms ====  ", Toast.LENGTH_LONG).show()
+        Log.d("hqdat", ">>> smsNumber  $smsNumber")
+        Log.d("hqdat", ">>> vanUsed  $vanUsed")
+
+        val smsManager = SmsManager.getDefault()
+        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
     }
 }

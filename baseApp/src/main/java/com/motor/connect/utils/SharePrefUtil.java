@@ -30,4 +30,13 @@ public class SharePrefUtil {
     public Boolean getTriggerData(String key) {
         return prefs.getBoolean(key, false);
     }
+
+    public void setUpdateData(String key, Boolean value) {
+        prefs.edit().putBoolean(key, value).apply();
+
+    }
+
+    public Boolean getUpdateData(String key) {
+        return prefs.getBoolean(key, false);
+    }
 }
