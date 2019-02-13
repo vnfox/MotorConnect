@@ -19,20 +19,33 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
         genFakeData("03")
         genFakeData("04")
         genFakeData("05")
+        genFakeData("06")
+        genFakeData("07")
     }
 
     private fun genFakeData(id: String) {
         val model = AreaModel()
+
+        when (id) {
+            "01" -> model.areaSchedule = "01 0601 030 01"
+            "02" -> model.areaSchedule = "02 0601 030 1600 090 02"
+            "03" -> model.areaSchedule = "03 0601 030 1100 060 1720 030 03"
+            "04" -> model.areaSchedule = "01 0601 030"
+            "05" -> model.areaSchedule = "02 0601 030 1600 090"
+            "06" -> model.areaSchedule = "03 0601 030 1100 060 1600 090"
+            "07" -> model.areaSchedule = ""
+        }
+
         model.areaId = id
         model.areaName = "Area Data $id"
         model.areaPhone = "0974818171"
         model.areaStatus = "dang hoat dong"
         model.areaType = "Admin"
-        model.areaSchedule = "03 0601 030 1100 060 1720 030 01"
         model.areaVans = getAreaVans("5 Van")
         model.timeRemain = 30 // count from schedule
+        // count from schedule
         model.timeReminder = 60
-        model.areaScheduleRepeat = "01"
+        model.areaScheduleRepeat = ""
         model.areaDetails = "Khu vuon buoi 2 nam tuoi"
 
         dataArea.add(model)

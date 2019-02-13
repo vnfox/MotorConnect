@@ -14,6 +14,7 @@ import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.utils.MotorConstants
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.setting_schedule_activity.*
 
 
@@ -42,6 +43,8 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         adapter = SettingScheduleAdapter { areaModel, position ->
 
             //Setting schedule area
+            Hawk.put(MotorConstants.KEY_POSITION, position)
+            Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
             SettingAreaScheduleActivity.show(this)
         }
 

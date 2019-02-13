@@ -47,10 +47,14 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         else
             holder.status.text = "Trạng thái: " + areas[position].areaStatus
 
-        if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
+        if (StringUtils.isNullOrEmpty(areas[position].areaSchedule)) {
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
-        else
+            holder.repeat.visibility = View.GONE
+        } else {
             holder.schedule.text = "Lịch tuới: ngày tưới " + StringUtil.getCountWorkingDay(areas[position].areaSchedule) + " lần"
+            holder.repeat.visibility = View.VISIBLE
+            holder.repeat.text = StringUtil.getScheduleRepeatDay(areas[position].areaSchedule)
+        }
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -60,5 +64,7 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         var status: TextView = itemView.findViewById(R.id.txt_status) as TextView
         var vanused: TextView = itemView.findViewById(R.id.txt_van_number) as TextView
         var schedule: TextView = itemView.findViewById(R.id.txt_schedule) as TextView
+        var repeat: TextView = itemView.findViewById(R.id.txt_repeat) as TextView
+
     }
 }

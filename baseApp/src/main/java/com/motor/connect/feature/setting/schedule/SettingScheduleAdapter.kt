@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.feature.area.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.utils.StringUtil
 import com.motor.connect.utils.StringUtils
 
 class SettingScheduleAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
@@ -36,12 +37,12 @@ class SettingScheduleAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerVi
             onClick(areas[position], position)
         }
         (holder as ItemViewHolder).name.text = areas[position].areaName
-        holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
+        holder.vanused.text = "Sử dụng: " + areas[position].areaVans.size.toString() + " van"
 
         if (StringUtils.isNullOrEmpty(areas[position].areaSchedule))
-            holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
+            holder.schedule.text = "Chưa cài đặt lịch tưới"
         else
-            holder.schedule.text = "Lịch tưới: $areas[position].areaSchedule"
+            holder.schedule.text = "Ngày tưới " + StringUtil.getCountWorkingDay(areas[position].areaSchedule) + " lần"
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
