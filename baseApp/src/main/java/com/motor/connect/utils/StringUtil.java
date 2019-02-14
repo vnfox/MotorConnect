@@ -164,4 +164,47 @@ public class StringUtil {
         result.append(content);
         return result.toString().trim();
     }
+
+    public static String prepareSmsStopAllSchedule(String password) {
+        StringBuilder result = new StringBuilder();
+        result.append(MotorConstants.AreaCode.PREFIX_STOP);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
+        result.append(MotorConstants.AreaCode.STOP_ALL);
+        return result.toString().trim();
+    }
+
+    public static String prepareSmsStopSchedule(String password, String areaId) {
+        StringBuilder result = new StringBuilder();
+        result.append(MotorConstants.AreaCode.PREFIX_STOP);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
+        result.append(areaId);
+        return result.toString().trim();
+    }
+
+    public static String prepareSmsReviewSchedule(String password, String areaId) {
+        StringBuilder result = new StringBuilder();
+        result.append(MotorConstants.AreaCode.PREFIX_REVIEW_SCHEDULER);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
+        result.append(areaId);
+        return result.toString().trim();
+    }
+
+    @NotNull
+    public static String prepareSmsVanAreaUsed(String password, @NotNull String areaId, int countVan, @NotNull String vanUsed) {
+        StringBuilder result = new StringBuilder();
+        result.append(MotorConstants.AreaCode.PREFIX_VAN_USED);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
+        result.append(areaId).append(" ");
+        result.append("0" + countVan).append(" ");
+        result.append(vanUsed);
+        return result.toString().trim();
+    }
 }

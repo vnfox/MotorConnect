@@ -29,7 +29,7 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
         when (id) {  //02783920657927473
             "01" -> {
                 model.areaSchedule = "01 0601 030 01"
-                model.areaPhone = "0906383956"
+                model.areaPhone = "0352248726"
             }
             "02" -> {
                 model.areaSchedule = "02 0601 030 1600 090 02"
@@ -37,7 +37,7 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
             }
             "03" -> {
                 model.areaSchedule = "03 0601 030 1100 060 1720 030 03"
-                model.areaPhone = "0902925910"
+                model.areaPhone = "+9221"
             }
             "04" -> {
                 model.areaSchedule = "01 0601 030"

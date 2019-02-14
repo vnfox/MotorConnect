@@ -1,10 +1,16 @@
 package com.motor.connect.feature.setting.schedule
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.telephony.SmsManager
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.SettingScheduleActivityBinding
 import com.motor.connect.base.BaseModel
@@ -13,12 +19,17 @@ import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
+import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.PermissionUtils
+import com.motor.connect.utils.StringUtil
 import com.orhanobut.hawk.Hawk
+import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.setting_schedule_activity.*
 
 
-class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding, SettingScheduleViewModel>(), SettingScheduleView {
+class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding, SettingScheduleViewModel>(),
+        SettingScheduleView, DialogHelper.AlertDialogListener {
 
     companion object {
         fun show(context: Context) {
@@ -29,6 +40,8 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
     private val viewModel = SettingScheduleViewModel(this, BaseModel())
     private var adapter: SettingScheduleAdapter? = null
 
+    private var alertDialogHelper: DialogHelper? = null
+    private lateinit var needPermissions: MutableList<String>
 
     override fun createViewModel(): SettingScheduleViewModel {
         viewModel.mView = this
@@ -90,7 +103,51 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         AddAreaActivity.show(this)
     }
 
-    fun openSettingAllArea(v: View) {
-        showUnderConstruction("Setting all Area")
+    fun stopScheduleAllArea(v: View) {
+        alertDialogHelper = DialogHelper(this)
+        alertDialogHelper?.showAlertDialog(getString(R.string.sms_warning),
+                getString(R.string.setting_schedule_off_description),
+                getString(R.string.btn_accept), getString(R.string.btn_huy), false)
+    }
+
+    override fun onPositiveClick() {
+        //Send Sms
+        setupSchedulerDetail()
+    }
+
+    override fun onNegativeClick() {
+        //do nothing
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
+        when (requestCode) {
+            MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                onSendSms()
+            }
+        }
+    }
+
+    private fun setupSchedulerDetail() {
+        if (PermissionUtils.isGranted(this,
+                        Manifest.permission.SEND_SMS)) {
+            //Setup van used
+            onSendSms()
+        } else {
+            //Add permission
+            needPermissions.add(Manifest.permission.SEND_SMS)
+            PermissionUtils.isPermissionsGranted(this, needPermissions.toTypedArray(), MotorConstants.PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    private fun onSendSms() {
+        var smsPhone = viewModel.getPhoneArea()
+        var smsContent = StringUtil.prepareSmsStopAllSchedule(viewModel.getPassWordArea())
+        //Send sms in background
+        Log.d("hqdat", ">>> smsNumber  $smsPhone")
+        Log.d("hqdat", ">>> smsContent  $smsContent")
+
+        //Todo open comment when completed
+        val smsManager = SmsManager.getDefault()
+//        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
     }
 }

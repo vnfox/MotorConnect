@@ -15,6 +15,7 @@ public class AreaModel {
     private String areaScheduleRepeat;
     private int timeReminder;
     private int timeRemain;
+    private String password = "1234";
 
     public String getAreaId() {
         return areaId;
@@ -102,5 +103,13 @@ public class AreaModel {
 
     public void setTimeRemain(int timeRemain) {
         this.timeRemain = timeRemain;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

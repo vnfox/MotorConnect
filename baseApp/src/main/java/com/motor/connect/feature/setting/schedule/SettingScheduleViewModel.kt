@@ -32,4 +32,18 @@ class SettingScheduleViewModel(mView: SettingScheduleView?, mModel: BaseModel)
     fun stopUpdates() {
 
     }
+
+    fun getPhoneArea(): String {
+        return if (dataArea.isEmpty()) ""
+        else {
+            dataArea[0].areaPhone
+        }
+    }
+
+    fun getPassWordArea(): String {
+        return if (dataArea.isEmpty()) ""
+        else {
+            dataArea[0].password
+        }
+    }
 }

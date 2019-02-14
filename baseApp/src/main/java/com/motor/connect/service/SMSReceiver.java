@@ -56,8 +56,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
     public void onShowDialog(Context context, String content) {
         String title = context.getString(R.string.sms_receiver_title);
-
         DialogHelper dialogHelper = new DialogHelper(context);
-        dialogHelper.showAlertDialog(title, content, context.getString(R.string.string_OK), false);
+        dialogHelper.showAlertDialog(title, content, context.getString(R.string.btn_accept), false);
     }
 }

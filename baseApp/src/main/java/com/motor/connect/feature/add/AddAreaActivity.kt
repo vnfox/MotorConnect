@@ -94,7 +94,6 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         dataModel.areaPhone = areaPhone?.text.toString()
         dataModel.areaDetails = areaDetail?.text.toString()
         dataModel.areaVans = getAreaVans(areaVan?.text.toString())
-        dataModel.areaId = areaPhone?.text.toString()
 
         val isFirstUsed = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.saveDataArea(isFirstUsed, dataModel)

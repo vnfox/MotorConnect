@@ -30,6 +30,7 @@ import com.motor.connect.feature.setting.van.SettingAreaVanActivity
 import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.PermissionUtils
+import com.motor.connect.utils.StringUtil
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.detail_view.*
 
@@ -191,7 +192,8 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     fun reviewScheduleArea(v: View) {
-        smsContent = "review scheduler prefix"
+        smsContent = StringUtil.prepareSmsReviewSchedule(viewModel.getPassWordArea(), viewModel.getAreaId())
+
         showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_review_schedule_content))
         bottomSheetDialog?.dismiss()
     }
@@ -202,7 +204,8 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     fun scheduleStopArea(v: View) {
-        smsContent = "stop scheduler prefix"
+        smsContent = StringUtil.prepareSmsStopSchedule(viewModel.getPassWordArea(), viewModel.getAreaId())
+
         showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_stop_schedule_content))
         bottomSheetDialog?.dismiss()
     }
@@ -271,6 +274,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         Log.d("hqdat", ">>> smsNumber  $smsPhone")
         Log.d("hqdat", ">>> smsContent  $smsContent")
 
+        //Todo open comment when completed
         val smsManager = SmsManager.getDefault()
 //        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
     }

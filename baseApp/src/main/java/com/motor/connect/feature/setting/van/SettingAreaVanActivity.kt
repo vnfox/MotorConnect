@@ -17,6 +17,7 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.PermissionUtils
+import com.motor.connect.utils.StringUtil
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.setting_area_van_view.*
 
@@ -31,6 +32,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
     private lateinit var needPermissions: MutableList<String>
     private var vanUsed = StringBuilder()
+    private var countVan = 0
 
     private val viewModel = SettingAreaVanViewModel(this, BaseModel())
     private var adapter: SettingAreaVanAdapter? = null
@@ -73,6 +75,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         for (i in 0 until listVans!!.size) {
             if (listVans!![i].vanStatus) {
                 vanUsed.append(listVans!![i].vanId).append(" ")
+                countVan++
             }
         }
         //Send SMS
@@ -105,13 +108,14 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     private fun onSendSms(vanUsed: String) {
         //Send sms in background
         val smsNumber = viewModel.getPhoneNumber()
-        val smsText = "Prefix vs van used"
+        val smsText = StringUtil.prepareSmsVanAreaUsed(viewModel.getPassWordArea(), viewModel.getAreaId(), countVan, vanUsed)
 
-        Toast.makeText(this, "=== onSendSms ====  ", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "=== onSendSms ====  $countVan", Toast.LENGTH_LONG).show()
         Log.d("hqdat", ">>> smsNumber  $smsNumber")
-        Log.d("hqdat", ">>> vanUsed  $vanUsed")
+        Log.d("hqdat", ">>> vanUsed  $smsText")
 
+        //Todo open comment when completed
         val smsManager = SmsManager.getDefault()
-        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+//        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
     }
 }

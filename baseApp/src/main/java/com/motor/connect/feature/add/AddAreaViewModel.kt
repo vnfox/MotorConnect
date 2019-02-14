@@ -21,11 +21,17 @@ class AddAreaViewModel(mView: AddAreaView?, mModel: BaseModel)
     }
 
     fun saveDataArea(isFirstUsed: Boolean?, dataModel: AreaModel) {
-
+        var id = "01"
         var areaModels: MutableList<AreaModel> = mutableListOf()
         if (!isFirstUsed!!) {
             areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+
+            id = if (areaModels.size < 9)
+                "0" + areaModels.size + 1
+            else
+                (areaModels.size + 1).toString()
         }
+        dataModel.areaId = id
         areaModels.add(dataModel)
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
 

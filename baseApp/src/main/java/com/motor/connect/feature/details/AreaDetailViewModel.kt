@@ -15,9 +15,11 @@ import java.util.*
 class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     : BaseViewModel<AreaDetailView, BaseModel>(mView, mModel) {
 
+    var model = AreaModel()
+
     override fun initViewModel() {
 
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
 
         mView?.showLoadingView()
         //get data
@@ -116,7 +118,15 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     }
 
     fun reloadDataWhenEdit() {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
         mView?.updateAreaInfoWhenEdit(model)
+    }
+
+    fun getPassWordArea(): String {
+        return model.password
+    }
+
+    fun getAreaId(): String {
+        return model.areaId
     }
 }

@@ -25,23 +25,30 @@ public class MotorConstants {
     public static final int PERMISSION_REQUEST_CODE = 101;
 
 
-
     public class AreaCode {
         private AreaCode() {
             // do nothing
         }
 
-        public static final int AREA_CODE_1 = 1000;
-        public static final int AREA_CODE_2 = 1001;
 
         public static final String PREFIX_REPEAT = "De";
         public static final String PREFIX_NONE_REPEAT = "Dn";
+        public static final String PREFIX_STOP = "Do";
+        public static final String PREFIX_CHANGE_PASSWORD = "Pass";
+        public static final String PREFIX_SET_DEFAULT = "Re";
+        public static final String PREFIX_REVIEW_SCHEDULER = "Dr";
+        public static final String PREFIX_AUTO_SEND_SCHEDULER = "Ds";
+        public static final String PREFIX_VAN_USED = "Dv";
+        public static final String PREFIX_OPEN = "Co";
+        public static final String STOP_ALL = "00";
 
     }
+
     public class VanCode {
         private VanCode() {
             // do nothing
         }
+
 
         public static final int VAN_CODE_1 = 1000;
         public static final int VAN_CODE_2 = 1001;

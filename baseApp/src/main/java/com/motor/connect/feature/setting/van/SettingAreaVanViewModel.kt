@@ -10,22 +10,25 @@ import com.orhanobut.hawk.Hawk
 class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
     : BaseViewModel<SettingAreaVanView, BaseModel>(mView, mModel) {
 
+    var model = AreaModel()
 
     override fun initViewModel() {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
 
         //Update UIS
         mView?.viewLoaded(model.areaVans)
 
     }
 
-    //Todo Save data
-    fun updateDataModel(areaVans: MutableList<VanModel>) {
-
+    fun getPhoneNumber(): String {
+        return model.areaPhone
     }
 
-    fun getPhoneNumber(): String {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
-        return model.areaPhone
+    fun getAreaId(): String {
+        return model.areaId
+    }
+
+    fun getPassWordArea(): String {
+        return model.password
     }
 }

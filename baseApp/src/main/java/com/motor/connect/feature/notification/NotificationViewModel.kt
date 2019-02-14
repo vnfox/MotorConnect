@@ -54,9 +54,9 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
                 sms.add(smsModel)
 
             //Get 30 sms lasted
-//            if (sms.size == 50) {
-//                return verifyContactArea(sms)
-//            }
+            if (sms.size == 50) {
+                return verifyContactArea(sms)
+            }
         }
         cur?.close()
         return verifyContactArea(sms)
