@@ -12,16 +12,22 @@ import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.feature.area.R
 import com.feature.area.databinding.HomeViewBinding
 import com.motor.connect.base.view.BaseActivity
-import com.motor.connect.utils.StringUtil
+import com.motor.connect.utils.DialogHelper
 
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity(), DialogHelper.AlertDialogListener {
+
 
     companion object {
         fun show(context: Context) {
             context.startActivity(Intent(context, HomeActivity::class.java))
         }
     }
+
+    var alertDialogHelper: DialogHelper? = null
+
+//    private var alertDialog = AlertDialog.Builder(this)
+//    private val dialogListener: DialogListener? = null
 
     private val viewModel = HomeViewModel()
     private var circularProgress: CircularProgressIndicator? = null
@@ -73,12 +79,23 @@ class HomeActivity : BaseActivity() {
         val onTest = findViewById<Button>(R.id.btn_test)
         onTest.setOnClickListener {
 
-            val string = "01 03 0601 030 1100 060 1600 090 01"
-            arrStrings = StringUtil.getCheckSchedule(string)
-
-            Log.d("hqdat", "== StringUtil>>>>>> " + arrStrings?.size)
-            Log.d("hqdat", "== item>>>>>> " + arrStrings?.get(2))
+            showDialog()
         }
+    }
+
+    private fun showDialog() {
+        alertDialogHelper = DialogHelper(this)
+
+        alertDialogHelper?.showAlertDialog("Title", "Content Description", "Discard", "Cancel", false)
+    }
+
+    override fun onPositiveClick() {
+        Log.d("hqdat", "== onPositiveClick>>>>>> ")
+
+    }
+
+    override fun onNegativeClick() {
+        Log.d("hqdat", "== onNegativeClick>>>>>> ")
     }
 
     private fun onDemoFunction() {

@@ -2,6 +2,7 @@ package com.motor.connect.feature.details
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -26,13 +27,14 @@ import com.motor.connect.feature.edit.EditAreaActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.feature.setting.van.SettingAreaVanActivity
+import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.PermissionUtils
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.detail_view.*
 
 
-class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewModel>(), AreaDetailView {
+class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewModel>(), AreaDetailView, DialogHelper.AlertDialogListener {
 
     companion object {
         fun show(context: Context) {
@@ -53,6 +55,8 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     private lateinit var needPermissions: MutableList<String>
     private var smsPhone = String()
     private var smsContent = String()
+
+    private var alertDialogHelper: DialogHelper? = null
 
     override fun createViewModel(): AreaDetailViewModel {
         viewModel.mView = this
@@ -188,7 +192,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     fun reviewScheduleArea(v: View) {
         smsContent = "review scheduler prefix"
-        setupSchedulerDetail(smsContent)
+        showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_review_schedule_content))
         bottomSheetDialog?.dismiss()
     }
 
@@ -199,13 +203,28 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     fun scheduleStopArea(v: View) {
         smsContent = "stop scheduler prefix"
-        setupSchedulerDetail(smsContent)
+        showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_stop_schedule_content))
         bottomSheetDialog?.dismiss()
     }
 
     fun editInfoArea(v: View) {
         EditAreaActivity.show(this)
         bottomSheetDialog?.dismiss()
+    }
+
+    private fun showDialogConfirm(title: String, description: String) {
+
+        alertDialogHelper = DialogHelper(this)
+        alertDialogHelper?.showAlertDialog(title, description, getString(R.string.btn_accept), getString(R.string.btn_huy), false)
+    }
+
+    override fun onPositiveClick() {
+        //Send Sms
+        setupSchedulerDetail(smsContent)
+    }
+
+    override fun onNegativeClick() {
+        //do nothing
     }
 
     private fun onWorkingProgress() {
@@ -241,8 +260,6 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
             MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
                 onSendSms(smsContent)
             }
         }
@@ -250,11 +267,11 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     private fun onSendSms(smsContent: String) {
         //Send sms in background
-        Toast.makeText(this, "=== onSendSms ====  ", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "=== onSendSms ====  $smsContent", Toast.LENGTH_LONG).show()
         Log.d("hqdat", ">>> smsNumber  $smsPhone")
         Log.d("hqdat", ">>> smsContent  $smsContent")
 
         val smsManager = SmsManager.getDefault()
-        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
+//        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
     }
 }

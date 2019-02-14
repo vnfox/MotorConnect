@@ -1,6 +1,5 @@
 package com.motor.connect.feature.setting.schedule
 
-import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
@@ -17,7 +16,6 @@ class SettingScheduleViewModel(mView: SettingScheduleView?, mModel: BaseModel)
     }
 
     fun initData(isFirst: Boolean?) {
-        Log.d("hqdat", "===  isFirst =   $isFirst")
         if (isFirst!!) {
             mView?.showEmptyView()
         } else {

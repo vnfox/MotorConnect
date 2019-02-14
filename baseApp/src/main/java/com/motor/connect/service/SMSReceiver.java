@@ -10,6 +10,9 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.feature.area.R;
+import com.motor.connect.utils.DialogHelper;
+
 public class SMSReceiver extends BroadcastReceiver {
 
     public static final String pdu_type = "pdus";
@@ -43,9 +46,18 @@ public class SMSReceiver extends BroadcastReceiver {
                 strMessage += "SMS from " + msgs[i].getOriginatingAddress();
                 strMessage += " :" + msgs[i].getMessageBody() + "\n";
                 // Log and display the SMS message.
-                Log.d("hqdat", "onReceive: " + strMessage);
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+
+                onShowDialog(context, strMessage);
+
             }
         }
+    }
+
+    public void onShowDialog(Context context, String content) {
+        String title = context.getString(R.string.sms_receiver_title);
+
+        DialogHelper dialogHelper = new DialogHelper(context);
+        dialogHelper.showAlertDialog(title, content, context.getString(R.string.string_OK), false);
     }
 }

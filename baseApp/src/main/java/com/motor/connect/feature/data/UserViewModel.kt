@@ -26,19 +26,40 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
     private fun genFakeData(id: String) {
         val model = AreaModel()
 
-        when (id) {
-            "01" -> model.areaSchedule = "01 0601 030 01"
-            "02" -> model.areaSchedule = "02 0601 030 1600 090 02"
-            "03" -> model.areaSchedule = "03 0601 030 1100 060 1720 030 03"
-            "04" -> model.areaSchedule = "01 0601 030"
-            "05" -> model.areaSchedule = "02 0601 030 1600 090"
-            "06" -> model.areaSchedule = "03 0601 030 1100 060 1600 090"
-            "07" -> model.areaSchedule = ""
+        when (id) {  //02783920657927473
+            "01" -> {
+                model.areaSchedule = "01 0601 030 01"
+                model.areaPhone = "0906383956"
+            }
+            "02" -> {
+                model.areaSchedule = "02 0601 030 1600 090 02"
+                model.areaPhone = "0947818171"
+            }
+            "03" -> {
+                model.areaSchedule = "03 0601 030 1100 060 1720 030 03"
+                model.areaPhone = "0902925910"
+            }
+            "04" -> {
+                model.areaSchedule = "01 0601 030"
+                model.areaPhone = "0907021007"
+            }
+            "05" -> {
+                model.areaSchedule = "02 0601 030 1600 090"
+                model.areaPhone = "0942983969"
+            }
+            "06" -> {
+                model.areaSchedule = "03 0601 030 1100 060 1600 090"
+                model.areaPhone = "0982060035"
+            }
+            "07" -> {
+                model.areaSchedule = ""
+                model.areaPhone = "195"
+            }
         }
 
         model.areaId = id
         model.areaName = "Area Data $id"
-        model.areaPhone = "0974818171"
+
         model.areaStatus = "dang hoat dong"
         model.areaType = "Admin"
         model.areaVans = getAreaVans("5 Van")

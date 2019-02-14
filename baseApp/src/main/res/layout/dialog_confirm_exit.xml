@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_dark">
+
+    <LinearLayout
+        android:layout_width="@dimen/default_dialog_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/connect_margin_16"
+            app:srcCompat="@drawable/ic_information" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/TextView.Screen.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/sms_warning_title" />
+
+        <TextView
+            android:id="@+id/txt_description"
+            style="@style/TextView.Screen.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/sms_exit_content" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_btn_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:minWidth="80dp"
+                android:onClick="onCancelClick"
+                android:text="Huy" />
+
+            <TextView
+                android:id="@+id/tv_btn_yes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onAcceptClick"
+                android:text="Chap Nhan" />/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -14,12 +14,13 @@ import com.motor.connect.feature.home.HomeActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
+import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), MainAreaView {
+class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), MainAreaView, DialogHelper.AlertDialogListener {
 
     companion object {
         fun show(context: Context) {
@@ -86,6 +87,15 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         super.onDestroy()
     }
 
+    override fun onBackPressed() {
+        var title = getString(R.string.sms_warning_title)
+        var content = getString(R.string.sms_exit_content)
+
+        var alertDialogHelper: DialogHelper?
+        alertDialogHelper = DialogHelper(this)
+        alertDialogHelper?.showAlertDialog(title, content, getString(R.string.btn_accept), getString(R.string.btn_huy), false)
+    }
+
     fun openEmptyScreen(v: View) {
         AddAreaActivity.show(this)
     }
@@ -104,5 +114,13 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
 
     fun openSettingScreen(v: View) {
         SettingActivity.show(this)
+    }
+
+    override fun onPositiveClick() {
+        this.finish()
+    }
+
+    override fun onNegativeClick() {
+        //do nothing
     }
 }

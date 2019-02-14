@@ -4,6 +4,7 @@ package com.motor.connect.base.view
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.motor.connect.utils.SharePrefUtil
@@ -14,13 +15,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     var shef: SharePrefUtil? = null
     private var progressDialog: ProgressDialog? = null
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Hawk.init(this).build()
         this.shef = SharePrefUtil(this)
         progressDialog = ProgressDialog(this)
-
     }
 
     fun showUnderConstruction(methodName: String) {
@@ -45,5 +46,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun hideProgressDialog() {
         progressDialog?.dismiss()
+    }
+
+    fun showDialogaaa() {
+        AlertDialog.Builder(this)
+                .setTitle("Choose idea")
+                .setMessage("Show Dialog sample")
+                .setPositiveButton("Ok", null)
+                .setNegativeButton("Cancel", null)
+                .show()
     }
 }
