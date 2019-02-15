@@ -13,11 +13,6 @@
     <string name="sms_all_area_off">KV Tat</string>
     <string name="sms_warning">Thông Báo</string>
 
-
-    <string name="add_input_name_empty">Vui lòng nhập tên khu vực</string>
-    <string name="add_input_phone_empty">Vui lòng nhập số điện thoại</string>
-    <string name="add_number_van_used">Số van sử dụng</string>
-
     <string name="home_area_empty">Thêm\nKhu Vực</string>
     <string name="setting_time_working">Thời gian hoạt động</string>
 
@@ -33,7 +28,7 @@
     <string name="sms_receiver_title">Bạn Thông Báo Mới</string>
     <string name="sms_receiver_empty">Không có thông báo mới</string>
 
-
+    <!--Setting-->
     <string name="setting_schedule_title">Cài Đặt Lich Tưới</string>
     <string name="setting_schedule_off_all_area">Ngắt tưới trong ngày cho tất\ncả khu vực</string>
     <string name="setting_schedule_off_description">Tính năng này sẽ ngắt tưới tiêu trong ngày cho tất cả khu vực</string>
@@ -43,4 +38,38 @@
     <string name="setting_schedule_in_day">Ngắt lịch tưới trong ngày</string>
     <string name="setting_edit_info_area">Sửa thông tin</string>
     <string name="setting_title">Cài Đặt</string>
+
+    <!--Setting Schedule Area-->
+    <string name="schedule_title">Số lần tưới trong ngày</string>
+    <string name="schedule_one">1 lần</string>
+    <string name="schedule_two">2 lần</string>
+    <string name="schedule_three">3 lần</string>
+    <string name="schedule_repeat">Lịch tưới lập lại</string>
+    <string name="schedule_repeat_none">không</string>
+    <string name="schedule_repeat_one">1 ngày</string>
+    <string name="schedule_repeat_two">2 ngày</string>
+    <string name="schedule_repeat_three">3 ngày</string>
+    <string name="schedule_first">Lần 1</string>
+    <string name="schedule_start">Bắt đầu</string>
+    <string name="schedule_running">Hoạt động</string>
+    <string name="schedule_second">Lần 2</string>
+    <string name="schedule_third">Lần 3</string>
+    <string name="schedule_time_schedule_run">Thời gian hoạt động từ 05h đến 17h</string>
+    <string name="schedule_settup_schedule">Thiết Lập Lịch Tưới</string>
+
+    <!--Add Area-->
+    <string name="add_area_title">Thêm Khu Vực Tưới</string>
+    <string name="add_area_name">Tên khu vực</string>
+    <string name="add_area_phone">Số điện thoại</string>
+    <string name="add_area_van_use">Số van sử dụng</string>
+    <string name="add_area_detail">Mô tả khu vưc tưới</string>
+    <string name="add_area_submit">LƯU THÔNG TIN</string>
+    <string name="add_input_name_empty">Vui lòng nhập tên khu vực</string>
+    <string name="add_input_phone_empty">Vui lòng nhập số điện thoại</string>
+    <string name="setting_system">Cài đặt hệ thống</string>
+    <string name="setting_note">Ghi chú</string>
+    <string name="setting_how_use">Hướng dẫn sử dụng</string>
+    <string name="setting_help_feedback">Trợ giúp - Phản hồi</string>
+    <string name="setting_how_to_use">Hướng Dẫn Sử Dụng</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.main
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
-import com.motor.connect.feature.home.HomeActivity
+import com.motor.connect.feature.demo.DemoActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
@@ -101,7 +101,7 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
     }
 
     fun openMainScreen(v: View) {
-        HomeActivity.show(this)
+        DemoActivity.show(this)
     }
 
     fun openAddAreaScreen(v: View) {

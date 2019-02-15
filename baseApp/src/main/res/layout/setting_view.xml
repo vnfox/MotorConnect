@@ -1,5 +1,5 @@
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center|left"
-                android:text="Cài Đặt" />
+                android:text="@string/setting_title" />
 
         </LinearLayout>
 
@@ -57,73 +57,63 @@
             <TextView
                 android:id="@+id/txt_area_setting"
                 style="@style/TextView.Screen.Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
-                android:onClick="openSettingScheduler"
                 android:minHeight="46dp"
+                android:onClick="openSettingScheduler"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Cài đặt lịch tưới" />
+                android:text="@string/setting_schedule" />
 
 
             <TextView
                 android:id="@+id/txt_config"
                 style="@style/TextView.Screen.Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
-                android:onClick="openConfigScreen"
                 android:gravity="center|left"
                 android:minHeight="46dp"
+                android:onClick="openConfigScreen"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Cài đặt hệ thống" />
+                android:text="@string/setting_system" />
 
             <TextView
                 android:id="@+id/txt_note"
                 style="@style/TextView.Screen.Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
-                android:onClick="openNotedScreen"
                 android:minHeight="46dp"
+                android:onClick="openNotedScreen"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Ghi chú" />
+                android:text="@string/setting_note" />
 
             <TextView
                 android:id="@+id/txt_how_use"
                 style="@style/TextView.Screen.Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
                 android:drawableRight="@mipmap/ic_next_arrow"
                 android:gravity="center|left"
-                android:onClick="openHowToUseScreen"
                 android:minHeight="46dp"
+                android:onClick="openHowToUseScreen"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Hướng dẫn sử dụng" />
+                android:text="@string/setting_how_use" />
 
             <TextView
                 android:id="@+id/txt_help"
                 style="@style/TextView.Screen.Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
@@ -133,7 +123,7 @@
                 android:onClick="openHelpFeedbackScreen"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
-                android:text="Trợ giúp - Phản hồi" />
+                android:text="@string/setting_help_feedback" />
 
         </LinearLayout>
     </LinearLayout>

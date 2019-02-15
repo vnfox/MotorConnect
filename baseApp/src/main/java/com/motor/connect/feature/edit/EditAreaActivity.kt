@@ -106,7 +106,7 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
     private fun selectVanView() {
         var items = resources.getStringArray(R.array.number_van_choice)
         AlertDialog.Builder(this)
-                .setTitle(getString(R.string.add_number_van_used))
+                .setTitle(getString(R.string.add_area_van_use))
                 .setSingleChoiceItems(items, 0) { _, i ->
 
                     areaVan?.text = items[i].toString()

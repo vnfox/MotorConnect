@@ -9,18 +9,22 @@ import com.orhanobut.hawk.Hawk
 class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: BaseModel)
     : BaseViewModel<SettingAreaScheduleView, BaseModel>(mView, mModel) {
 
+    var model = AreaModel()
     override fun initViewModel() {
         //Check data => show UI
+        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
         mView?.viewLoaded()
     }
 
     fun getAreaId(): String {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
         return model.areaId
     }
 
     fun getAreaPhone(): String {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
         return model.areaPhone
+    }
+
+    fun getAreaPassWord(): String {
+        return model.password
     }
 }

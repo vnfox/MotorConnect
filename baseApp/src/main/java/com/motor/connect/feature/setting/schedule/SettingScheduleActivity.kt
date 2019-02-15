@@ -6,17 +6,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.SettingScheduleActivityBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
-import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
 import com.motor.connect.utils.DialogHelper
@@ -76,7 +73,6 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
     override fun showEmptyView() {
         setting_container.visibility = View.GONE
         txt_empty.visibility = View.VISIBLE
-
     }
 
     override fun updateUI(dataArea: MutableList<AreaModel>) {

@@ -1,4 +1,4 @@
-package com.motor.connect.feature.home
+package com.motor.connect.feature.demo
 
 import android.content.Context
 import android.content.Intent
@@ -15,12 +15,12 @@ import com.motor.connect.base.view.BaseActivity
 import com.motor.connect.utils.DialogHelper
 
 
-class HomeActivity : BaseActivity(), DialogHelper.AlertDialogListener {
+class DemoActivity : BaseActivity(), DialogHelper.AlertDialogListener {
 
 
     companion object {
         fun show(context: Context) {
-            context.startActivity(Intent(context, HomeActivity::class.java))
+            context.startActivity(Intent(context, DemoActivity::class.java))
         }
     }
 
@@ -29,7 +29,7 @@ class HomeActivity : BaseActivity(), DialogHelper.AlertDialogListener {
 //    private var alertDialog = AlertDialog.Builder(this)
 //    private val dialogListener: DialogListener? = null
 
-    private val viewModel = HomeViewModel()
+    private val viewModel = DemoViewModel()
     private var circularProgress: CircularProgressIndicator? = null
 
     private val timeTotal: Int = 1800

@@ -157,9 +157,13 @@ public class StringUtil {
         return result.toString().trim();
     }
 
-    public static String prepareSmsContent(String prefix, String areaId, String content) {
+    public static String prepareSmsSettingScheduleContent(String prefix, String password, String areaId, String content) {
+        //Dn1234 prefix
         StringBuilder result = new StringBuilder();
-        result.append(prefix).append(" ");
+        result.append(prefix);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
         result.append(areaId).append(" ");
         result.append(content);
         return result.toString().trim();

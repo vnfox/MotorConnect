@@ -36,7 +36,7 @@
             <TextView
                 style="@style/TextView.Screen.Title"
                 android:layout_marginLeft="20dp"
-                android:text="So lan tuoi trong ngay"
+                android:text="@string/schedule_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <View
@@ -68,7 +68,7 @@
                         android:layout_weight="1"
                         android:onClick="selectSchedule1"
                         android:paddingLeft="5dp"
-                        android:text="1 lan"
+                        android:text="@string/schedule_one"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <RadioButton
@@ -77,7 +77,7 @@
                         android:layout_weight="1"
                         android:onClick="selectSchedule2"
                         android:paddingLeft="5dp"
-                        android:text="2 lan"
+                        android:text="@string/schedule_two"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <RadioButton
@@ -86,7 +86,7 @@
                         android:layout_weight="1"
                         android:onClick="selectSchedule3"
                         android:paddingLeft="5dp"
-                        android:text="3 lan"
+                        android:text="@string/schedule_three"
                         android:textSize="@dimen/connect_text_size_18" />
                 </RadioGroup>
             </LinearLayout>
@@ -96,7 +96,7 @@
             <TextView
                 style="@style/TextView.Screen.Title"
                 android:layout_marginLeft="20dp"
-                android:text="Lich tuoi lap lai"
+                android:text="@string/schedule_repeat"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <View
@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="selectLoopNone"
-                        android:text="khong"
+                        android:text="@string/schedule_repeat_none"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <RadioButton
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="selectLoop1"
-                        android:text="1 ngay"
+                        android:text="@string/schedule_repeat_one"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <RadioButton
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="selectLoop2"
-                        android:text="2 ngay"
+                        android:text="@string/schedule_repeat_two"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <RadioButton
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="selectLoop3"
-                        android:text="3 ngay"
+                        android:text="@string/schedule_repeat_three"
                         android:textSize="@dimen/connect_text_size_18" />
                 </RadioGroup>
             </LinearLayout>
@@ -167,7 +167,7 @@
                 style="@style/TextView.Screen.Title"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
-                android:text="Lan 1"
+                android:text="@string/schedule_first"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <LinearLayout
@@ -186,7 +186,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:gravity="center|left"
-                    android:text="Bat dau"
+                    android:text="@string/schedule_start"
                     android:textSize="@dimen/connect_text_size_18" />
 
                 <TextView
@@ -220,7 +220,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:gravity="center|left"
-                    android:text="Hoat dong"
+                    android:text="@string/schedule_running"
                     android:textSize="@dimen/connect_text_size_18" />
 
                 <TextView
@@ -233,7 +233,7 @@
                     android:gravity="center"
                     android:minHeight="40dp"
                     android:onClick="selectTimeWorking1"
-                    android:text="30 phut"
+                    android:text="30 phút"
                     android:textSize="@dimen/connect_text_size_18" />
 
             </LinearLayout>
@@ -258,7 +258,7 @@
                     style="@style/TextView.Screen.Title"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:text="Lan 2"
+                    android:text="@string/schedule_second"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <LinearLayout
@@ -277,7 +277,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:gravity="center|left"
-                        android:text="Bat dau"
+                        android:text="@string/schedule_start"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <TextView
@@ -311,7 +311,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:gravity="center|left"
-                        android:text="Hoat dong"
+                        android:text="@string/schedule_running"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <TextView
@@ -324,7 +324,7 @@
                         android:gravity="center"
                         android:minHeight="40dp"
                         android:onClick="selectTimeWorking2"
-                        android:text="30 phut"
+                        android:text="30 phút"
                         android:textSize="@dimen/connect_text_size_18" />
 
                 </LinearLayout>
@@ -350,7 +350,7 @@
                     style="@style/TextView.Screen.Title"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:text="Lan 3"
+                    android:text="@string/schedule_third"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <LinearLayout
@@ -369,7 +369,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:gravity="center|left"
-                        android:text="Bat dau"
+                        android:text="@string/schedule_start"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <TextView
@@ -403,7 +403,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:gravity="center|left"
-                        android:text="Hoat dong"
+                        android:text="@string/schedule_running"
                         android:textSize="@dimen/connect_text_size_18" />
 
                     <TextView
@@ -416,7 +416,7 @@
                         android:gravity="center"
                         android:minHeight="40dp"
                         android:onClick="selectTimeWorking3"
-                        android:text="30 phut"
+                        android:text="30 phút"
                         android:textSize="@dimen/connect_text_size_18" />
 
                 </LinearLayout>
@@ -438,7 +438,7 @@
                 android:layout_below="@+id/container"
                 android:layout_gravity="bottom"
                 android:gravity="center|bottom"
-                android:text="Thoi gian hoat dong tu 05h den 17h" />
+                android:text="@string/schedule_time_schedule_run" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -451,7 +451,7 @@
                 android:gravity="center"
                 android:minHeight="50dp"
                 android:onClick="setupSchedule"
-                android:text="Thiet Lap Lich Tuoi"
+                android:text="@string/schedule_settup_schedule"
                 android:textSize="@dimen/connect_text_size_title" />
         </LinearLayout>
 

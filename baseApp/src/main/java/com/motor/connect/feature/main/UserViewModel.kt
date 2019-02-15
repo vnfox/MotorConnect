@@ -1,4 +1,4 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.main
 
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel

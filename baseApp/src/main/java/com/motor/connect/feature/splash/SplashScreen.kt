@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.feature.area.R
-import com.motor.connect.feature.data.MainActivity
+import com.motor.connect.feature.main.MainActivity
 import io.reactivex.annotations.NonNull
 import java.util.*
 
@@ -115,7 +115,7 @@ class SplashScreen : AppCompatActivity() {
         //Checking the request code of our request
         if (requestCode == 23) {
             //If permission is granted
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 //Displaying a toast
                 Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show()

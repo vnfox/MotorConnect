@@ -2,7 +2,6 @@ package com.motor.connect.feature.details
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -129,6 +128,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         txt_schedule_working.text = scheduleWorking
 
         //update Motor working
+        //Todo fail schedule not setup
         viewModel.updateMotorWorking(scheduleWorking)
     }
 
@@ -146,8 +146,12 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
             currentProgress = currentTime
 
-            workingProgress?.maxProgress = maxValue.toDouble()
-            workingProgress?.setCurrentProgress(currentTime.toDouble())
+//            workingProgress?.maxProgress = maxValue.toDouble()
+//            workingProgress?.setCurrentProgress(currentTime.toDouble())
+            //Todo demo
+            workingProgress?.maxProgress = maxProgress.toDouble()
+            workingProgress?.setCurrentProgress(currentProgress.toDouble())
+            //End
             workingProgress?.setProgressTextAdapter(timeText)
 
             onWorkingProgress()
@@ -174,10 +178,8 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     private fun loadBackdrop() {
         val imageView = findViewById<ImageView>(R.id.backdrop)
-        //Todo Will get list Backdrop
-        Glide.with(this).load(Cheeses.getRandomCheeseDrawable()).apply(RequestOptions.centerCropTransform()).into(imageView)
+        Glide.with(this).load(BackDrop.getRandomBackDrop()).apply(RequestOptions.centerCropTransform()).into(imageView)
     }
-
 
     fun selectSettingView(v: View) {
         bottomSheetDialog = BottomSheetDialog(this)

@@ -1,4 +1,4 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.main
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -10,7 +10,6 @@ import com.feature.area.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.utils.StringUtil
-import com.motor.connect.utils.StringUtils
 
 class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
 
@@ -42,12 +41,12 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         holder.phone.text = areas[position].areaPhone
         holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
 
-        if (StringUtils.isNullOrEmpty(areas[position].areaStatus))
+        if (areas[position].areaStatus.isNullOrEmpty())
             holder.status.text = "Trạng thái: Đang tắt "
         else
             holder.status.text = "Trạng thái: " + areas[position].areaStatus
 
-        if (StringUtils.isNullOrEmpty(areas[position].areaSchedule)) {
+        if (areas[position].areaSchedule.isNullOrEmpty()) {
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
             holder.repeat.visibility = View.GONE
         } else {

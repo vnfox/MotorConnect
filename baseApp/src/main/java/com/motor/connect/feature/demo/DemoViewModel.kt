@@ -1,8 +1,8 @@
-package com.motor.connect.feature.home
+package com.motor.connect.feature.demo
 
 import android.databinding.BaseObservable
 
-class HomeViewModel: BaseObservable() {
+class DemoViewModel: BaseObservable() {
 
     fun startUpdates() {
 

@@ -15,7 +15,6 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
-import com.motor.connect.utils.StringUtils
 
 
 class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>(), AddAreaView {
@@ -65,19 +64,17 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
 
     fun onSelectVanUsed(view: View?) {
         selectVanView()
-
     }
 
     fun onSaveData(view: View?) {
-        if (StringUtils.isNullOrEmpty(areaName?.text.toString())) {
+        if (areaName?.text.toString().isNullOrEmpty()) {
             areaName?.error = getString(R.string.add_input_name_empty)
             return
         }
-        if (StringUtils.isNullOrEmpty(areaPhone?.text.toString())) {
+        if (areaPhone?.text.toString().isNullOrEmpty()) {
             areaPhone?.error = getString(R.string.add_input_phone_empty)
             return
         }
-
         prepareDate()
     }
 
@@ -118,7 +115,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
     private fun selectVanView() {
         var items = resources.getStringArray(R.array.number_van_choice)
         AlertDialog.Builder(this)
-                .setTitle(getString(R.string.add_number_van_used))
+                .setTitle(getString(R.string.add_area_van_use))
                 .setSingleChoiceItems(items, 0) { _, i ->
 
                     areaVan?.text = items[i].toString()

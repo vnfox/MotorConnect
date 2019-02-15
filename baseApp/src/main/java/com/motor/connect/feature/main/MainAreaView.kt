@@ -1,4 +1,4 @@
-package com.motor.connect.feature.data
+package com.motor.connect.feature.main
 
 import com.motor.connect.base.view.actionbar.ActionBarView
 import com.motor.connect.feature.model.AreaModel

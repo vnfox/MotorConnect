@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center|left"
-                android:text="Thêm Khu Vực" />
+                android:text="@string/add_area_title" />
 
         </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/action_bar_container"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="60dp"
             android:layout_marginRight="10dp"
             android:orientation="vertical">
 
@@ -57,11 +57,12 @@
             <ImageView
                 android:id="@+id/img_wall"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/detail_backdrop_height"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:onClick="selectBackdrop"
-                app:srcCompat="@mipmap/ic_movies" />
+                android:scaleType="center"
+                app:srcCompat="@mipmap/backdrop_5" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                     android:id="@+id/input_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="@string/add_area_name"
                     android:imeOptions="actionNext"
                     android:inputType="textPersonName"
                     android:lines="1"
@@ -91,26 +92,10 @@
                     android:id="@+id/input_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone Number"
+                    android:hint="@string/add_area_phone"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
                     android:maxLength="10"
-                    android:textSize="@dimen/connect_text_size_title" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/input_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Mo Ta Khu Vuc"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
                     android:textSize="@dimen/connect_text_size_title" />
 
             </android.support.design.widget.TextInputLayout>
@@ -130,7 +115,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:gravity="center|left"
-                    android:text="So Van su dung"
+                    android:text="@string/add_area_van_use"
                     android:textSize="@dimen/connect_text_size_title" />
 
                 <TextView
@@ -148,6 +133,22 @@
 
             </LinearLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/input_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_area_detail"
+                    android:inputType="text"
+                    android:textSize="@dimen/connect_text_size_title" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
         </LinearLayout>
 
         <Button
@@ -162,7 +163,7 @@
             android:background="@drawable/bg_grey"
             android:minHeight="46dp"
             android:onClick="onSaveData"
-            android:text="Luu Thong Tin" />
+            android:text="@string/add_area_submit" />
 
     </FrameLayout>
 </layout>

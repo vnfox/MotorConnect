@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.feature.area.R;
-import com.motor.connect.utils.DialogHelper;
+import com.motor.connect.utils.MotorConstants;
+import com.motor.connect.utils.dialog.DialogActivity;
+import com.orhanobut.hawk.Hawk;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -48,15 +48,17 @@ public class SMSReceiver extends BroadcastReceiver {
                 // Log and display the SMS message.
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
 
-                onShowDialog(context, strMessage);
+                Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+                showDialogMessage(context);
 
             }
         }
     }
 
-    public void onShowDialog(Context context, String content) {
-        String title = context.getString(R.string.sms_receiver_title);
-        DialogHelper dialogHelper = new DialogHelper(context);
-        dialogHelper.showAlertDialog(title, content, context.getString(R.string.btn_accept), false);
+    private void showDialogMessage(Context context) {
+        //start activity which has dialog
+        Intent i = new Intent(context, DialogActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
     }
 }

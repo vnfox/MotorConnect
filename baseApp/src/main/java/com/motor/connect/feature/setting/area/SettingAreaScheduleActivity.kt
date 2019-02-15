@@ -11,7 +11,6 @@ import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.feature.area.R
 import com.feature.area.databinding.SettingAreaScheduleViewBinding
 import com.motor.connect.base.BaseModel
@@ -39,7 +38,7 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
 
     private val viewModel = SettingAreaScheduleViewModel(this, BaseModel())
 
-    private var prefix = "Dn1234"
+    private var prefix = MotorConstants.AreaCode.PREFIX_NONE_REPEAT
     private var repeat = " "
     private var selectSchedule = "01"
     private var smsContent = ""
@@ -90,22 +89,22 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
     //Setup Loop days
     fun selectLoopNone(v: View) {
         repeat = " "
-        prefix = "Dn1234"
+        prefix = MotorConstants.AreaCode.PREFIX_NONE_REPEAT
     }
 
     fun selectLoop1(v: View) {
         repeat = "01"
-        prefix = "De1234"
+        prefix = MotorConstants.AreaCode.PREFIX_REPEAT
     }
 
     fun selectLoop2(v: View) {
         repeat = "02"
-        prefix = "De1234"
+        prefix = MotorConstants.AreaCode.PREFIX_REPEAT
     }
 
     fun selectLoop3(v: View) {
         repeat = "03"
-        prefix = "De1234"
+        prefix = MotorConstants.AreaCode.PREFIX_REPEAT
     }
 
     fun selectTimeStart1(v: View) {
@@ -134,10 +133,7 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
 
     // action setup scheduler
     fun setupSchedule(v: View) {
-
         smsContent = getSmsContent()
-        Log.d("hqdat", ">>> smsContent  $smsContent")
-
         if (PermissionUtils.isGranted(this,
                         Manifest.permission.SEND_SMS)) {
             //Setup Scheduler
@@ -152,7 +148,6 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
     private fun getSmsContent(): String {
         when (selectSchedule) {
             EnumHelper.ScheduleDays.ONE_DAY.key -> {
-                //De1234 01 -> 01 0601 030 01
                 smsContent = StringUtil.getSmsContentScheduleOneDays(selectSchedule, txt_time1_start.text.toString(), txt_time1_run.text.toString(), repeat)
             }
             EnumHelper.ScheduleDays.TWO_DAY.key -> {
@@ -165,32 +160,26 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
                         txt_time3_start.text.toString(), txt_time3_run.text.toString(), repeat)
             }
         }
-
         return smsContent
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
             MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 onSendSms(smsContent)
             }
         }
     }
 
     private fun onSendSms(content: String) {
-        //Dn1234 lich tuoi cho 1 ngay
-
-        //Area_id 01
         //Send sms in background
         val smsNumber = viewModel.getAreaPhone()
-
-        //viewModel.getAreaId() + content
-        val smsText = StringUtil.prepareSmsContent(prefix, viewModel.getAreaId(), content)
+        val smsText = StringUtil.prepareSmsSettingScheduleContent(prefix, viewModel.getAreaPassWord(), viewModel.getAreaId(), content)
 
         Log.d("hqdat", ">>> onSendSms Phone  $smsNumber")
         Log.d("hqdat", ">>> onSendSms Content  $smsText")
 
+        //Todo open comment when completed
         val smsManager = SmsManager.getDefault()
 //        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
     }
@@ -215,11 +204,9 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
                 .setSingleChoiceItems(items, 0) { onDialogClicked, i ->
 
                     txt_time.text = items[i].toString()
-
                 }
                 .setPositiveButton(getString(R.string.btn_chon), null)
                 .setNegativeButton(getString(R.string.btn_huy), null)
                 .show()
     }
-
 }

@@ -14,6 +14,7 @@ import com.feature.area.R
 import com.feature.area.databinding.SettingViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.feature.setting.howuse.HowToUseActivity
 import com.motor.connect.feature.setting.schedule.SettingScheduleActivity
 import com.motor.connect.utils.PermissionUtils
 import io.reactivex.annotations.NonNull
@@ -63,7 +64,7 @@ class SettingActivity : BaseViewActivity<SettingViewBinding, SettingViewModel>()
     }
 
     fun openHowToUseScreen(v: View) {
-        showUnderConstruction("How to use")
+        HowToUseActivity.show(this)
     }
 
     fun openHelpFeedbackScreen(v: View) {
@@ -94,7 +95,7 @@ class SettingActivity : BaseViewActivity<SettingViewBinding, SettingViewModel>()
 
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
-            1 -> if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            1 -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
                 val smsNumber = "0947818171"

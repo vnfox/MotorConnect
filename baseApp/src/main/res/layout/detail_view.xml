@@ -39,8 +39,8 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_blue"
                     android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/cheese_4"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/backdrop_5"
                     app:layout_collapseMode="parallax" />
 
                 <android.support.v7.widget.Toolbar
@@ -113,9 +113,9 @@
                     android:id="@+id/working_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_margin="@dimen/card_margin"
-                    android:minHeight="160dp">
+                    android:minHeight="160dp"
+                    android:visibility="gone">
 
                     <FrameLayout
                         android:layout_width="match_parent"
