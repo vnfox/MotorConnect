@@ -2,22 +2,22 @@ package com.motor.connect.feature.model;
 
 public class ScheduleModel {
 
-    private Long timeSchedule;
-    private Long timeRun;
+    private String timeSchedule;
+    private String timeRun;
 
-    public Long getTimeSchedule() {
+    public String getTimeSchedule() {
         return timeSchedule;
     }
 
-    public void setTimeSchedule(Long timeSchedule) {
+    public void setTimeSchedule(String timeSchedule) {
         this.timeSchedule = timeSchedule;
     }
 
-    public Long getTimeRun() {
+    public String getTimeRun() {
         return timeRun;
     }
 
-    public void setTimeRun(Long timeRun) {
+    public void setTimeRun(String timeRun) {
         this.timeRun = timeRun;
     }
 }

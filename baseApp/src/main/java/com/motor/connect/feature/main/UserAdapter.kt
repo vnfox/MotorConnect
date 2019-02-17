@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.feature.area.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
-import com.motor.connect.utils.StringUtil
 
 class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindableAdapter<AreaModel> {
 
@@ -41,18 +40,19 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         holder.phone.text = areas[position].areaPhone
         holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
 
-        if (areas[position].areaStatus.isNullOrEmpty())
+        if (areas[position].schedule.isEmpty()) {
             holder.status.text = "Trạng thái: Đang tắt "
-        else
-            holder.status.text = "Trạng thái: " + areas[position].areaStatus
-
-        if (areas[position].areaSchedule.isNullOrEmpty()) {
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
             holder.repeat.visibility = View.GONE
         } else {
-            holder.schedule.text = "Lịch tuới: ngày tưới " + StringUtil.getCountWorkingDay(areas[position].areaSchedule) + " lần"
+            holder.status.text = "Trạng thái: Đang hoạt động"
+
+            holder.schedule.text = "Lịch tuới: ngày tưới " + areas[position].schedule.size + " lần"
             holder.repeat.visibility = View.VISIBLE
-            holder.repeat.text = StringUtil.getScheduleRepeatDay(areas[position].areaSchedule)
+            if (areas[position].scheduleRepeat.isNullOrEmpty())
+                holder.repeat.text = "Lịch chỉ tuới trong ngày"
+            else
+                holder.repeat.text = areas[position].scheduleRepeat
         }
     }
 

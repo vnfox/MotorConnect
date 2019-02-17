@@ -13,14 +13,8 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
     var dataArea: MutableList<AreaModel> = mutableListOf()
 
     override fun initViewModel() {
-
-        genFakeData("01")
-        genFakeData("02")
-        genFakeData("03")
-        genFakeData("04")
-        genFakeData("05")
-        genFakeData("06")
-        genFakeData("07")
+        //0352248726
+//        genFakeData("01")
     }
 
     private fun genFakeData(id: String) {
@@ -60,13 +54,11 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
         model.areaId = id
         model.areaName = "Area Data $id"
 
-        model.areaStatus = "dang hoat dong"
+        model.areaStatus = ""
         model.areaType = "Admin"
         model.areaVans = getAreaVans("5 Van")
-        model.timeRemain = 30 // count from schedule
         // count from schedule
-        model.timeReminder = 60
-        model.areaScheduleRepeat = ""
+        model.scheduleRepeat = ""
         model.areaDetails = "Khu vuon buoi 2 nam tuoi"
 
         dataArea.add(model)

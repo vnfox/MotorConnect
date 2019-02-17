@@ -1,72 +1,21 @@
 package com.motor.connect.utils;
 
+import com.motor.connect.feature.model.ScheduleModel;
+
 import org.jetbrains.annotations.NotNull;
 
 public class StringUtil {
 
-    public static String[] getCheckSchedule(String string) {
-        String[] array = string.split(" ");
-        return array;
-    }
-
-    public static String getCountWorkingDay(String value) {
+    public static String getFirstItem(String value) {
         String[] array = value.split(" ");
         return array[0];
-    }
-
-    public static String getScheduleWorkingOneDay(String value) {
-        StringBuilder result = new StringBuilder();
-        String[] array = value.split(" ");
-
-        result.append("Lich tuoi").append("\n");
-
-        result.append(" * Bat dau ").append(getHourMinutes(array[1])).append(" - tuoi ").append(getMinutes(array[2]));
-        return result.toString();
-    }
-
-    public static String getScheduleRepeatDay(String value) {
-        StringBuilder result = new StringBuilder();
-        String[] array = value.split(" ");
-
-        if (array[array.length - 1].length() == 2) {
-            result.append("Tuới ");
-            result.append(array[array.length - 1]).append(" ngày/lần");
-            return result.toString();
-        }
-        return "Lịch tưới trong ngày";
-    }
-
-    public static String getScheduleWorkingTwoDay(String value) {
-        StringBuilder result = new StringBuilder();
-        String[] array = value.split(" ");
-
-        result.append("Lich tuoi").append("\n");
-
-        result.append(" * Bat dau ").append(getHourMinutes(array[1])).append(" - tuoi ").append(getMinutes(array[2])).append("\n");
-
-        result.append(" * Bat dau ").append(getHourMinutes(array[3])).append(" - tuoi ").append(getMinutes(array[4]));
-        return result.toString();
-    }
-
-    public static String getScheduleWorkingThreeDay(String value) {
-        StringBuilder result = new StringBuilder();
-        String[] array = value.split(" ");
-
-        result.append("Lich tuoi").append("\n");
-
-        result.append(" * Bat dau ").append(getHourMinutes(array[1])).append(" - tuoi ").append(getMinutes(array[2])).append("\n");
-
-        result.append(" * Bat dau ").append(getHourMinutes(array[3])).append(" - tuoi ").append(getMinutes(array[4])).append("\n");
-
-        result.append(" * Bat dau ").append(getHourMinutes(array[5])).append(" - tuoi ").append(getMinutes(array[6]));
-        return result.toString();
     }
 
     public static String getScheduleWorking(String value) {
         StringBuilder result = new StringBuilder();
         String[] array = value.split(" ");
         result.append("Lich dang tuoi").append("\n");
-        //getCountWorkingDay & check current time
+        //getFirstItem & check current time
         if (array[0].contentEquals(EnumHelper.ScheduleDays.ONE_DAY.getKey())) {
             result.append(" * Bat dau ").append(getHourMinutes(array[1])).append(" - tuoi ").append(getMinutes(array[2]));
             return result.toString();
@@ -98,8 +47,6 @@ public class StringUtil {
         result.append(value.substring(1, 3)).append(" phut");
         return result.toString();
     }
-
-    //smsContent = selectSchedule + " " + txt_time1_start.text + " " + txt_time1_run.text + " " + repeat
 
     public static String getSmsContentScheduleOneDays(String scheduleDay, String time1, String time1_run, String repeat) {
         String[] run = time1_run.split(" ");
@@ -210,5 +157,40 @@ public class StringUtil {
         result.append("0" + countVan).append(" ");
         result.append(vanUsed);
         return result.toString().trim();
+    }
+
+    public static String getScheduleOneDay(ScheduleModel schedule) {
+        StringBuilder result = new StringBuilder();
+        result.append("Lịch tưới").append("\n");
+        result.append(getSchedule(schedule));
+        return result.toString();
+    }
+
+    public static String getScheduleTwoDay(ScheduleModel schedule1, ScheduleModel schedule2) {
+        StringBuilder result = new StringBuilder();
+        result.append("Lịch tưới").append("\n");
+        result.append(getSchedule(schedule1));
+        result.append("\n");
+        result.append(getSchedule(schedule2));
+        return result.toString();
+    }
+
+    public static String getScheduleThreeDay(ScheduleModel schedule1, ScheduleModel schedule2, ScheduleModel schedule3) {
+        StringBuilder result = new StringBuilder();
+        result.append("Lịch tưới").append("\n");
+        result.append(getSchedule(schedule1));
+        result.append("\n");
+        result.append(getSchedule(schedule2));
+        result.append("\n");
+        result.append(getSchedule(schedule3));
+        return result.toString();
+    }
+
+    private static String getSchedule(ScheduleModel scheduleModel) {
+        StringBuilder result = new StringBuilder();
+        result.append(" * Bắt đầu ").append(scheduleModel.getTimeSchedule().replace(":", " giờ "))
+                .append(" - tưới ").append(scheduleModel.getTimeRun())
+                .append(" phút");
+        return result.toString();
     }
 }

@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
 import android.telephony.SmsManager
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.feature.area.R
@@ -34,13 +33,13 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
         }
     }
 
-    lateinit var needPermissions: MutableList<String>
+    private lateinit var needPermissions: MutableList<String>
 
     private val viewModel = SettingAreaScheduleViewModel(this, BaseModel())
 
     private var prefix = MotorConstants.AreaCode.PREFIX_NONE_REPEAT
     private var repeat = " "
-    private var selectSchedule = "01"
+    private var selectSchedule = MotorConstants.AreaCode.SELECT_SCHEDULE_ONE
     private var smsContent = ""
 
     override fun createViewModel(): SettingAreaScheduleViewModel {
@@ -69,19 +68,19 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
     }
 
     fun selectSchedule1(v: View) {
-        selectSchedule = "01"
+        selectSchedule = MotorConstants.AreaCode.SELECT_SCHEDULE_ONE
         second_container.visibility = View.GONE
         third_container.visibility = View.GONE
     }
 
     fun selectSchedule2(v: View) {
-        selectSchedule = "02"
+        selectSchedule = MotorConstants.AreaCode.SELECT_SCHEDULE_TWO
         second_container.visibility = View.VISIBLE
         third_container.visibility = View.GONE
     }
 
     fun selectSchedule3(v: View) {
-        selectSchedule = "03"
+        selectSchedule = MotorConstants.AreaCode.SELECT_SCHEDULE_THREE
         second_container.visibility = View.VISIBLE
         third_container.visibility = View.VISIBLE
     }
@@ -133,6 +132,9 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
 
     // action setup scheduler
     fun setupSchedule(v: View) {
+        //Collect data for save
+        prepareScheduleSaving(selectSchedule)
+
         smsContent = getSmsContent()
         if (PermissionUtils.isGranted(this,
                         Manifest.permission.SEND_SMS)) {
@@ -143,6 +145,24 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
             needPermissions.add(Manifest.permission.SEND_SMS)
             PermissionUtils.isPermissionsGranted(this, needPermissions.toTypedArray(), MotorConstants.PERMISSION_REQUEST_CODE)
         }
+    }
+
+    private fun prepareScheduleSaving(selectSchedule: String) {
+        when (selectSchedule) {
+            MotorConstants.AreaCode.SELECT_SCHEDULE_ONE -> {
+                mViewModel.prepareScheduleOne(txt_time1_start.text.toString(), txt_time1_run.text.toString(), repeat)
+            }
+            MotorConstants.AreaCode.SELECT_SCHEDULE_TWO -> {
+                mViewModel.prepareScheduleTwo(txt_time1_start.text.toString(), txt_time1_run.text.toString(),
+                        txt_time2_start.text.toString(), txt_time2_run.text.toString(), repeat)
+            }
+            MotorConstants.AreaCode.SELECT_SCHEDULE_THREE -> {
+                mViewModel.prepareScheduleThree(txt_time1_start.text.toString(), txt_time1_run.text.toString(),
+                        txt_time2_start.text.toString(), txt_time2_run.text.toString(),
+                        txt_time3_start.text.toString(), txt_time3_run.text.toString(), repeat)
+            }
+        }
+
     }
 
     private fun getSmsContent(): String {
@@ -176,8 +196,8 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
         val smsNumber = viewModel.getAreaPhone()
         val smsText = StringUtil.prepareSmsSettingScheduleContent(prefix, viewModel.getAreaPassWord(), viewModel.getAreaId(), content)
 
-        Log.d("hqdat", ">>> onSendSms Phone  $smsNumber")
-        Log.d("hqdat", ">>> onSendSms Content  $smsText")
+//        Log.d("hqdat", ">>> onSendSms Phone  $smsNumber")
+//        Log.d("hqdat", ">>> onSendSms Content  $smsText")
 
         //Todo open comment when completed
         val smsManager = SmsManager.getDefault()

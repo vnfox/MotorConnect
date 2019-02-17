@@ -29,18 +29,37 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
         Hawk.put(MotorConstants.KEY_VANS_USED, model.areaVans)
     }
 
-    fun updateMotorWorking(scheduleWorking: String?) {
-        val array = StringUtil.getScheduleRunning(scheduleWorking)
-        val maxValue = calculateMaxProgress(array[1])
+    private fun updateAreaInfo(model: AreaModel) {
+        val schedules = getScheduleWorking()
 
-        val currentTime = calculateCurrentProgress(array[0], array[1])
-        mView?.viewMotorWorking(array!![0], array[1].replaceFirst("t", "T"), maxValue, currentTime)
+        mView?.viewAreaInfo(model, schedules)
+        mView?.hideLoadingView()
     }
 
     fun updateInfoMotor() {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
-        mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans),
-                StringUtil.getScheduleWorking(model.areaSchedule))
+        val schedule: String = if (model.areaSchedule.isNullOrEmpty()) {
+            "Chưa cài đặt lịch tưới"
+        } else {
+            StringUtil.getScheduleWorking(model.areaSchedule)
+        }
+
+        mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans), schedule)
+    }
+
+    fun checkScheduleWorking() {
+        var schedule: String
+        if (model.areaSchedule.isNullOrEmpty()) {
+            return
+        } else {
+            schedule = StringUtil.getScheduleWorking(model.areaSchedule)
+        }
+
+        val array = StringUtil.getScheduleRunning(schedule)
+        val maxValue = calculateMaxProgress(array[1])
+
+        val currentTime = calculateCurrentProgress(array[0], array[1])
+
+        mView?.viewMotorWorking(array!![0], array[1].replaceFirst("t", "T"), maxValue, currentTime)
     }
 
     private fun calculateMaxProgress(time: String): Int {
@@ -89,29 +108,22 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
         return result.toString()
     }
 
-    private fun updateAreaInfo(model: AreaModel) {
-        val schedules = getScheduleWorking(model.areaSchedule)
-        mView?.viewAreaInfo(model, schedules)
-        mView?.hideLoadingView()
-    }
+    private fun getScheduleWorking(): String {
+        val result = "Chưa cài đặt lịch tưới"
 
-    private fun getScheduleWorking(value: String): String {
-        val result = "chua co lich tuoi"
-
-        if (value.isEmpty())
+        if (model.schedule.isEmpty())
             return result
 
-        val count = StringUtil.getCountWorkingDay(value)
+        val count = "0${model.schedule.size}"
         when (count) {
             EnumHelper.ScheduleDays.ONE_DAY.key -> {
-
-                return StringUtil.getScheduleWorkingOneDay(value)
+                return StringUtil.getScheduleOneDay(model.schedule[0])
             }
             EnumHelper.ScheduleDays.TWO_DAY.key -> {
-                return StringUtil.getScheduleWorkingTwoDay(value)
+                return StringUtil.getScheduleTwoDay(model.schedule[0], model.schedule[1])
             }
             EnumHelper.ScheduleDays.THREE_DAY.key -> {
-                return StringUtil.getScheduleWorkingThreeDay(value)
+                return StringUtil.getScheduleThreeDay(model.schedule[0], model.schedule[1], model.schedule[2])
             }
         }
         return result!!

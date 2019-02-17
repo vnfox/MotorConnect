@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.detail_view.*
 
 class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewModel>(), AreaDetailView, DialogHelper.AlertDialogListener {
 
+
     companion object {
         fun show(context: Context) {
             context.startActivity(Intent(context, AreaDetailActivity::class.java))
@@ -85,7 +86,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
         //Setup CollapsingToolbarLayout View
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar)
-        collapsingToolbarLayout?.title = "Details View"
+        collapsingToolbarLayout?.title = getString(R.string.detail_title)
 
         return mBinding
     }
@@ -93,43 +94,47 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     override fun onResume() {
         super.onResume()
         if (shef!!.getUpdateData(MotorConstants.KEY_EDIT_AREA)) {
-            viewModel.reloadDataWhenEdit()
+//            viewModel.reloadDataWhenEdit()
+            viewModel.initViewModel()
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun updateAreaInfoWhenEdit(model: AreaModel) {
         smsPhone = model.areaPhone
         txt_area_name.text = model.areaName
         txt_area_phone.text = model.areaPhone
-        txt_area_van.text = "So van " + model.areaVans.size.toString()
+        txt_area_van.text = getString(R.string.detail_van_total) + model.areaVans.size.toString()
     }
 
     override fun viewLoaded() {
         loadBackdrop()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun viewAreaInfo(model: AreaModel, schedules: String) {
         smsPhone = model.areaPhone
         txt_area_name.text = model.areaName
         txt_area_phone.text = model.areaPhone
-        txt_area_van.text = "So van " + model.areaVans.size.toString()
+        txt_area_van.text = String.format(getString(R.string.detail_van_total), model.areaVans.size.toString())
         txt_area_scheduler.text = schedules
+        txt_area_detail.text = model.areaDetails
 
         //update Motor info
         viewModel.updateInfoMotor()
     }
 
     @SuppressLint("SetTextI18n")
-    override fun updateInfoMotor(areaStatus: String?, vansUsed: String, scheduleWorking: String?) {
+    override fun updateInfoMotor(areaStatus: String?, vansUsed: String, schedule: String) {
         info_container.visibility = View.VISIBLE
 
-        txt_area_status.text = "Trang thai $areaStatus"
-        txt_area_van_used.text = "Van su dung $vansUsed"
-        txt_schedule_working.text = scheduleWorking
+        txt_area_status.text = String.format(getString(R.string.detail_status), areaStatus)
+        txt_area_van_used.text = String.format(getString(R.string.detail_van_open), vansUsed)
+        txt_schedule_working.text = schedule
 
         //update Motor working
         //Todo fail schedule not setup
-        viewModel.updateMotorWorking(scheduleWorking)
+        viewModel.checkScheduleWorking()
     }
 
     override fun viewMotorWorking(timeStart: String, time: String, maxValue: Int, currentTime: Int) {

@@ -75,7 +75,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
             areaPhone?.error = getString(R.string.add_input_phone_empty)
             return
         }
-        prepareDate()
+        prepareData()
     }
 
     override fun goBackMainScreen() {
@@ -84,7 +84,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         backToMainScreen()
     }
 
-    private fun prepareDate() {
+    private fun prepareData() {
         viewModel.showProgressView()
         val dataModel = AreaModel()
         dataModel.areaName = areaName?.text.toString()
@@ -96,17 +96,15 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         viewModel.saveDataArea(isFirstUsed, dataModel)
     }
 
-
+    //Default all Van open
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
-
         var areaVans: MutableList<VanModel> = mutableListOf()
-
         var numVan = vanSelected.substring(0, 1).toInt()
 
         for (i in 1..numVan) {
             val van = VanModel()
             van.vanId = "0$i"
-            van.vanStatus = false
+            van.vanStatus = true
             areaVans.add(van)
         }
         return areaVans

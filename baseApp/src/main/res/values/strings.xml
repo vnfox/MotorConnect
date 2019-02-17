@@ -72,4 +72,14 @@
     <string name="setting_help_feedback">Trợ giúp - Phản hồi</string>
     <string name="setting_how_to_use">Hướng Dẫn Sử Dụng</string>
 
+    <!--Detail-->
+    <string name="detail_note">Ghi chú</string>
+    <string name="detail_info_motor">Thông tin máy bơm</string>
+    <string name="detail_info_area">Thông tin khu vực</string>
+    <string name="detail_title">Thông Tin Chi Tiết</string>
+    <string name="detail_van_total">Tổng số van hiện có: %s</string>
+    <string name="detail_status">Trạng thái: %s</string>
+    <string name="detail_van_open">Van đang mở: %s</string>
+    <string name="detail_no_setup_schedule">Chưa cài đặt lịch tưới</string>
+
 </resources>
