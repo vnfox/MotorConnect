@@ -32,7 +32,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
     }
 
     fun prepareScheduleOne(time1_start: String, time1_run: String, repeat: String) {
-        var scheduleList: MutableList<ScheduleModel> = mutableListOf()
+        val scheduleList: MutableList<ScheduleModel> = mutableListOf()
         scheduleList.add(getScheduleModel(time1_start, time1_run))
 
         //Update Detail
@@ -42,7 +42,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
 
         //Update List Data
         var areaModels: MutableList<AreaModel> = mutableListOf()
-        var position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+        val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
         areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
@@ -50,7 +50,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
 
     fun prepareScheduleTwo(time1_start: String, time1_run: String,
                            time2_start: String, time2_run: String, repeat: String) {
-        var scheduleList: MutableList<ScheduleModel> = mutableListOf()
+        val scheduleList: MutableList<ScheduleModel> = mutableListOf()
         scheduleList.add(getScheduleModel(time1_start, time1_run))
         scheduleList.add(getScheduleModel(time2_start, time2_run))
 
@@ -61,7 +61,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
 
         //Update List Data
         var areaModels: MutableList<AreaModel> = mutableListOf()
-        var position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+        val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
         areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
@@ -70,7 +70,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
     fun prepareScheduleThree(time1_start: String, time1_run: String,
                              time2_start: String, time2_run: String,
                              time3_start: String, time3_run: String, repeat: String) {
-        var scheduleList: MutableList<ScheduleModel> = mutableListOf()
+        val scheduleList: MutableList<ScheduleModel> = mutableListOf()
         scheduleList.add(getScheduleModel(time1_start, time1_run))
         scheduleList.add(getScheduleModel(time2_start, time2_run))
         scheduleList.add(getScheduleModel(time3_start, time3_run))
@@ -82,7 +82,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
 
         //Update List Data
         var areaModels: MutableList<AreaModel> = mutableListOf()
-        var position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+        val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
         areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
