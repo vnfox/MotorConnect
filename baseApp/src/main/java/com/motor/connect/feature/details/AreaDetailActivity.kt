@@ -49,9 +49,8 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     private var bottomSheetDialog: BottomSheetDialog? = null
 
-    private val maxProgress: Int = 1800
+    private var maxProgress: Int = 1800
     private var currentProgress: Int = 0
-    private val handler = Handler()
 
     private lateinit var needPermissions: MutableList<String>
     private var smsPhone = String()
@@ -75,13 +74,12 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationIcon(R.mipmap.ic_back)
         toolbar.setNavigationOnClickListener {
-
             actionLeft()
         }
-
         workingProgress = findViewById(R.id.working_progress)
 
         //Setup info
+        showLoadingView(getString(R.string.sms_loading))
         viewModel.initViewModel()
 
         //Setup CollapsingToolbarLayout View
@@ -93,10 +91,16 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     override fun onResume() {
         super.onResume()
-        if (shef!!.getUpdateData(MotorConstants.KEY_EDIT_AREA)) {
-//            viewModel.reloadDataWhenEdit()
+        if (shef!!.getUpdateData(MotorConstants.KEY_EDIT_AREA) || shef!!.getUpdateData(MotorConstants.KEY_TRIGGER_DATA)) {
+            shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, false)
             viewModel.initViewModel()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        workingProgress = null
+        viewModel.destroy()
     }
 
     @SuppressLint("SetTextI18n")
@@ -116,10 +120,13 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         smsPhone = model.areaPhone
         txt_area_name.text = model.areaName
         txt_area_phone.text = model.areaPhone
+
+        //should show van open
         txt_area_van.text = String.format(getString(R.string.detail_van_total), model.areaVans.size.toString())
         txt_area_scheduler.text = schedules
         txt_area_detail.text = model.areaDetails
 
+        hideLoadingView()
         //update Motor info
         viewModel.updateInfoMotor()
     }
@@ -133,34 +140,29 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         txt_schedule_working.text = schedule
 
         //update Motor working
-        //Todo fail schedule not setup
         viewModel.checkScheduleWorking()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun viewMotorWorking(timeStart: String, time: String, maxValue: Int, currentTime: Int) {
-        if (currentTime == 0) {
-            working_container.visibility = View.GONE
-        } else {
-            working_container.visibility = View.VISIBLE
+        txt_area_status.text = getString(R.string.detail_status_working)
+        working_container.visibility = View.VISIBLE
 
-            txt_time_start.text = timeStart
-            txt_time_working.text = time
-            txt_van.text = txt_area_van_used.text
+        txt_time_start.text = getString(R.string.detail_time_start) + StringUtil.getTimeRunning(timeStart)
+        txt_time_working.text = String.format(getString(R.string.detail_time_running), time)
+        txt_van.text = txt_area_van.text
 
-            Log.d("hqdat", ">>>> currentTime.toDouble()  " + currentTime.toDouble())
+        currentProgress = currentTime
+        maxProgress = maxValue
+        workingProgress?.maxProgress = maxValue.toDouble()
+        workingProgress?.setCurrentProgress(currentTime.toDouble())
+        workingProgress?.setProgressTextAdapter(timeText)
 
-            currentProgress = currentTime
+        onWorkingProgress()
+    }
 
-//            workingProgress?.maxProgress = maxValue.toDouble()
-//            workingProgress?.setCurrentProgress(currentTime.toDouble())
-            //Todo demo
-            workingProgress?.maxProgress = maxProgress.toDouble()
-            workingProgress?.setCurrentProgress(currentProgress.toDouble())
-            //End
-            workingProgress?.setProgressTextAdapter(timeText)
-
-            onWorkingProgress()
-        }
+    override fun updateViewMotorStopWorking() {
+        working_container.visibility = View.GONE
     }
 
     private val timeText = CircularProgressIndicator.ProgressTextAdapter { time ->
@@ -276,13 +278,29 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     }
 
     private fun onSendSms(smsContent: String) {
+        showLoadingView(getString(R.string.sms_sending))
         //Send sms in background
-        Toast.makeText(this, "=== onSendSms ====  $smsContent", Toast.LENGTH_LONG).show()
-        Log.d("hqdat", ">>> smsNumber  $smsPhone")
-        Log.d("hqdat", ">>> smsContent  $smsContent")
-
-        //Todo open comment when completed
+        var pStatus: Int = 0
         val smsManager = SmsManager.getDefault()
-//        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
+
+        Thread(Runnable {
+            while (pStatus < MotorConstants.TIME_PROGRESS) {
+                pStatus += 1
+                handler.post {
+                    if (pStatus == MotorConstants.TIME_PROGRESS) {
+                        hideLoadingView()
+                        //Send sms
+                        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
+                    }
+                }
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }).start()
     }
 }

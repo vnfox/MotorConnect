@@ -3,7 +3,6 @@ package com.motor.connect.feature.add
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.EditText
@@ -26,10 +25,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         }
     }
 
-    private val timeTotal: Int = 10
     private var pStatus: Int = 0
-    private val handler = Handler()
-
     private val viewModel = AddAreaViewModel(this, BaseModel())
 
     private var areaName: EditText? = null
@@ -76,6 +72,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
             return
         }
         prepareData()
+        backToMainScreen()
     }
 
     override fun goBackMainScreen() {
@@ -85,7 +82,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
     }
 
     private fun prepareData() {
-        viewModel.showProgressView()
+        showLoadingView(getString(R.string.sms_loading))
         val dataModel = AreaModel()
         dataModel.areaName = areaName?.text.toString()
         dataModel.areaPhone = areaPhone?.text.toString()
@@ -125,12 +122,11 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
 
     private fun backToMainScreen() {
         Thread(Runnable {
-            while (pStatus < timeTotal) {
+            while (pStatus < MotorConstants.TIME_PROGRESS) {
                 pStatus += 1
                 handler.post {
-
-                    if (pStatus == timeTotal) {
-                        viewModel.hideProgressView()
+                    if (pStatus == MotorConstants.TIME_PROGRESS) {
+                        hideLoadingView()
                         actionLeft()
                     }
                 }

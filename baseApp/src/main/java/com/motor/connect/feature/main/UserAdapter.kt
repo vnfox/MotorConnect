@@ -40,7 +40,7 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         holder.phone.text = areas[position].areaPhone
         holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
 
-        if (areas[position].schedule.isEmpty()) {
+        if (areas[position].schedule == null || areas[position].schedule.isEmpty()) {
             holder.status.text = "Trạng thái: Đang tắt "
             holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
             holder.repeat.visibility = View.GONE

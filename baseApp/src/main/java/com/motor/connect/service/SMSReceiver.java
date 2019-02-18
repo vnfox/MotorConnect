@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.motor.connect.utils.CommonUtil;
 import com.motor.connect.utils.MotorConstants;
 import com.motor.connect.utils.dialog.DialogActivity;
 import com.orhanobut.hawk.Hawk;
@@ -47,10 +49,12 @@ public class SMSReceiver extends BroadcastReceiver {
                 strMessage += " :" + msgs[i].getMessageBody() + "\n";
                 // Log and display the SMS message.
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+                Log.d("hqdat", ">>>>   phone    " + msgs[i].getOriginatingAddress());
 
-                Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
-                showDialogMessage(context);
-
+                if (CommonUtil.checkPhoneContainArea(msgs[i].getOriginatingAddress())) {
+                    Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+                    showDialogMessage(context);
+                }
             }
         }
     }

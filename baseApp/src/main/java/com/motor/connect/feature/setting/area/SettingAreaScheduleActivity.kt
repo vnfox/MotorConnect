@@ -196,12 +196,10 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
         val smsNumber = viewModel.getAreaPhone()
         val smsText = StringUtil.prepareSmsSettingScheduleContent(prefix, viewModel.getAreaPassWord(), viewModel.getAreaId(), content)
 
-//        Log.d("hqdat", ">>> onSendSms Phone  $smsNumber")
-//        Log.d("hqdat", ">>> onSendSms Content  $smsText")
-
-        //Todo open comment when completed
         val smsManager = SmsManager.getDefault()
-//        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+
+        backPreviousScreen()
     }
 
     private fun showSelectTimeStartDialog(txt_time: TextView) {
@@ -228,5 +226,12 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
                 .setPositiveButton(getString(R.string.btn_chon), null)
                 .setNegativeButton(getString(R.string.btn_huy), null)
                 .show()
+    }
+
+    private fun backPreviousScreen() {
+        //Trigger Data
+        shef!!.setUpdateData(MotorConstants.KEY_EDIT_AREA, true)
+        actionLeft()
+        this.finish()
     }
 }

@@ -14,10 +14,8 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 
     override fun initViewModel() {
         model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
-
         //Update UIS
         mView?.viewLoaded(model.areaVans)
-
     }
 
     fun getPhoneNumber(): String {
@@ -30,5 +28,14 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 
     fun getPassWordArea(): String {
         return model.password
+    }
+
+    fun updateDataArea(listVans: List<VanModel>) {
+        var areaModels: MutableList<AreaModel> = mutableListOf()
+        var position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        model.areaVans = listVans
+        areaModels[position] = model
+        Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
     }
 }

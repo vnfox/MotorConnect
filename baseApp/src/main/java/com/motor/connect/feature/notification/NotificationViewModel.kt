@@ -3,11 +3,13 @@ package com.motor.connect.feature.notification
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.SmsModel
 import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.StringUtil
 import com.orhanobut.hawk.Hawk
 
 class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
@@ -17,7 +19,7 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
     private var smsReceivers: MutableList<SmsModel> = mutableListOf()
 
     override fun initViewModel() {
-        mView?.showLoadingView()
+
     }
 
     fun initData(context: NotificationActivity) {
@@ -40,20 +42,18 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
             val address = cur.getString(cur.getColumnIndex("address"))
             val body = cur.getString(cur.getColumnIndexOrThrow("body"))
             val type = cur.getString(cur.getColumnIndexOrThrow("type"))
-            val contact = getContactByPhoneNumber(context, address)
+            val contact = getContactByPhoneNumber(context, StringUtil.comparePrefixPhone(address))
             val timestamp = cur.getString(cur.getColumnIndexOrThrow("date"))
 
             val smsModel = SmsModel()
             smsModel.contactName = contact
-            smsModel.phoneNumber = address
+            smsModel.phoneNumber = StringUtil.comparePrefixPhone(address)
             smsModel.smsType = type
             smsModel.messageContent = body
             smsModel.date = timestamp
-
-            if (address.length < 13)
+            if (address.length in 9..12) {
                 sms.add(smsModel)
-
-            //Get 30 sms lasted
+            }
             if (sms.size == 50) {
                 return verifyContactArea(sms)
             }
@@ -68,7 +68,7 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
 
         for (i in 0 until dataArea.size) {
             for (j in 0 until smsList.size) {
-                if (smsList[j].phoneNumber.contains(dataArea[i].areaPhone.substring(1, dataArea[i].areaPhone.length))) {
+                if (smsList[j].phoneNumber.contains(dataArea[i].areaPhone)) {
                     result.add(smsList[j])
                 }
             }

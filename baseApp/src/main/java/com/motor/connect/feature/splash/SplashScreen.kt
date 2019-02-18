@@ -87,18 +87,15 @@ class SplashScreen : AppCompatActivity() {
 
     private fun addPermission(permissionsList: MutableList<String>, permission: String): Boolean {
 
-        val cond: Boolean?
-        if (Build.VERSION.SDK_INT >= 23) {
+        return if (Build.VERSION.SDK_INT >= 23) {
             // Marshmallow+
             if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 permissionsList.add(permission)
             }
-            cond = true
-        } else {
-            // Pre-Marshmallow
-            cond = true
-        }
-        return cond
+            true
+        } else
+        // Pre-Marshmallow
+            true
     }
 
     private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {

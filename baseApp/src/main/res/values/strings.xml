@@ -13,6 +13,9 @@
     <string name="sms_all_area_off">KV Tat</string>
     <string name="sms_warning">Thông Báo</string>
 
+    <string name="sms_loading">Loading…</string>
+    <string name="sms_sending">Sending…</string>
+
     <string name="home_area_empty">Thêm\nKhu Vực</string>
     <string name="setting_time_working">Thời gian hoạt động</string>
 
@@ -23,15 +26,15 @@
     <string name="sms_exit_content">Bạn có chắc muốn thoát khỏi ứng dụng không?</string>
     <string name="sms_warning_title">Thông Báo</string>
 
-    <string name="sms_review_schedule_content">Bạn có muốn xem lại không?</string>
+    <string name="sms_review_schedule_content">Bạn có muốn xem lại lịch tưới không?</string>
     <string name="sms_stop_schedule_content">Bạn có chắc muốn dừng lịch tưới không?</string>
-    <string name="sms_receiver_title">Bạn Thông Báo Mới</string>
+    <string name="sms_receiver_title">Bạn Có Thông Báo Mới</string>
     <string name="sms_receiver_empty">Không có thông báo mới</string>
 
     <!--Setting-->
     <string name="setting_schedule_title">Cài Đặt Lich Tưới</string>
-    <string name="setting_schedule_off_all_area">Ngắt tưới trong ngày cho tất\ncả khu vực</string>
-    <string name="setting_schedule_off_description">Tính năng này sẽ ngắt tưới tiêu trong ngày cho tất cả khu vực</string>
+    <string name="setting_schedule_off_all_area">Ngắt tưới trong ngày cho tất cả khu vực</string>
+    <string name="setting_schedule_off_description">Tính năng này sẽ ngắt tưới tiêu trong ngày cho tất cả khu vực.</string>
     <string name="setting_schedule">Cài đặt lịch tưới</string>
     <string name="setting_review_schedule">Xem lại lịch tưới</string>
     <string name="setting_van_used">Thiết lập van sử dụng</string>
@@ -81,5 +84,10 @@
     <string name="detail_status">Trạng thái: %s</string>
     <string name="detail_van_open">Van đang mở: %s</string>
     <string name="detail_no_setup_schedule">Chưa cài đặt lịch tưới</string>
+
+    <string name="detail_status_working">Trạng thái: Đang hoạt động</string>
+    <string name="detail_time_running">Thời gian %s phút</string>
+    <string name="detail_time_start">Bắt đầu</string>
+    <string name="detail_motor_running">Đang hoạt động</string>
 
 </resources>

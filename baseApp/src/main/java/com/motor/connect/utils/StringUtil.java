@@ -193,4 +193,18 @@ public class StringUtil {
                 .append(" phút");
         return result.toString();
     }
+
+    public static String comparePrefixPhone(String phone) {
+        //+84947818171
+        if (phone.contains("+84")) {
+            phone = phone.replace("+84", "0");
+        }
+        return phone;
+    }
+
+    public static String getTimeRunning(String minutes) {
+        StringBuilder result = new StringBuilder();
+        result.append(minutes.replace(":", " giờ "));
+        return result.toString();
+    }
 }

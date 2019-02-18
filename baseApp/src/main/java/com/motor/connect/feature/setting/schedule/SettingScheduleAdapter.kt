@@ -38,7 +38,7 @@ class SettingScheduleAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerVi
         (holder as ItemViewHolder).name.text = areas[position].areaName
         holder.vanused.text = "Sử dụng: " + areas[position].areaVans.size.toString() + " van"
 
-        if (areas[position].schedule.isEmpty()) {
+        if (areas[position].schedule == null || areas[position].schedule.isEmpty()) {
             holder.schedule.text = "Chưa cài đặt lịch tưới"
         } else {
             holder.schedule.text = "Lịch tuới: ngày tưới " + areas[position].schedule.size + " lần"

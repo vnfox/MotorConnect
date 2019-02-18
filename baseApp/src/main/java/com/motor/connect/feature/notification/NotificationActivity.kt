@@ -43,6 +43,7 @@ class NotificationActivity : BaseViewActivity<NotificationViewBinding, Notificat
 
         recyclerView_sms_receivers.adapter = adapter
         viewModel.initViewModel()
+        showLoadingView(getString(R.string.sms_loading))
         viewModel.initData(this)
 
         val onClose = findViewById<ImageView>(R.id.action_left)

@@ -139,11 +139,7 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         var smsPhone = viewModel.getPhoneArea()
         var smsContent = StringUtil.prepareSmsStopAllSchedule(viewModel.getPassWordArea())
         //Send sms in background
-        Log.d("hqdat", ">>> smsNumber  $smsPhone")
-        Log.d("hqdat", ">>> smsContent  $smsContent")
-
-        //Todo open comment when completed
         val smsManager = SmsManager.getDefault()
-//        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
+        smsManager.sendTextMessage(smsPhone, null, smsContent, null, null)
     }
 }

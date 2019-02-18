@@ -3,6 +3,7 @@ package com.motor.connect.base.view
 import android.app.ProgressDialog
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import android.widget.Toolbar
 import com.motor.connect.base.BaseViewModel
@@ -22,6 +23,7 @@ abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewM
     lateinit var mViewModel: ViewModel
     private var progressDialog: ProgressDialog? = null
     lateinit var toolbar: Toolbar
+    val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +44,9 @@ abstract class BaseViewActivity<Binding : ViewDataBinding, ViewModel : BaseViewM
     }
 
 
-    override fun showLoadingView() {
-        progressDialog?.setMessage("Loading...")
+    override fun showLoadingView(message: String) {
+        progressDialog?.setMessage(message)
         progressDialog?.setCanceledOnTouchOutside(false)
-        progressDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         progressDialog?.show()
     }
 

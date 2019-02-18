@@ -48,9 +48,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
         //Adapter item click
         adapter = SettingAreaVanAdapter { areaModel, position ->
-
-            //Update UI  => save data
-            showUnderConstruction("setupVanUsed $position")
+            //nothing
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 1)
@@ -79,6 +77,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
             }
         }
         //Send SMS
+        viewModel.updateDataArea(listVans)
         setupVanUsedDetail(vanUsed.toString())
     }
 
@@ -97,9 +96,8 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
-            MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                Toast.makeText(this, "=== permission  Accept ====", Toast.LENGTH_LONG).show()
+            MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 onSendSms(vanUsed.toString())
             }
         }
@@ -107,15 +105,38 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
     private fun onSendSms(vanUsed: String) {
         //Send sms in background
+        showLoadingView(getString(R.string.sms_sending))
         val smsNumber = viewModel.getPhoneNumber()
         val smsText = StringUtil.prepareSmsVanAreaUsed(viewModel.getPassWordArea(), viewModel.getAreaId(), countVan, vanUsed)
-
-        Toast.makeText(this, "=== onSendSms ====  $countVan", Toast.LENGTH_LONG).show()
-        Log.d("hqdat", ">>> smsNumber  $smsNumber")
-        Log.d("hqdat", ">>> vanUsed  $smsText")
-
-        //Todo open comment when completed
         val smsManager = SmsManager.getDefault()
-//        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+        var pStatus: Int = 0
+
+        Thread(Runnable {
+            while (pStatus < MotorConstants.TIME_PROGRESS) {
+                pStatus += 1
+                handler.post {
+                    if (pStatus == MotorConstants.TIME_PROGRESS) {
+                        hideLoadingView()
+                        //Send sms
+                        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+                        backPreviousScreen()
+                    }
+                }
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }).start()
+    }
+
+    private fun backPreviousScreen() {
+        //Trigger Data
+        shef!!.setUpdateData(MotorConstants.KEY_EDIT_AREA, true)
+        actionLeft()
+        this.finish()
     }
 }

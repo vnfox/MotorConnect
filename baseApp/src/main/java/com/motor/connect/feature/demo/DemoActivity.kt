@@ -100,7 +100,6 @@ class DemoActivity : BaseActivity(), DialogHelper.AlertDialogListener {
 
     private fun onDemoFunction() {
         Thread(Runnable {
-            // TODO Auto-generated method stub
             while (pStatus < timeTotal) {
                 pStatus += 1
 

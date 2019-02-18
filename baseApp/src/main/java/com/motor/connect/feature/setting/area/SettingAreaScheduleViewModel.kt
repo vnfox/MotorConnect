@@ -1,6 +1,5 @@
 package com.motor.connect.feature.setting.area
 
-import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
@@ -8,8 +7,6 @@ import com.motor.connect.feature.model.ScheduleModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtil
 import com.orhanobut.hawk.Hawk
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: BaseModel)
     : BaseViewModel<SettingAreaScheduleView, BaseModel>(mView, mModel) {
@@ -49,10 +46,6 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
         areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
-
-
-        //Todo Sample => will remove
-        calculateCurrentProgress(time1_start, StringUtil.getFirstItem(time1_run))
     }
 
     fun prepareScheduleTwo(time1_start: String, time1_run: String,
@@ -100,42 +93,5 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
         schedule1.timeSchedule = time_start
         schedule1.timeRun = StringUtil.getFirstItem(time_run)
         return schedule1
-    }
-
-    private fun calculateCurrentProgress(time: String, minutes: String): Int {
-        //get Current time
-        val dateFormat = SimpleDateFormat("HH:mm")
-        val date = Date()
-
-        val startTime = time.replace(":", "").trim().toInt()
-        val currentTime = dateFormat.format(date).replace(":", "").toInt()
-        val endTime = getEndTime(time, minutes).toInt()
-
-        Log.d("hqdat", ">>>> startTime  $startTime")
-        Log.d("hqdat", ">>>> currentTime  $currentTime")
-        Log.d("hqdat", ">>>> EndTime  $endTime")
-        if (currentTime > endTime)
-            return 0
-
-        return (currentTime - startTime) * 60
-    }
-
-    private fun getEndTime(time: String, min: String): String {
-        val array = time.split(":")
-        var hour = array[0].toInt()
-        var minutes = array[1].trim().toInt() + min.toInt()
-
-        Log.d("hqdat", ">>>> minutes  $minutes")
-
-        if (minutes > 60) {
-            minutes -= 60
-            hour++
-        } else if (minutes == 60) {
-            minutes = 0
-            hour++
-            minutes.toString() + "0"
-        }
-
-        return hour.toString() + minutes.toString()
     }
 }

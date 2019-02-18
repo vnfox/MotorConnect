@@ -13,14 +13,6 @@ class AddAreaViewModel(mView: AddAreaView?, mModel: BaseModel)
     override fun initViewModel() {
     }
 
-    fun showProgressView() {
-        mView?.showLoadingView()
-    }
-
-    fun hideProgressView() {
-        mView?.hideLoadingView()
-    }
-
     fun saveDataArea(isFirstUsed: Boolean?, dataModel: AreaModel) {
         //Default schedule empty
         var schedule: MutableList<ScheduleModel> = mutableListOf()
