@@ -13,15 +13,11 @@ public class CommonUtil {
 
     public static Boolean checkPhoneContainArea(String phone) {
         phone = StringUtil.comparePrefixPhone(phone);
-        List<AreaModel> dataArea = new ArrayList<>();
+        List<AreaModel> dataArea;
         dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST);
 
-        for (int i = 0; i < dataArea.size(); i++) {
-            if (phone.contains(dataArea.get(i).getAreaPhone())) {
-                return true;
-            } else
-                return false;
-        }
+        for (int i = 0; i < dataArea.size(); i++)
+            return phone.contains(dataArea.get(i).getAreaPhone());
         return false;
     }
 }
