@@ -15,7 +15,7 @@ class AddAreaViewModel(mView: AddAreaView?, mModel: BaseModel)
 
     fun saveDataArea(isFirstUsed: Boolean?, dataModel: AreaModel) {
         //Default schedule empty
-        var schedule: MutableList<ScheduleModel> = mutableListOf()
+        val schedule: MutableList<ScheduleModel> = mutableListOf()
 
         var id = "01"
         var areaModels: MutableList<AreaModel> = mutableListOf()

@@ -32,7 +32,7 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
     }
 
     fun prepareScheduleOne(time1_start: String, time1_run: String, repeat: String) {
-        val scheduleList: MutableList<ScheduleModel> = mutableListOf()
+        var scheduleList: MutableList<ScheduleModel> = mutableListOf()
         scheduleList.add(getScheduleModel(time1_start, time1_run))
 
         //Update Detail
@@ -41,9 +41,8 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
         Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, model)
 
         //Update List Data
-        var areaModels: MutableList<AreaModel> = mutableListOf()
+        var areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
     }
@@ -60,9 +59,8 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
         Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, model)
 
         //Update List Data
-        var areaModels: MutableList<AreaModel> = mutableListOf()
+        var areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
     }
@@ -81,15 +79,14 @@ class SettingAreaScheduleViewModel(mView: SettingAreaScheduleView?, mModel: Base
         Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, model)
 
         //Update List Data
-        var areaModels: MutableList<AreaModel> = mutableListOf()
+        var areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
     }
 
     private fun getScheduleModel(time_start: String, time_run: String): ScheduleModel {
-        var schedule1 = ScheduleModel()
+        val schedule1 = ScheduleModel()
         schedule1.timeSchedule = time_start
         schedule1.timeRun = StringUtil.getFirstItem(time_run)
         return schedule1
