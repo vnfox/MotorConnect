@@ -117,6 +117,8 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
     }
 
     override fun onPositiveClick() {
+//        shef?.setFirstUserPref(MotorConstants.FIRST_USED, true)
+//        viewModel.stopUpdates()
         this.finish()
     }
 

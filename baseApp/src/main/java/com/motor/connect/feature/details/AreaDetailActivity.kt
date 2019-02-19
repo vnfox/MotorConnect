@@ -72,7 +72,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationIcon(R.mipmap.ic_back)
+        toolbar.setNavigationIcon(R.mipmap.ic_back_white)
         toolbar.setNavigationOnClickListener {
             actionLeft()
         }
