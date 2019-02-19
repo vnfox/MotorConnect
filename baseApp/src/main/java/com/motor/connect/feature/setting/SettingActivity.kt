@@ -14,6 +14,7 @@ import com.feature.area.R
 import com.feature.area.databinding.SettingViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.feature.setting.help.HelpFeedbackActivity
 import com.motor.connect.feature.setting.howuse.HowToUseActivity
 import com.motor.connect.feature.setting.schedule.SettingScheduleActivity
 import com.motor.connect.utils.PermissionUtils
@@ -68,7 +69,7 @@ class SettingActivity : BaseViewActivity<SettingViewBinding, SettingViewModel>()
     }
 
     fun openHelpFeedbackScreen(v: View) {
-        showUnderConstruction("Help")
+        HelpFeedbackActivity.show(this)
     }
 
 

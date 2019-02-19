@@ -1,4 +1,4 @@
-package com.motor.connect.feature.setting.howuse
+package com.motor.connect.feature.setting.help
 
 import android.content.Context
 import android.content.Intent
@@ -7,29 +7,30 @@ import android.os.Build
 import android.support.annotation.RequiresApi
 import android.view.View
 import com.feature.area.R
+import com.feature.area.databinding.HelpFeedbackViewBinding
 import com.feature.area.databinding.HowUseViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import kotlinx.android.synthetic.main.how_use_view.*
 
 
-class HowToUseActivity : BaseViewActivity<HowUseViewBinding, HowToUseViewModel>(), HowToUseView {
+class HelpFeedbackActivity : BaseViewActivity<HelpFeedbackViewBinding, HelpFeedbackViewModel>(), HelpFeedbackView {
 
     companion object {
         fun show(context: Context) {
-            context.startActivity(Intent(context, HowToUseActivity::class.java))
+            context.startActivity(Intent(context, HelpFeedbackActivity::class.java))
         }
     }
 
-    private val viewModel = HowToUseViewModel(this, BaseModel())
+    private val viewModel = HelpFeedbackViewModel(this, BaseModel())
 
-    override fun createViewModel(): HowToUseViewModel {
+    override fun createViewModel(): HelpFeedbackViewModel {
         viewModel.mView = this
         return viewModel
     }
 
-    override fun createDataBinding(mViewModel: HowToUseViewModel): HowUseViewBinding {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.how_use_view)
+    override fun createDataBinding(mViewModel: HelpFeedbackViewModel): HelpFeedbackViewBinding {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.help_feedback_view)
         mBinding.viewModel = mViewModel
 
         viewModel.initViewModel()

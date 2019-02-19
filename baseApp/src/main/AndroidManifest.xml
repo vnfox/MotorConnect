@@ -50,6 +50,7 @@
         <activity android:name="com.motor.connect.feature.edit.EditAreaActivity" />
         <activity android:name="com.motor.connect.utils.dialog.DialogActivity" />
         <activity android:name="com.motor.connect.feature.setting.howuse.HowToUseActivity" />
+        <activity android:name="com.motor.connect.feature.setting.help.HelpFeedbackActivity" />
 
         <activity android:name="com.motor.connect.feature.demo.DemoActivity" />
 
