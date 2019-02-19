@@ -54,10 +54,12 @@ public class SMSReceiver extends BroadcastReceiver {
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
                 Log.d("hqdat", ">>>>   phone    " + msgs[i].getOriginatingAddress());
 
-                if (CommonUtil.checkPhoneContainArea(msgs[i].getOriginatingAddress())) {
-                    Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
-                    showDialogMessage(context);
-                }
+                Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+                showDialogMessage(context);
+//                if (CommonUtil.checkPhoneContainArea(msgs[i].getOriginatingAddress())) {
+//                    Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+//                    showDialogMessage(context);
+//                }
             }
         }
     }

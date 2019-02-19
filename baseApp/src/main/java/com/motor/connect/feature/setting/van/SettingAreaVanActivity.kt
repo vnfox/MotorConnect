@@ -108,6 +108,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         showLoadingView(getString(R.string.sms_sending))
         val smsNumber = viewModel.getPhoneNumber()
         val smsText = StringUtil.prepareSmsVanAreaUsed(viewModel.getPassWordArea(), viewModel.getAreaId(), countVan, vanUsed)
+        Log.d("hqdat", ">>>>>  smsText   $smsText")
         val smsManager = SmsManager.getDefault()
         var pStatus: Int = 0
 

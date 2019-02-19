@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
 import android.telephony.SmsManager
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.feature.area.R
@@ -193,13 +194,33 @@ class SettingAreaScheduleActivity : BaseViewActivity<SettingAreaScheduleViewBind
 
     private fun onSendSms(content: String) {
         //Send sms in background
+        showLoadingView(getString(R.string.sms_sending))
         val smsNumber = viewModel.getAreaPhone()
         val smsText = StringUtil.prepareSmsSettingScheduleContent(prefix, viewModel.getAreaPassWord(), viewModel.getAreaId(), content)
-
+        Log.d("hqdat", ">>>>>  smsText   $smsText")
         val smsManager = SmsManager.getDefault()
-        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+        var pStatus: Int = 0
 
-        backPreviousScreen()
+        Thread(Runnable {
+            while (pStatus < MotorConstants.TIME_PROGRESS) {
+                pStatus += 1
+                handler.post {
+                    if (pStatus == MotorConstants.TIME_PROGRESS) {
+                        hideLoadingView()
+                        //Send sms
+                        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+                        backPreviousScreen()
+                    }
+                }
+                try {
+                    // Sleep for 200 milliseconds.
+                    // Just to display the progress slowly
+                    Thread.sleep(100) //thread will take approx 3 seconds to finish
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }).start()
     }
 
     private fun showSelectTimeStartDialog(txt_time: TextView) {
