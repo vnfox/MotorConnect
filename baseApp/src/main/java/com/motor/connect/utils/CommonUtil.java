@@ -3,11 +3,7 @@ package com.motor.connect.utils;
 import com.motor.connect.feature.model.AreaModel;
 import com.orhanobut.hawk.Hawk;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class CommonUtil {
 
