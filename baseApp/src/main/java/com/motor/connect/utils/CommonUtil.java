@@ -16,7 +16,7 @@ public class CommonUtil {
         List<AreaModel> dataArea;
         dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST);
 
-        for (int i = 0; i < dataArea.size(); i++)
+        for (int i = 0; i < dataArea.size() - 1; i++)
             return phone.contains(dataArea.get(i).getAreaPhone());
         return false;
     }
