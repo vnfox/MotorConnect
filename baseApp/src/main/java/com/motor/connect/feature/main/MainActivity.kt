@@ -30,6 +30,7 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
 
     private val viewModel = UserViewModel(this, BaseModel())
     private var adapter: UserAdapter? = null
+    private var isFirst: Boolean = false
 
 
     override fun createViewModel(): UserViewModel {
@@ -61,12 +62,14 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
     }
 
     override fun showEmptyView() {
+        isFirst = true
         recyclerView.visibility = View.GONE
         txt_empty.visibility = View.VISIBLE
 
     }
 
     override fun updateUI(dataArea: MutableList<AreaModel>) {
+        isFirst = false
         recyclerView.visibility = View.VISIBLE
         txt_empty.visibility = View.GONE
         adapter?.setData(dataArea)
@@ -80,11 +83,6 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
             shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, false)
             shef!!.setUpdateData(MotorConstants.KEY_EDIT_AREA, false)
         }
-    }
-
-    override fun onDestroy() {
-        viewModel.stopUpdates()
-        super.onDestroy()
     }
 
     override fun onBackPressed() {
@@ -109,7 +107,8 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
     }
 
     fun openNotificationScreen(v: View) {
-        NotificationActivity.show(this)
+        if (!isFirst)
+            NotificationActivity.show(this)
     }
 
     fun openSettingScreen(v: View) {
@@ -117,8 +116,6 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
     }
 
     override fun onPositiveClick() {
-//        shef?.setFirstUserPref(MotorConstants.FIRST_USED, true)
-//        viewModel.stopUpdates()
         this.finish()
     }
 
