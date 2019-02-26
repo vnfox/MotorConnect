@@ -77,7 +77,6 @@
                     android:background="@drawable/border_rect_bg"
                     android:gravity="center"
                     android:minHeight="@dimen/actionbar_height"
-                    android:onClick="stopScheduleAllArea"
                     android:text="@string/setting_schedule_off_all_area" />
 
                 <android.support.v7.widget.RecyclerView

@@ -1,6 +1,7 @@
 package com.motor.connect.feature.setting.schedule
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,8 +10,10 @@ import android.net.Uri
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.SettingScheduleActivityBinding
 import com.motor.connect.base.BaseModel
@@ -26,7 +29,6 @@ import com.motor.connect.utils.StringUtil
 import com.orhanobut.hawk.Hawk
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.setting_schedule_activity.*
-import javax.inject.Inject
 
 
 class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding, SettingScheduleViewModel>(),
@@ -38,13 +40,13 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         }
     }
 
+
     private val viewModel = SettingScheduleViewModel(this, BaseModel())
     private var adapter: SettingScheduleAdapter? = null
 
     private var alertDialogHelper: DialogHelper? = null
 
-    @Inject
-    lateinit var needPermissions: MutableList<String>
+    private lateinit var needPermissions: MutableList<String>
 
     override fun createViewModel(): SettingScheduleViewModel {
         viewModel.mView = this
@@ -55,6 +57,7 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         mBinding = DataBindingUtil.setContentView(this, R.layout.setting_schedule_activity)
         mBinding.viewModel = mViewModel
 
+        needPermissions = ArrayList<String>()
         //Adapter item click
         adapter = SettingScheduleAdapter { areaModel, position ->
 
@@ -62,6 +65,13 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
             Hawk.put(MotorConstants.KEY_POSITION, position)
             Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
             SettingAreaScheduleActivity.show(this)
+        }
+
+        val stopSchedule = findViewById<TextView>(R.id.txt_schedule_all)
+        stopSchedule.setOnClickListener {
+            Log.d("hqdat", ">>>>>>>>")
+            setupCall()
+
         }
 
         recyclerView.adapter = adapter
@@ -112,14 +122,13 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
 //                getString(R.string.btn_accept), getString(R.string.btn_huy), false)
 
 
-        setupCall()
     }
 
     private fun setupCall() {
         if (PermissionUtils.isGranted(this,
                         Manifest.permission.CALL_PHONE)) {
             //Setup van used
-            makeCall("0609383956")
+            makeCall("0906383956")
         } else {
             //Add permission
             needPermissions.add(Manifest.permission.CALL_PHONE)
@@ -132,10 +141,11 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun makeCall(phoneNumber: String) {
         IsProgramRunning = true
         val intent = Intent(Intent.ACTION_CALL)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.data = Uri.parse("tel:$phoneNumber")
         this.startActivity(intent)
     }
@@ -156,7 +166,7 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
                 //Todo revert
 //                onSendSms()
 
-                makeCall("0609383956")
+                makeCall("0906383956")
             }
         }
     }
