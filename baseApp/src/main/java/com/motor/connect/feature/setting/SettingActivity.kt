@@ -20,8 +20,6 @@ class SettingActivity : BaseViewActivity<SettingViewBinding, SettingViewModel>()
         }
     }
 
-    lateinit var needPermissions: MutableList<String>
-
     private val viewModel = SettingViewModel(this, BaseModel())
 
     override fun createViewModel(): SettingViewModel {

@@ -26,6 +26,7 @@ public class MotorConstants {
     public static final int PERMISSION_REQUEST_CODE = 101;
 
     public static final int TIME_PROGRESS = 15;
+    public static Boolean IsProgramRunning = false;
 
     public class AreaCode {
         private AreaCode() {
