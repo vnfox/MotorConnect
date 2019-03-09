@@ -55,8 +55,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -79,7 +79,7 @@
         <item name="android:textSize">@dimen/connect_text_size_title</item>
     </style>
 
-    <style name="SwitchCompatTheme" >
+    <style name="SwitchCompatTheme">
         <item name="colorControlActivated">@color/color_blue</item>
     </style>
 

@@ -1,52 +1,93 @@
 <resources>
     <string name="app_name">Motor-Connect</string>
 
-    <string name="string_Yes">Yes</string>
-    <string name="string_No">No</string>
-    <string name="string_OK">OK</string>
-    <string name="string_Cancel">Cancel</string>
-    <string name="string_CANCEL">CANCEL</string>
-    <string name="string_Delete">Delete</string>
-    <string name="string_Crop">Crop</string>
-    <string name="string_DELETE">DELETE</string>
-    <string name="string_CROP">CROP</string>
-    <string name="string_ADD">ADD</string>
-    <string name="string_Clear">Clear</string>
-    <string name="string_Open">Open</string>
-    <string name="string_Copy">Copy</string>
-    <string name="string_Add">Add</string>
-    <string name="string_Add_photo">Add Photo</string>
-    <string name="string_Photo">Photo</string>
-    <string name="string_Retake">Retake</string>
-
-
-    <string name="curved_text_value">In/Out Facility</string>
-    <string name="home_screen_observations">OBSERVATIONS</string>
-    <string name="total_observations">2375</string>
-    <string name="percent_value">65%</string>
-    <string name="home_screen_observed_compliance">OBSERVED\nCOMPLIANCE</string>
-    <string name="content_description">This is an image…</string>
-    <string name="add_input_name_empty">Vui lòng nhập tên khu vực</string>
-    <string name="add_input_phone_empty">Vui lòng nhập số điện thoại</string>
-    <string name="add_number_van_used">Số van sử dụng</string>
+    <!-- Button -->
     <string name="btn_chon">Chọn</string>
     <string name="btn_huy">Hủy</string>
+    <string name="btn_accept">Đồng Ý</string>
+
+    <!-- Message Config -->
+    <string name="sms_dung">Dung</string>
+    <string name="sms_loi">Loi</string>
+    <string name="sms_sai_pass">Sai pass</string>
+    <string name="sms_all_area_off">KV Tat</string>
+    <string name="sms_warning">Thông Báo</string>
+
+    <string name="sms_loading">Loading…</string>
+    <string name="sms_sending">Sending…</string>
+
     <string name="home_area_empty">Thêm\nKhu Vực</string>
-
-    <string name="setting_time_working">Thoi gian hoat dong</string>
-
+    <string name="setting_time_working">Thời gian hoạt động</string>
 
 
-
-
-    <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
-    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
-    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
-    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
-    the big cheese.</string>
-
-    <string name="setting_schedule_empty">Chua co khu vuc nao\nduoc them vao</string>
+    <string name="setting_schedule_empty">Chưa có khu vực nào\nđược thêm vào</string>
     <string name="connect_setting_warning">Máy bơm sẽ không hoạt động nếu tất cả\ncác van đều tắt</string>
     <string name="connect_setting_van">Thiết Lập Van Tưới</string>
+    <string name="sms_exit_content">Bạn có chắc muốn thoát khỏi ứng dụng không?</string>
+    <string name="sms_warning_title">Thông Báo</string>
+
+    <string name="sms_review_schedule_content">Bạn có muốn xem lại lịch tưới không?</string>
+    <string name="sms_stop_schedule_content">Bạn có chắc muốn dừng lịch tưới không?</string>
+    <string name="sms_receiver_title">Bạn Có Thông Báo Mới</string>
+    <string name="sms_receiver_empty">Không có thông báo mới</string>
+
+    <!--Setting-->
+    <string name="setting_schedule_title">Cài Đặt Lich Tưới</string>
+    <string name="setting_schedule_off_all_area">Ngắt tưới trong ngày cho tất cả khu vực</string>
+    <string name="setting_schedule_off_description">Tính năng này sẽ ngắt tưới tiêu trong ngày cho tất cả khu vực.</string>
+    <string name="setting_schedule">Cài đặt lịch tưới</string>
+    <string name="setting_review_schedule">Xem lại lịch tưới</string>
+    <string name="setting_van_used">Thiết lập van sử dụng</string>
+    <string name="setting_schedule_in_day">Ngắt lịch tưới trong ngày</string>
+    <string name="setting_edit_info_area">Sửa thông tin</string>
+    <string name="setting_title">Cài Đặt</string>
+
+    <!--Setting Schedule Area-->
+    <string name="schedule_title">Số lần tưới trong ngày</string>
+    <string name="schedule_one">1 lần</string>
+    <string name="schedule_two">2 lần</string>
+    <string name="schedule_three">3 lần</string>
+    <string name="schedule_repeat">Lịch tưới lập lại</string>
+    <string name="schedule_repeat_none">không</string>
+    <string name="schedule_repeat_one">1 ngày</string>
+    <string name="schedule_repeat_two">2 ngày</string>
+    <string name="schedule_repeat_three">3 ngày</string>
+    <string name="schedule_first">Lần 1</string>
+    <string name="schedule_start">Bắt đầu</string>
+    <string name="schedule_running">Hoạt động</string>
+    <string name="schedule_second">Lần 2</string>
+    <string name="schedule_third">Lần 3</string>
+    <string name="schedule_time_schedule_run">Thời gian hoạt động từ 05h đến 17h</string>
+    <string name="schedule_settup_schedule">Thiết Lập Lịch Tưới</string>
+
+    <!--Add Area-->
+    <string name="add_area_title">Thêm Khu Vực Tưới</string>
+    <string name="add_area_name">Tên khu vực</string>
+    <string name="add_area_phone">Số điện thoại</string>
+    <string name="add_area_van_use">Số van sử dụng</string>
+    <string name="add_area_detail">Mô tả khu vưc tưới</string>
+    <string name="add_area_submit">LƯU THÔNG TIN</string>
+    <string name="add_input_name_empty">Vui lòng nhập tên khu vực</string>
+    <string name="add_input_phone_empty">Vui lòng nhập số điện thoại</string>
+    <string name="setting_system">Cài đặt hệ thống</string>
+    <string name="setting_note">Ghi chú</string>
+    <string name="setting_how_use">Hướng dẫn sử dụng</string>
+    <string name="setting_help_feedback">Trợ giúp - Phản hồi</string>
+    <string name="setting_how_to_use">Hướng Dẫn Sử Dụng</string>
+
+    <!--Detail-->
+    <string name="detail_note">Ghi chú</string>
+    <string name="detail_info_motor">Thông tin máy bơm</string>
+    <string name="detail_info_area">Thông tin khu vực</string>
+    <string name="detail_title">Thông Tin Chi Tiết</string>
+    <string name="detail_van_total">Tổng số van hiện có: %s</string>
+    <string name="detail_status">Trạng thái: %s</string>
+    <string name="detail_van_open">Van đang mở: %s</string>
+    <string name="detail_no_setup_schedule">Chưa cài đặt lịch tưới</string>
+
+    <string name="detail_status_working">Trạng thái: Đang hoạt động</string>
+    <string name="detail_time_running">Thời gian %s phút</string>
+    <string name="detail_time_start">Bắt đầu</string>
+    <string name="detail_motor_running">Đang hoạt động</string>
 
 </resources>

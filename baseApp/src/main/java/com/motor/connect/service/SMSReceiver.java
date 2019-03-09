@@ -10,6 +10,11 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.motor.connect.utils.CommonUtil;
+import com.motor.connect.utils.MotorConstants;
+import com.motor.connect.utils.dialog.DialogActivity;
+import com.orhanobut.hawk.Hawk;
+
 public class SMSReceiver extends BroadcastReceiver {
 
     public static final String pdu_type = "pdus";
@@ -21,7 +26,10 @@ public class SMSReceiver extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         SmsMessage[] msgs;
         String strMessage = "";
-        String format = bundle.getString("format");
+        String format = null;
+        if (bundle != null) {
+            format = bundle.getString("format");
+        }
         // Retrieve the SMS message received.
         Object[] pdus = (Object[]) bundle.get(pdu_type);
         if (pdus != null) {
@@ -43,9 +51,23 @@ public class SMSReceiver extends BroadcastReceiver {
                 strMessage += "SMS from " + msgs[i].getOriginatingAddress();
                 strMessage += " :" + msgs[i].getMessageBody() + "\n";
                 // Log and display the SMS message.
-                Log.d("hqdat", "onReceive: " + strMessage);
                 Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+                Log.d("hqdat", ">>>>   phone    " + msgs[i].getOriginatingAddress());
+
+                Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+                showDialogMessage(context);
+//                if (CommonUtil.checkPhoneContainArea(msgs[i].getOriginatingAddress())) {
+//                    Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+//                    showDialogMessage(context);
+//                }
             }
         }
+    }
+
+    private void showDialogMessage(Context context) {
+        //start activity which has dialog
+        Intent i = new Intent(context, DialogActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
     }
 }

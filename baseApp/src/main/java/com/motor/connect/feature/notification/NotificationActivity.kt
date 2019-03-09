@@ -3,6 +3,7 @@ package com.motor.connect.feature.notification
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import com.feature.area.R
@@ -41,24 +42,28 @@ class NotificationActivity : BaseViewActivity<NotificationViewBinding, Notificat
         }
 
         recyclerView_sms_receivers.adapter = adapter
-
+        viewModel.initViewModel()
+        showLoadingView(getString(R.string.sms_loading))
         viewModel.initData(this)
-
 
         val onClose = findViewById<ImageView>(R.id.action_left)
         onClose?.setOnClickListener {
             actionLeft()
         }
-
         return mBinding
     }
 
     override fun updateUI(smsReceivers: MutableList<SmsModel>) {
+        hideLoadingView()
         adapter?.setData(smsReceivers)
         recyclerView_sms_receivers.adapter?.notifyDataSetChanged()
+
+        recyclerView_sms_receivers.visibility = View.VISIBLE
+        txt_empty.visibility = View.GONE
     }
 
     override fun showEmptyView() {
-
+        recyclerView_sms_receivers.visibility = View.GONE
+        txt_empty.visibility = View.VISIBLE
     }
 }

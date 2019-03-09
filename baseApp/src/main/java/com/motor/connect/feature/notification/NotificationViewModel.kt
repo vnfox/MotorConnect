@@ -3,30 +3,37 @@ package com.motor.connect.feature.notification
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
+import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.SmsModel
+import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.StringUtil
+import com.orhanobut.hawk.Hawk
 
 class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
     : BaseViewModel<NotificationView, BaseModel>(mView, mModel) {
 
-    var smsReceivers: MutableList<SmsModel> = mutableListOf()
+    private var dataArea: MutableList<AreaModel> = mutableListOf()
+    private var smsReceivers: MutableList<SmsModel> = mutableListOf()
 
     override fun initViewModel() {
 
     }
 
     fun initData(context: NotificationActivity) {
-        smsReceivers = getSMSRecievers(context)
+        smsReceivers = getSMSReceives(context)
 
         if (smsReceivers.isEmpty()) {
+            mView?.hideLoadingView()
             mView?.showEmptyView()
         } else {
             mView?.updateUI(smsReceivers)
         }
     }
 
-    fun getSMSRecievers(context: NotificationActivity): MutableList<SmsModel> {
+    private fun getSMSReceives(context: NotificationActivity): MutableList<SmsModel> {
         val sms: MutableList<SmsModel> = mutableListOf()
         val uriSMSURI = Uri.parse("content://sms/inbox")
         val cur = context.contentResolver.query(uriSMSURI, null, null, null, null)
@@ -35,49 +42,56 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
             val address = cur.getString(cur.getColumnIndex("address"))
             val body = cur.getString(cur.getColumnIndexOrThrow("body"))
             val type = cur.getString(cur.getColumnIndexOrThrow("type"))
-            val contact = getContactByPhoneNumber(context, address)
+            val contact = getContactByPhoneNumber(context, StringUtil.comparePrefixPhone(address))
             val timestamp = cur.getString(cur.getColumnIndexOrThrow("date"))
 
-//            sms.add("Number: $address Contact: $contact Type: $type .Message: $body")
             val smsModel = SmsModel()
             smsModel.contactName = contact
-            smsModel.phoneNumber = address
+            smsModel.phoneNumber = StringUtil.comparePrefixPhone(address)
             smsModel.smsType = type
             smsModel.messageContent = body
             smsModel.date = timestamp
-
-            sms.add(smsModel)
-
-            //Get 30 sms lasted
-            if (sms.size == 30) {
-                return sms
+            if (address.length in 9..12) {
+                sms.add(smsModel)
+            }
+            if (sms.size == 50) {
+                return verifyContactArea(sms)
             }
         }
         cur?.close()
-        return sms
+        return verifyContactArea(sms)
+    }
+
+    private fun verifyContactArea(smsList: MutableList<SmsModel>): MutableList<SmsModel> {
+        val result: MutableList<SmsModel> = mutableListOf()
+        dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+
+        for (i in 0 until dataArea.size) {
+            for (j in 0 until smsList.size) {
+                if (smsList[j].phoneNumber.contains(dataArea[i].areaPhone)) {
+                    result.add(smsList[j])
+                }
+            }
+        }
+        return result
     }
 
     private fun getContactByPhoneNumber(c: Context, phoneNumber: String): String {
-
         try {
             val uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber))
             val projection = arrayOf(ContactsContract.PhoneLookup.DISPLAY_NAME)
             val cursor = c.contentResolver.query(uri, projection, null, null, null)
-            if (cursor == null) {
-                return phoneNumber
+            return if (cursor == null) {
+                phoneNumber
             } else {
                 var name = phoneNumber
-                try {
-
+                cursor.use { cursor ->
                     if (cursor.moveToFirst()) {
                         name = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME))
                     }
-
-                } finally {
-                    cursor.close()
                 }
 
-                return name
+                name
             }
         } finally {
             return phoneNumber

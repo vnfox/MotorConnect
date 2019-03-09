@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
 
     <data>
 
@@ -39,8 +40,8 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_blue"
                     android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/cheese_4"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/backdrop_5"
                     app:layout_collapseMode="parallax" />
 
                 <android.support.v7.widget.Toolbar
@@ -81,28 +82,28 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Thong tin khu vuc"
+                            android:text="@string/detail_info_area"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
                             android:id="@+id/txt_area_name"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Ten khu vuc" />
+                            tool:text="Ten khu vuc" />
 
                         <TextView
                             android:id="@+id/txt_area_phone"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Sdt: 0906383956" />
+                            tool:text="Sdt: 0906383956" />
 
                         <TextView
                             android:id="@+id/txt_area_van"
                             style="@style/TextView.Screen.Detail"
-                            android:text="So van" />
+                            tool:text="So van" />
 
                         <TextView
                             android:id="@+id/txt_area_scheduler"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Lich tuoi" />
+                            tool:text="Lich tuoi" />
 
 
                     </LinearLayout>
@@ -113,9 +114,9 @@
                     android:id="@+id/working_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_margin="@dimen/card_margin"
-                    android:minHeight="160dp">
+                    android:minHeight="160dp"
+                    android:visibility="gone">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -137,26 +138,26 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Dang chay"
+                            android:text="@string/detail_motor_running"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
                             android:id="@+id/txt_time_start"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Thoi gian bat dau"
-                            android:textSize="@dimen/connect_text_size_description" />
+                            android:textSize="@dimen/connect_text_size_description"
+                            tool:text="Thoi gian bat dau" />
 
                         <TextView
                             android:id="@+id/txt_time_working"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Thoi gian tuoi"
-                            android:textSize="@dimen/connect_text_size_description" />
+                            android:textSize="@dimen/connect_text_size_description"
+                            tool:text="Thoi gian tuoi" />
 
                         <TextView
                             android:id="@+id/txt_van"
                             style="@style/TextView.Screen.Detail"
-                            android:text="So van mo"
-                            android:textSize="@dimen/connect_text_size_description" />
+                            android:textSize="@dimen/connect_text_size_description"
+                            tool:text="So van mo" />
                     </LinearLayout>
 
 
@@ -169,7 +170,7 @@
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin"
                     android:layout_marginBottom="@dimen/card_margin"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -179,23 +180,23 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Thong tin may bom"
+                            android:text="@string/detail_info_motor"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
                             android:id="@+id/txt_area_status"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Trang thai" />
+                            tool:text="Trang thai" />
 
                         <TextView
                             android:id="@+id/txt_area_van_used"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Van dang mo (van 01,02 ..)" />
+                            tool:text="Van dang mo (van 01,02 ..)" />
 
                         <TextView
                             android:id="@+id/txt_schedule_working"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Lich dang tuoi" />
+                            tool:text="Lich dang tuoi" />
 
                     </LinearLayout>
 
@@ -216,18 +217,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Ghi chu"
+                            android:text="@string/detail_note"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
-                            android:id="@+id/txt_area_details"
+                            android:id="@+id/txt_area_detail"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Khu vuc 01, buoi da xanh 2 nam tuoi" />
+                            tool:text="Khu vuc 01, buoi da xanh 2 nam tuoi" />
 
                         <TextView
                             android:id="@+id/txt_area_history"
                             style="@style/TextView.Screen.Detail"
-                            android:text="Ngay 20 tuoi buoi sang luc 7h 30ph, buoi chieu luc 16h 30ph ..." />
+                            tool:text="Ngay 20 tuoi buoi sang luc 7h 30ph, buoi chieu luc 16h 30ph ..." />
 
                     </LinearLayout>
 

@@ -13,7 +13,7 @@
         style="@style/TextView.Screen.Title"
         android:gravity="center"
         android:minHeight="@dimen/actionbar_height"
-        android:text="Cài Đặt"
+        android:text="@string/setting_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/connect_text_size_30" />
 
@@ -28,7 +28,7 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="setupScheduleArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="Cài đặt lịch tưới" />
+        android:text="@string/setting_schedule" />
 
     <View
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="reviewScheduleArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="Xem laị lịch tưới" />
+        android:text="@string/setting_review_schedule" />
 
     <View
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="setupVanUsedArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="Thiết lập van sử dụng" />
+        android:text="@string/setting_van_used" />
 
     <View
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="scheduleStopArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="Ngắt lịch tưới trong ngày" />
+        android:text="@string/setting_schedule_in_day" />
 
     <View
         android:layout_width="match_parent"
@@ -80,5 +80,5 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="editInfoArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="Sửa thông tin" />
+        android:text="@string/setting_edit_info_area" />
 </LinearLayout>

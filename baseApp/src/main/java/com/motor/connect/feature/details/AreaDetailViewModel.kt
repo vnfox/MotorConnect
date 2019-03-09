@@ -4,6 +4,7 @@ import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.feature.model.ScheduleModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.EnumHelper
 import com.motor.connect.utils.MotorConstants
@@ -15,11 +16,11 @@ import java.util.*
 class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     : BaseViewModel<AreaDetailView, BaseModel>(mView, mModel) {
 
+    var model = AreaModel()
+
     override fun initViewModel() {
 
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA)
-
-        mView?.showLoadingView()
+        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
         //get data
         mView?.viewLoaded()
 
@@ -27,43 +28,110 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
         Hawk.put(MotorConstants.KEY_VANS_USED, model.areaVans)
     }
 
-    fun updateMotorWorking(scheduleWorking: String?) {
-        val array = StringUtil.getScheduleRunning(scheduleWorking)
-        val maxValue = calculateMaxProgress(array[1])
+    private fun updateAreaInfo(model: AreaModel) {
+        val schedules = getScheduleWorking()
 
-        val currentTime = calculateCurrentProgress(array[0], array[1])
-        mView?.viewMotorWorking(array!![0], array[1].replaceFirst("t", "T"), maxValue, currentTime)
+        mView?.viewAreaInfo(model, schedules)
     }
 
     fun updateInfoMotor() {
-        val model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA)
-        mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans),
-                StringUtil.getScheduleWorking(model.areaSchedule))
+        val schedule = getScheduleWorking()
+        mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans), schedule)
     }
 
-    private fun calculateMaxProgress(time: String): Int {
-        val time = time.split(" ")[1]
-        return time.toInt() * 60
+    fun checkScheduleWorking() {
+        if (model.schedule == null || model.schedule.isEmpty()) {
+            return
+        }
+        when {
+            model.schedule.size == 1 -> {
+                calculateProgressOneDay(model.schedule[0])
+            }
+            model.schedule.size == 2 -> {
+                calculateProgressTwoDay(model.schedule[0], model.schedule[1])
+            }
+            model.schedule.size == 3 -> {
+                calculateProgressThreeDay(model.schedule[0], model.schedule[1], model.schedule[2])
+            }
+        }
     }
 
-    private fun calculateCurrentProgress(time: String, minutes: String): Int {
-        //get Current time
+    private fun calculateProgressOneDay(schedule: ScheduleModel) {
         val dateFormat = SimpleDateFormat("HH:mm")
         val date = Date()
 
-        val minutes = minutes.split(" ")[1]
-        val hour = time.substring(8, 18).replace(" gio ", ":")
-
-        val startTime = hour.replace(":", "").trim().toInt()
-        val endTime = getEndTime(hour, minutes).toInt()
-        val currentTime = dateFormat.format(date).replace(":", "").toInt()
+        var currentTime = dateFormat.format(date).replace(":", "").toInt()
+        val startTime = schedule.timeSchedule.replace(":", "").trim().toInt()
+        val endTime = getEndTime(schedule.timeSchedule, StringUtil.getFirstItem(schedule.timeRun)).toInt()
+        val maxTime = StringUtil.getFirstItem(schedule.timeRun).toInt()
 
         Log.d("hqdat", ">>>> startTime  $startTime")
         Log.d("hqdat", ">>>> currentTime  $currentTime")
-        if (currentTime > endTime)
-            return 0
+        Log.d("hqdat", ">>>> EndTime  $endTime")
 
-        return (currentTime - startTime) * 60
+        if (!(startTime >= currentTime || currentTime >= endTime)) {
+            currentTime -= startTime
+            mView?.viewMotorWorking(schedule.timeSchedule, schedule.timeRun, maxTime * 60, currentTime * 60)
+        } else {
+            mView?.updateViewMotorStopWorking()
+        }
+    }
+
+    private fun calculateProgressTwoDay(schedule1: ScheduleModel, schedule2: ScheduleModel) {
+        val dateFormat = SimpleDateFormat("HH:mm")
+        val date = Date()
+
+        var currentTime = dateFormat.format(date).replace(":", "").toInt()
+        val startTime1 = schedule1.timeSchedule.replace(":", "").trim().toInt()
+        val endTime1 = getEndTime(schedule1.timeSchedule, StringUtil.getFirstItem(schedule1.timeRun)).toInt()
+
+        val startTime2 = schedule2.timeSchedule.replace(":", "").trim().toInt()
+        val endTime2 = getEndTime(schedule2.timeSchedule, StringUtil.getFirstItem(schedule2.timeRun)).toInt()
+
+        if (!(startTime1 >= currentTime || currentTime >= endTime1)) {
+            currentTime -= startTime1
+            val maxTime = StringUtil.getFirstItem(schedule1.timeRun).toInt()
+            mView?.viewMotorWorking(schedule1.timeSchedule, schedule1.timeRun, maxTime * 60, currentTime * 60)
+
+        } else if (!(startTime2 >= currentTime || currentTime >= endTime2)) {
+            currentTime -= startTime1
+            val maxTime = StringUtil.getFirstItem(schedule2.timeRun).toInt()
+            mView?.viewMotorWorking(schedule2.timeSchedule, schedule2.timeRun, maxTime * 60, currentTime * 60)
+        } else {
+            mView?.updateViewMotorStopWorking()
+        }
+    }
+
+    private fun calculateProgressThreeDay(schedule1: ScheduleModel, schedule2: ScheduleModel, schedule3: ScheduleModel) {
+        val dateFormat = SimpleDateFormat("HH:mm")
+        val date = Date()
+
+        var currentTime = dateFormat.format(date).replace(":", "").toInt()
+        val startTime1 = schedule1.timeSchedule.replace(":", "").trim().toInt()
+        val endTime1 = getEndTime(schedule1.timeSchedule, StringUtil.getFirstItem(schedule1.timeRun)).toInt()
+
+        val startTime2 = schedule2.timeSchedule.replace(":", "").trim().toInt()
+        val endTime2 = getEndTime(schedule2.timeSchedule, StringUtil.getFirstItem(schedule2.timeRun)).toInt()
+
+        val startTime3 = schedule3.timeSchedule.replace(":", "").trim().toInt()
+        val endTime3 = getEndTime(schedule3.timeSchedule, StringUtil.getFirstItem(schedule3.timeRun)).toInt()
+
+        if (!(startTime1 >= currentTime || currentTime >= endTime1)) {
+            currentTime -= startTime1
+            val maxTime = StringUtil.getFirstItem(schedule1.timeRun).toInt()
+            mView?.viewMotorWorking(schedule1.timeSchedule, schedule1.timeRun, maxTime * 60, currentTime * 60)
+
+        } else if (!(startTime2 >= currentTime || currentTime >= endTime2)) {
+            currentTime -= startTime2
+            val maxTime = StringUtil.getFirstItem(schedule2.timeRun).toInt()
+            mView?.viewMotorWorking(schedule2.timeSchedule, schedule2.timeRun, maxTime * 60, currentTime * 60)
+        } else if (!(startTime3 >= currentTime || currentTime >= endTime3)) {
+            currentTime -= startTime3
+            val maxTime = StringUtil.getFirstItem(schedule3.timeRun).toInt()
+            mView?.viewMotorWorking(schedule3.timeSchedule, schedule3.timeRun, maxTime * 60, currentTime * 60)
+        } else {
+            mView?.updateViewMotorStopWorking()
+        }
     }
 
     private fun getEndTime(time: String, min: String): String {
@@ -72,7 +140,10 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
         var minutes = array[1].trim().toInt() + min.toInt()
         if (minutes > 60) {
             minutes -= 60
-            hour += 1
+            hour++
+        } else if (minutes == 60) {
+            hour++
+            return hour.toString() + "00"
         }
         return hour.toString() + minutes.toString()
     }
@@ -87,31 +158,32 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
         return result.toString()
     }
 
-    private fun updateAreaInfo(model: AreaModel) {
-        val schedules = getScheduleWorking(model.areaSchedule)
-        mView?.viewAreaInfo(model, schedules)
-        mView?.hideLoadingView()
-    }
+    private fun getScheduleWorking(): String {
+        val result = "Chưa cài đặt lịch tưới"
 
-    private fun getScheduleWorking(value: String): String {
-        val result = "chua co lich tuoi"
-
-        if (value.isEmpty())
+        if (model.schedule == null || model.schedule.isEmpty())
             return result
 
-        val count = StringUtil.getCountWorkingDay(value)
+        val count = "0${model.schedule.size}"
         when (count) {
             EnumHelper.ScheduleDays.ONE_DAY.key -> {
-
-                return StringUtil.getScheduleWorkingOneDay(value)
+                return StringUtil.getScheduleOneDay(model.schedule[0])
             }
             EnumHelper.ScheduleDays.TWO_DAY.key -> {
-                return StringUtil.getScheduleWorkingTwoDay(value)
+                return StringUtil.getScheduleTwoDay(model.schedule[0], model.schedule[1])
             }
             EnumHelper.ScheduleDays.THREE_DAY.key -> {
-                return StringUtil.getScheduleWorkingThreeDay(value)
+                return StringUtil.getScheduleThreeDay(model.schedule[0], model.schedule[1], model.schedule[2])
             }
         }
         return result!!
+    }
+
+    fun getPassWordArea(): String {
+        return model.password
+    }
+
+    fun getAreaId(): String {
+        return model.areaId
     }
 }
