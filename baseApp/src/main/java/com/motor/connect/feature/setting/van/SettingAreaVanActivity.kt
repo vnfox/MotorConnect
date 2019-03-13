@@ -19,6 +19,7 @@ import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.PermissionUtils
 import com.motor.connect.utils.StringUtil
 import io.reactivex.annotations.NonNull
+import kotlinx.android.synthetic.main.action_bar_view.*
 import kotlinx.android.synthetic.main.setting_area_van_view.*
 
 
@@ -46,6 +47,8 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         mBinding = DataBindingUtil.setContentView(this, R.layout.setting_area_van_view)
         mBinding.viewModel = mViewModel
 
+        txt_title.text = "Schedule"
+        btn_action_right.text= "Save"
         //Adapter item click
         adapter = SettingAreaVanAdapter { areaModel, position ->
             //nothing
@@ -63,11 +66,12 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    fun actionClose(v: View) {
+    fun actionLeft(v: View) {
         actionLeft()
     }
 
-    fun setupVanUsed(v: View) {
+    //Todo re-used later
+    /*fun setupVanUsed(v: View) {
         var listVans = adapter?.getDataView()
 
         for (i in 0 until listVans!!.size) {
@@ -79,7 +83,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         //Send SMS
         viewModel.updateDataArea(listVans)
         setupVanUsedDetail(vanUsed.toString())
-    }
+    }*/
 
     private fun setupVanUsedDetail(smsContent: String) {
         //Send SMS

@@ -8,74 +8,29 @@
             type="com.motor.connect.feature.setting.van.SettingAreaVanViewModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white">
+        android:background="@drawable/bg_main"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/action_bar_view" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/btn_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:onClick="actionClose"
-                android:scaleType="centerInside"
-                app:srcCompat="@mipmap/ic_close" />
-
-            <!-- Schedule days-->
-
-            <TextView
-                style="@style/TextView.Screen.Title"
-                android:layout_marginBottom="@dimen/connect_margin_10"
-                android:text="Chọn van tưới"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:layout_height="1dp"
+            android:background="@color/color_text_white" />
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="5dp"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager" />
-        </LinearLayout>
-
-
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="5dp"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager" />
+    </LinearLayout>
 
-            <TextView
-                style="@style/TextView.Screen.Description"
-                android:layout_below="@+id/container"
-                android:layout_gravity="bottom"
-                android:gravity="center|bottom"
-                android:text="@string/connect_setting_warning" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/border_rect_bg"
-                android:gravity="center"
-                android:minHeight="50dp"
-                android:onClick="setupVanUsed"
-                android:text="@string/connect_setting_van"
-                android:textSize="@dimen/connect_text_size_title" />
-        </LinearLayout>
-
-    </FrameLayout>
 </layout>

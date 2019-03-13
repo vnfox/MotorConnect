@@ -37,10 +37,9 @@ class SettingAreaVanAdapter(val onClick: (VanModel, Int) -> Unit) : RecyclerView
             onClick(areaVan[position], position)
         }
         (holder as ItemViewHolder).vanId.text = "Van " + areaVan[position].vanId
-        holder.vanUsed.isChecked = areaVan[position].vanStatus
-        holder.vanUsed.setOnClickListener {
-            areaVan[position].vanStatus = holder.vanUsed.isChecked
-        }
+
+        holder.vanNumber.text = "0" + (position + 1).toString()
+
     }
 
     fun getDataView(): List<VanModel> {
@@ -50,6 +49,6 @@ class SettingAreaVanAdapter(val onClick: (VanModel, Int) -> Unit) : RecyclerView
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var vanId: TextView = itemView.findViewById(R.id.van_id) as TextView
-        var vanUsed: SwitchCompat = itemView.findViewById(R.id.sw_van) as SwitchCompat
+        var vanNumber: TextView = itemView.findViewById(R.id.area) as TextView
     }
 }

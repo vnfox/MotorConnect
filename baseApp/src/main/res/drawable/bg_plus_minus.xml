@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="@dimen/button_radius4" />
+            <gradient
+                android:endColor="@color/color_bg_button"
+                android:startColor="@color/color_bg_button" />
+        </shape>
+    </item>
+</layer-list>

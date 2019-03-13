@@ -25,6 +25,7 @@
     <dimen name="card_radius">6dp</dimen>
 
     <dimen name="button_radius">6dp</dimen>
+    <dimen name="button_radius4">4dp</dimen>
 
     <dimen name="actionbar_height">46dp</dimen>
     <dimen name="button_min_height">56dp</dimen>

@@ -5,34 +5,336 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="5dp"
-    android:background="@drawable/border_rect_bg"
-    android:gravity="center|left"
-    android:minHeight="@dimen/actionbar_height"
+    android:layout_margin="@dimen/connect_margin_5"
+    android:background="@drawable/bg_van_pattern"
+    android:gravity="center"
+    android:minHeight="180dp"
     android:orientation="horizontal">
 
-    <TextView
-        style="@style/TextView.Screen.Description"
-        android:id="@+id/van_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="2"
-        android:gravity="center|left"
-        android:paddingLeft="20dp"
-        android:text="Van 01"
-        android:textSize="@dimen/connect_text_size_title" />
 
-
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/sw_van"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1.5"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corner"
+                android:gravity="left"
+                android:text="01"
+                android:textColor="@color/color_text_black"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/van_id"
+                style="@style/TextView.Screen.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_16"
+                android:layout_marginBottom="@dimen/connect_margin_5"
+                android:text="front side"
+                android:textColor="@color/color_text_white"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/connect_margin_16"
+            android:layout_marginTop="@dimen/connect_margin_5"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/connect_margin_5"
+                android:src="@mipmap/ic_clock" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_duration"
+                android:gravity="center"
+                android:text="20"
+                android:textColor="@color/color_text_white"
+                android:textSize="24sp" />
+
+            <TextView
+                style="@style/TextView.Screen.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:gravity="center"
+                android:text="min"
+                android:textColor="@color/color_text_white"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/ic_play" />
+        </LinearLayout>
+
+
+        <!--Time Repeat-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/connect_margin_16"
+            android:layout_marginTop="@dimen/connect_margin_5"
+            android:layout_marginBottom="@dimen/connect_margin_5"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T2"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T3"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T4"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T5"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T6"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T7"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CN"
+
+                    android:textColor="@color/color_text_white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/connect_margin_5"
+                    android:button="@drawable/bg_checkbox_selected"
+                    android:checked="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
-        android:paddingRight="20dp"
-        android:theme="@style/SwitchCompatTheme" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_duration"
+            android:gravity="center"
+            android:text="06:00"
+            android:textColor="@color/color_text_white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_duration"
+            android:gravity="center"
+            android:text="10:00"
+            android:textColor="@color/color_text_white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_duration"
+            android:gravity="center"
+            android:text="14:00"
+            android:textColor="@color/color_text_white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_duration"
+            android:gravity="center"
+            android:text="17:00"
+            android:textColor="@color/color_text_white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="4dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_plus_minus"
+                android:src="@mipmap/ic_minus" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_plus_minus"
+                android:src="@mipmap/ic_plus" />
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>
 
