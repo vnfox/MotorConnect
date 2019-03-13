@@ -10,11 +10,12 @@ public class AreaModel {
     private String areaPhone;
     private String areaDetails;
     private String areaSchedule;
-    private String areaStatus;
+    private String areaStatus = "Chưa hoạt động";
     private List<VanModel> areaVans;
-    private String areaScheduleRepeat;
-    private int timeReminder;
-    private int timeRemain;
+    private List<ScheduleModel> schedule;
+    private String scheduleRepeat;
+    private String password = "1234";
+
 
     public String getAreaId() {
         return areaId;
@@ -80,27 +81,27 @@ public class AreaModel {
         this.areaVans = areaVans;
     }
 
-    public String getAreaScheduleRepeat() {
-        return areaScheduleRepeat;
+    public String getScheduleRepeat() {
+        return scheduleRepeat;
     }
 
-    public void setAreaScheduleRepeat(String areaScheduleRepeat) {
-        this.areaScheduleRepeat = areaScheduleRepeat;
+    public void setScheduleRepeat(String scheduleRepeat) {
+        this.scheduleRepeat = scheduleRepeat;
     }
 
-    public int getTimeReminder() {
-        return timeReminder;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTimeReminder(int timeReminder) {
-        this.timeReminder = timeReminder;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getTimeRemain() {
-        return timeRemain;
+    public List<ScheduleModel> getSchedule() {
+        return schedule;
     }
 
-    public void setTimeRemain(int timeRemain) {
-        this.timeRemain = timeRemain;
+    public void setSchedule(List<ScheduleModel> schedule) {
+        this.schedule = schedule;
     }
 }

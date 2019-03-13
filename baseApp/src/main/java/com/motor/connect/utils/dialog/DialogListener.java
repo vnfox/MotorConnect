@@ -1,7 +1,9 @@
 package com.motor.connect.utils.dialog;
 
-import android.app.Dialog;
-
 public interface DialogListener {
-    boolean onDialogClicked(Dialog dialog, ButtonType buttonType);
+    void onPositiveClick(int from);
+
+    void onNegativeClick(int from);
+
+    void onNeutralClick(int from);
 }

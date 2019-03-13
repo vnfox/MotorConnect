@@ -17,6 +17,10 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="detail_backdrop_height">256dp</dimen>
     <!-- ====== Motor Connect =========== -->
+
+    <dimen name="default_dialog_width">290dp</dimen>
+    <dimen name="default_dialog_height">272dp</dimen>
+
     <dimen name="card_elevation">100dp</dimen>
     <dimen name="card_radius">6dp</dimen>
 
@@ -27,12 +31,13 @@
 
     <dimen name="connect_text_size_30">30sp</dimen>
     <dimen name="connect_text_size_36">36sp</dimen>
-    <dimen name="connect_text_size_title">22sp</dimen>
+    <dimen name="connect_text_size_title">20sp</dimen>
     <dimen name="connect_text_size_description">16sp</dimen>
     <dimen name="connect_text_size_error">16sp</dimen>
 
     <dimen name="connect_text_size_menu">16sp</dimen>
     <dimen name="connect_text_size_22">22sp</dimen>
+    <dimen name="connect_text_size_20">20sp</dimen>
     <dimen name="connect_text_size_18">18sp</dimen>
     <dimen name="connect_text_size_16">16sp</dimen>
 

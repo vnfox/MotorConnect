@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.motor.connect.feature.home.HomeViewModel" />
+            type="com.motor.connect.feature.demo.DemoViewModel" />
     </data>
 
     <LinearLayout

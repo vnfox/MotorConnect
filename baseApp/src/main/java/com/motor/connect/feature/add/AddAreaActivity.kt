@@ -1,15 +1,11 @@
 package com.motor.connect.feature.add
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.AddAreaViewBinding
@@ -18,10 +14,9 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
-import com.motor.connect.utils.StringUtils
 
 
-class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>(), AddAreaView, View.OnClickListener {
+class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>(), AddAreaView {
 
 
     companion object {
@@ -30,10 +25,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         }
     }
 
-    private val timeTotal: Int = 10
     private var pStatus: Int = 0
-    private val handler = Handler()
-
     private val viewModel = AddAreaViewModel(this, BaseModel())
 
     private var areaName: EditText? = null
@@ -55,45 +47,32 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         areaDetail = findViewById(R.id.input_detail)
         areaVan = findViewById(R.id.txt_van)
 
-        val onClose = findViewById<ImageView>(R.id.action_left)
-        onClose?.setOnClickListener(this)
-
-        val onImage = findViewById<ImageView>(R.id.img_wall)
-        onImage?.setOnClickListener(this)
-
-        val onSave = findViewById<Button>(R.id.btn_save)
-        onSave?.setOnClickListener(this)
-
-        val onVanSelect = findViewById<TextView>(R.id.txt_van)
-        onVanSelect?.setOnClickListener(this)
-
         return mBinding
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.action_left -> {
-                actionLeft()
-            }
-            R.id.img_wall -> {
-                AddAreaActivity.show(this)
-            }
-            R.id.txt_van -> {
-                selectVanView()
-            }
-            R.id.btn_save -> {
-                if (StringUtils.isNullOrEmpty(areaName?.text.toString())) {
-                    areaName?.error = getString(R.string.add_input_name_empty)
-                    return
-                }
-                if (StringUtils.isNullOrEmpty(areaPhone?.text.toString())) {
-                    areaPhone?.error = getString(R.string.add_input_phone_empty)
-                    return
-                }
+    fun actionClose(view: View?) {
+        actionLeft()
+    }
 
-                prepareDate()
-            }
+    fun selectBackdrop(view: View?) {
+        showUnderConstruction()
+    }
+
+    fun onSelectVanUsed(view: View?) {
+        selectVanView()
+    }
+
+    fun onSaveData(view: View?) {
+        if (areaName?.text.toString().isNullOrEmpty()) {
+            areaName?.error = getString(R.string.add_input_name_empty)
+            return
         }
+        if (areaPhone?.text.toString().isNullOrEmpty()) {
+            areaPhone?.error = getString(R.string.add_input_phone_empty)
+            return
+        }
+        prepareData()
+        backToMainScreen()
     }
 
     override fun goBackMainScreen() {
@@ -102,30 +81,27 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
         backToMainScreen()
     }
 
-    private fun prepareDate() {
-        viewModel.showProgressView()
+    private fun prepareData() {
+        showLoadingView(getString(R.string.sms_loading))
         val dataModel = AreaModel()
         dataModel.areaName = areaName?.text.toString()
         dataModel.areaPhone = areaPhone?.text.toString()
         dataModel.areaDetails = areaDetail?.text.toString()
         dataModel.areaVans = getAreaVans(areaVan?.text.toString())
-        dataModel.areaId = areaPhone?.text.toString()
 
         val isFirstUsed = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.saveDataArea(isFirstUsed, dataModel)
     }
 
-
+    //Default all Van open
     private fun getAreaVans(vanSelected: String): List<VanModel>? {
-
         var areaVans: MutableList<VanModel> = mutableListOf()
-
         var numVan = vanSelected.substring(0, 1).toInt()
 
         for (i in 1..numVan) {
             val van = VanModel()
             van.vanId = "0$i"
-            van.vanStatus = false
+            van.vanStatus = true
             areaVans.add(van)
         }
         return areaVans
@@ -134,7 +110,7 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
     private fun selectVanView() {
         var items = resources.getStringArray(R.array.number_van_choice)
         AlertDialog.Builder(this)
-                .setTitle(getString(R.string.add_number_van_used))
+                .setTitle(getString(R.string.add_area_van_use))
                 .setSingleChoiceItems(items, 0) { _, i ->
 
                     areaVan?.text = items[i].toString()
@@ -146,14 +122,12 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
 
     private fun backToMainScreen() {
         Thread(Runnable {
-            while (pStatus < timeTotal) {
+            while (pStatus < MotorConstants.TIME_PROGRESS) {
                 pStatus += 1
                 handler.post {
-
-                    if (pStatus == timeTotal) {
-                        viewModel.hideProgressView()
+                    if (pStatus == MotorConstants.TIME_PROGRESS) {
+                        hideLoadingView()
                         actionLeft()
-//                        finish()
                     }
                 }
                 try {

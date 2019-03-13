@@ -4,13 +4,14 @@ import com.feature.area.BuildConfig;
 
 public class MotorConstants {
 
-    public static final String KEY_PUT_AREA = "PUT_AREA";
-    public static final String KEY_UPDATE_AREA = "UPDATE_AREA";
+    public static final String KEY_PUT_AREA_DETAIL = "PUT_AREA";
     public static final String KEY_PUT_AREA_LIST = "PUT_AREA_LIST";
-    public static final String KEY_UPDATE = "PUT_UPDATE";
+    public static final String KEY_EDIT_AREA = "EDIT_DATA_AREA";
+    public static final String KEY_POSITION = "KEY_POSITION";
     public static final String FIRST_USED = "FIRST_USED";
     public static final String KEY_TRIGGER_DATA = "KEY_TRIGGER_DATA";
     public static final String KEY_VANS_USED = "KEY_VANS_USED";
+    public static final String KEY_SMS_RECEIVER = "KEY_SMS_RECEIVER";
 
     public static final int MSG_UNCOLOR_START = 0;
     public static final int MSG_UNCOLOR_STOP = 1;
@@ -22,29 +23,38 @@ public class MotorConstants {
     public static final String WORK_DURATION_KEY =
             BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
 
-    // Todo remove UI Timeout
-    public static final int TIMEOUT_IDLE_DURATION_IN_SECONDS = 120;
-    public static final int TIMEOUT_COUNT_DOWN_30_SECONDS = 30;
-    public static final int TIMEOUT_API_REQUEST_IN_SECONDS = 60;
-    public static final int TIMEOUT_COUNT_DOWN_SESSION_EXPIRED_POP_UP = 15;
+    public static final int PERMISSION_REQUEST_CODE = 101;
 
+    public static final int TIME_PROGRESS = 15;
+    public static Boolean IsProgramRunning = false;
 
     public class AreaCode {
         private AreaCode() {
             // do nothing
         }
 
-        public static final int AREA_CODE_1 = 1000;
-        public static final int AREA_CODE_2 = 1001;
 
         public static final String PREFIX_REPEAT = "De";
         public static final String PREFIX_NONE_REPEAT = "Dn";
+        public static final String PREFIX_STOP = "Do";
+        public static final String PREFIX_CHANGE_PASSWORD = "Pass";
+        public static final String PREFIX_SET_DEFAULT = "Re";
+        public static final String PREFIX_REVIEW_SCHEDULER = "Dr";
+        public static final String PREFIX_AUTO_SEND_SCHEDULER = "Ds";
+        public static final String PREFIX_VAN_USED = "Dv";
+        public static final String PREFIX_OPEN = "Co";
+        public static final String STOP_ALL = "00";
 
+        public static final String SELECT_SCHEDULE_ONE = "01";
+        public static final String SELECT_SCHEDULE_TWO = "02";
+        public static final String SELECT_SCHEDULE_THREE = "03";
     }
+
     public class VanCode {
         private VanCode() {
             // do nothing
         }
+
 
         public static final int VAN_CODE_1 = 1000;
         public static final int VAN_CODE_2 = 1001;
