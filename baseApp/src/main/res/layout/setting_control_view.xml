@@ -1,0 +1,70 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.motor.connect.feature.setting.control.SettingControlViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_main"
+        android:orientation="vertical">
+
+        <include layout="@layout/action_bar_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_text_white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:layout_marginTop="@dimen/connect_margin_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_manual"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_16"
+                android:layout_marginRight="@dimen/connect_margin_16"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_unselected"
+                android:gravity="center"
+                android:onClick="manualControl"
+                android:text="Manual"
+                android:textColor="@color/color_text_black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/btn_agenda"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_16"
+                android:layout_marginRight="@dimen/connect_margin_16"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_selected"
+                android:gravity="center"
+                android:onClick="agendaControl"
+                android:text="Agenda"
+                android:textColor="@color/color_text_black"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_control"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/connect_margin_10"
+            android:layout_marginRight="@dimen/connect_margin_10"
+            android:paddingTop="5dp"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager" />
+    </LinearLayout>
+
+
+</layout>

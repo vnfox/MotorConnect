@@ -1,4 +1,4 @@
-package com.motor.connect.feature.setting.van
+package com.motor.connect.feature.setting.control
 
 import android.Manifest
 import android.content.Context
@@ -9,9 +9,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.feature.area.R
-import com.feature.area.databinding.SettingAreaVanViewBinding
+import com.feature.area.databinding.SettingControlViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.VanModel
@@ -20,14 +19,14 @@ import com.motor.connect.utils.PermissionUtils
 import com.motor.connect.utils.StringUtil
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.action_bar_view.*
-import kotlinx.android.synthetic.main.setting_area_van_view.*
+import kotlinx.android.synthetic.main.setting_control_view.*
 
 
-class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, SettingAreaVanViewModel>(), SettingAreaVanView {
+class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, SettingControlViewModel>(), SettingControlView {
 
     companion object {
         fun show(context: Context) {
-            context.startActivity(Intent(context, SettingAreaVanActivity::class.java))
+            context.startActivity(Intent(context, SettingControlActivity::class.java))
         }
     }
 
@@ -35,26 +34,26 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     private var vanUsed = StringBuilder()
     private var countVan = 0
 
-    private val viewModel = SettingAreaVanViewModel(this, BaseModel())
-    private var adapter: SettingAreaVanAdapter? = null
+    private val viewModel = SettingControlViewModel(this, BaseModel())
+    private var adapter: SettingControlAdapter? = null
 
-    override fun createViewModel(): SettingAreaVanViewModel {
+    override fun createViewModel(): SettingControlViewModel {
         viewModel.mView = this
         return viewModel
     }
 
-    override fun createDataBinding(mViewModel: SettingAreaVanViewModel): SettingAreaVanViewBinding {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.setting_area_van_view)
+    override fun createDataBinding(mViewModel: SettingControlViewModel): SettingControlViewBinding {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.setting_control_view)
         mBinding.viewModel = mViewModel
 
-        txt_title.text = "Schedule"
-        btn_action_right.text = "Save"
+        txt_title.text = "Control"
+        btn_action_right.text = "Apply"
         //Adapter item click
-        adapter = SettingAreaVanAdapter { areaModel, position ->
+        adapter = SettingControlAdapter { areaModel, position ->
             //nothing
         }
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(this, 1)
+        rc_control.adapter = adapter
+        rc_control.layoutManager = GridLayoutManager(this, 1)
 
         viewModel.initViewModel()
 
@@ -63,7 +62,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
     override fun viewLoaded(areaVans: MutableList<VanModel>) {
         adapter?.setData(areaVans)
-        recyclerView.adapter?.notifyDataSetChanged()
+        rc_control.adapter?.notifyDataSetChanged()
     }
 
     fun actionLeft(v: View) {
@@ -72,6 +71,19 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
     fun actionRight(v: View) {
         showUnderConstruction()
+        //Todo set up schedule
+    }
+
+    fun manualControl(v: View) {
+        showUnderConstruction()
+        btn_manual.background = getDrawable(R.drawable.bg_button_selected)
+        btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
+    }
+
+    fun agendaControl(v: View) {
+        showUnderConstruction()
+        btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
+        btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
     }
 
     //Todo re-used later

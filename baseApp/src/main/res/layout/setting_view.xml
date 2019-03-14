@@ -11,14 +11,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
+        android:background="@drawable/bg_main"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
             android:layout_gravity="top"
-            android:background="@drawable/card_view_style"
             android:gravity="center|left"
 
             android:orientation="horizontal">
@@ -30,7 +29,7 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:onClick="gotoPreviousScreen"
-                app:srcCompat="@mipmap/ic_back" />
+                app:srcCompat="@mipmap/ic_back_white" />
 
             <TextView
                 android:id="@+id/txt_title"
@@ -42,6 +41,11 @@
                 android:text="@string/setting_title" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_white" />
 
         <!-- Action Bar End -->
 
@@ -60,7 +64,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
-                android:drawableRight="@mipmap/ic_next_arrow"
+                android:drawableRight="@mipmap/ic_next_grey"
                 android:gravity="center|left"
                 android:minHeight="46dp"
                 android:onClick="openSettingScheduler"
@@ -75,7 +79,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
-                android:drawableRight="@mipmap/ic_next_arrow"
+                android:drawableRight="@mipmap/ic_next_grey"
                 android:gravity="center|left"
                 android:minHeight="46dp"
                 android:onClick="openConfigScreen"
@@ -89,7 +93,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
-                android:drawableRight="@mipmap/ic_next_arrow"
+                android:drawableRight="@mipmap/ic_next_grey"
                 android:gravity="center|left"
                 android:minHeight="46dp"
                 android:onClick="openNotedScreen"
@@ -103,7 +107,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
-                android:drawableRight="@mipmap/ic_next_arrow"
+                android:drawableRight="@mipmap/ic_next_grey"
                 android:gravity="center|left"
                 android:minHeight="46dp"
                 android:onClick="openHowToUseScreen"
@@ -117,7 +121,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_rect_bg"
-                android:drawableRight="@mipmap/ic_next_arrow"
+                android:drawableRight="@mipmap/ic_next_grey"
                 android:gravity="center|left"
                 android:minHeight="46dp"
                 android:onClick="openHelpFeedbackScreen"

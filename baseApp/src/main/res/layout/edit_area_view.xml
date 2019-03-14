@@ -38,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center|left"
-                android:text="@string/add_area_title" />
+                android:text="@string/add_area_title"
+                android:textColor="@color/color_text_black" />
 
         </LinearLayout>
 
@@ -109,7 +110,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/TextView.Screen.Description"
+                    style="@style/TextView.Screen.Description1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

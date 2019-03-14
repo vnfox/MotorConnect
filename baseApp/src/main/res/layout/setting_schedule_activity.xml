@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header_container"
+        android:background="@drawable/bg_main"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
             android:layout_gravity="top"
-            android:background="@drawable/card_view_style"
             android:gravity="center|left"
             android:orientation="horizontal">
 
@@ -31,7 +31,7 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:onClick="onBackSettingScreen"
-                app:srcCompat="@mipmap/ic_back" />
+                app:srcCompat="@mipmap/ic_back_white" />
 
             <TextView
                 android:id="@+id/txt_title"
@@ -41,6 +41,11 @@
                 android:text="@string/setting_schedule_title" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_text_white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,34 +65,15 @@
                 android:textSize="@dimen/connect_text_size_30"
                 android:visibility="gone" />
 
-            <LinearLayout
-                android:id="@+id/setting_container"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="@dimen/connect_margin_10"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txt_schedule_all"
-                    style="@style/TextView.Screen.Title"
-                    android:layout_gravity="center|top"
-                    android:layout_margin="@dimen/connect_margin_10"
-                    android:background="@drawable/border_rect_bg"
-                    android:gravity="center"
-                    android:minHeight="@dimen/actionbar_height"
-                    android:text="@string/setting_schedule_off_all_area" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:paddingTop="5dp"
-                    app:layoutManager="android.support.v7.widget.GridLayoutManager" />
-            </LinearLayout>
+                android:layout_marginRight="5dp"
+                android:paddingTop="5dp"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager" />
         </LinearLayout>
     </LinearLayout>
 

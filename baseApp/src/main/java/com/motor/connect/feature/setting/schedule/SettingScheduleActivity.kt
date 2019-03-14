@@ -10,17 +10,14 @@ import android.net.Uri
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
-import android.telephony.TelephonyManager
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.SettingScheduleActivityBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.model.AreaModel
-import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
+import com.motor.connect.feature.setting.van.SettingAreaVanActivity
 import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.MotorConstants.IsProgramRunning
@@ -64,14 +61,7 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
             //Setting schedule area
             Hawk.put(MotorConstants.KEY_POSITION, position)
             Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
-            SettingAreaScheduleActivity.show(this)
-        }
-
-        val stopSchedule = findViewById<TextView>(R.id.txt_schedule_all)
-        stopSchedule.setOnClickListener {
-            Log.d("hqdat", ">>>>>>>>")
-            setupCall()
-
+            SettingAreaVanActivity.show(this)
         }
 
         recyclerView.adapter = adapter
@@ -87,12 +77,10 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
     }
 
     override fun showEmptyView() {
-        setting_container.visibility = View.GONE
         txt_empty.visibility = View.VISIBLE
     }
 
     override fun updateUI(dataArea: MutableList<AreaModel>) {
-        setting_container.visibility = View.VISIBLE
         txt_empty.visibility = View.GONE
         adapter?.setData(dataArea)
         recyclerView.adapter?.notifyDataSetChanged()
@@ -113,15 +101,6 @@ class SettingScheduleActivity : BaseViewActivity<SettingScheduleActivityBinding,
 
     fun openEmptyScreen(v: View) {
         AddAreaActivity.show(this)
-    }
-
-    fun stopScheduleAllArea(v: View) {
-//        alertDialogHelper = DialogHelper(this)
-//        alertDialogHelper?.showAlertDialog(getString(R.string.sms_warning),
-//                getString(R.string.setting_schedule_off_description),
-//                getString(R.string.btn_accept), getString(R.string.btn_huy), false)
-
-
     }
 
     private fun setupCall() {

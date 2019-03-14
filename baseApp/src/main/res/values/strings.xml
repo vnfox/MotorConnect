@@ -36,7 +36,7 @@
     <string name="setting_schedule_off_all_area">Ngắt tưới trong ngày cho tất cả khu vực</string>
     <string name="setting_schedule_off_description">Tính năng này sẽ ngắt tưới tiêu trong ngày cho tất cả khu vực.</string>
     <string name="setting_schedule">Cài đặt lịch tưới</string>
-    <string name="setting_review_schedule">Xem lại lịch tưới</string>
+    <string name="setting_control">Điều khiển thiết bị</string>
     <string name="setting_van_used">Thiết lập van sử dụng</string>
     <string name="setting_schedule_in_day">Ngắt lịch tưới trong ngày</string>
     <string name="setting_edit_info_area">Sửa thông tin</string>

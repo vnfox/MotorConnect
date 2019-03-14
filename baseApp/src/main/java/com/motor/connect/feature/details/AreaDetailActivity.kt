@@ -25,6 +25,7 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.edit.EditAreaActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.setting.area.SettingAreaScheduleActivity
+import com.motor.connect.feature.setting.control.SettingControlActivity
 import com.motor.connect.feature.setting.van.SettingAreaVanActivity
 import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
@@ -197,26 +198,12 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     fun setupScheduleArea(v: View) {
         bottomSheetDialog?.dismiss()
-        SettingAreaScheduleActivity.show(this)
-    }
-
-    fun reviewScheduleArea(v: View) {
-        smsContent = StringUtil.prepareSmsReviewSchedule(viewModel.getPassWordArea(), viewModel.getAreaId())
-
-        showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_review_schedule_content))
-        bottomSheetDialog?.dismiss()
-    }
-
-    fun setupVanUsedArea(v: View) {
-        bottomSheetDialog?.dismiss()
         SettingAreaVanActivity.show(this)
     }
 
-    fun scheduleStopArea(v: View) {
-        smsContent = StringUtil.prepareSmsStopSchedule(viewModel.getPassWordArea(), viewModel.getAreaId())
-
-        showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_stop_schedule_content))
+    fun controlAgenda(v: View) {
         bottomSheetDialog?.dismiss()
+        SettingControlActivity.show(this)
     }
 
     fun editInfoArea(v: View) {

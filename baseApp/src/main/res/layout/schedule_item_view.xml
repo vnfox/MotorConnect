@@ -4,7 +4,7 @@
     android:id="@+id/fl_root"
     style="@style/Widget.CardItem"
     android:layout_margin="5dp"
-    android:background="@drawable/border_rect_bg"
+    android:background="@drawable/bg_view_control"
     android:minHeight="60dp"
     android:orientation="vertical">
 

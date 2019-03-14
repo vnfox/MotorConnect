@@ -61,6 +61,7 @@
         <activity android:name="com.motor.connect.feature.setting.schedule.SettingScheduleActivity" />
         <activity android:name="com.motor.connect.feature.setting.area.SettingAreaScheduleActivity" />
         <activity android:name="com.motor.connect.feature.setting.van.SettingAreaVanActivity" />
+        <activity android:name="com.motor.connect.feature.setting.control.SettingControlActivity" />
         <activity android:name="com.motor.connect.feature.edit.EditAreaActivity" />
         <activity android:name="com.motor.connect.utils.dialog.DialogActivity" />
         <activity android:name="com.motor.connect.feature.setting.howuse.HowToUseActivity" />

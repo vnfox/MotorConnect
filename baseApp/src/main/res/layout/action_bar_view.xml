@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
         android:layout_below="@+id/img_plan"
-        android:background="@color/transparent"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -19,20 +18,21 @@
             android:id="@+id/btn_action_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:layout_weight="0.5"
             android:gravity="center"
             android:onClick="actionLeft"
-            android:textSize="@dimen/connect_text_size_description"
-            app:srcCompat="@mipmap/ic_back" />
+            app:srcCompat="@mipmap/ic_back_white" />
 
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
+            android:layout_weight="3"
             android:gravity="center"
-            android:text="Create new Plan"
-            android:textSize="@dimen/connect_text_size_description" />
+            android:text="Control"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/connect_text_size_title" />
 
         <TextView
             android:id="@+id/btn_action_right"
@@ -42,7 +42,8 @@
             android:gravity="center"
             android:onClick="actionRight"
             android:text="Close"
-            android:textSize="@dimen/connect_text_size_description" />
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/connect_text_size_title" />
 
     </LinearLayout>
 

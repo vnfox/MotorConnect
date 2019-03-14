@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@color/color_white"
+    android:background="@drawable/bg_main"
     android:orientation="vertical"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -15,6 +15,7 @@
         android:minHeight="@dimen/actionbar_height"
         android:text="@string/setting_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/color_text_white"
         android:textSize="@dimen/connect_text_size_30" />
 
     <View
@@ -28,7 +29,9 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="setupScheduleArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_schedule" />
+
+        android:text="@string/setting_schedule"
+        android:textColor="@color/color_text_white" />
 
     <View
         android:layout_width="match_parent"
@@ -39,35 +42,10 @@
         style="@style/TextView.Screen.Title"
         android:gravity="left|center"
         android:minHeight="@dimen/actionbar_height"
-        android:onClick="reviewScheduleArea"
+        android:onClick="controlAgenda"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_review_schedule" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_grey" />
-
-    <TextView
-        style="@style/TextView.Screen.Title"
-        android:gravity="left|center"
-        android:minHeight="@dimen/actionbar_height"
-        android:onClick="setupVanUsedArea"
-        android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_van_used" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_grey" />
-
-    <TextView
-        style="@style/TextView.Screen.Title"
-        android:gravity="left|center"
-        android:minHeight="@dimen/actionbar_height"
-        android:onClick="scheduleStopArea"
-        android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_schedule_in_day" />
+        android:text="@string/setting_control"
+        android:textColor="@color/color_text_white" />
 
     <View
         android:layout_width="match_parent"
@@ -80,5 +58,6 @@
         android:minHeight="@dimen/actionbar_height"
         android:onClick="editInfoArea"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_edit_info_area" />
+        android:text="@string/setting_edit_info_area"
+        android:textColor="@color/color_text_white" />
 </LinearLayout>
