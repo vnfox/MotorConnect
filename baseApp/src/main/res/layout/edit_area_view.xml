@@ -8,11 +8,10 @@
             type="com.motor.connect.feature.edit.EditAreaViewModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
-        android:gravity="center">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/action_bar_container"
@@ -38,133 +37,133 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center|left"
-                android:text="@string/add_area_title"
+                android:text="@string/edit_area_title"
                 android:textColor="@color/color_text_black" />
 
         </LinearLayout>
 
         <!-- Action Bar End -->
-        <LinearLayout
-            android:id="@+id/add_container"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/action_bar_container"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/img_wall"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_backdrop_height"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:onClick="selectBackdrop"
-                android:scaleType="center"
-                app:srcCompat="@mipmap/backdrop_5" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/input_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_area_name"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
-                    android:lines="1"
-                    android:maxLength="25"
-                    android:textSize="@dimen/connect_text_size_title" />
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/input_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_area_phone"
-                    android:imeOptions="actionNext"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:textSize="@dimen/connect_text_size_title" />
-
-            </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center|left"
-                android:minHeight="60dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
 
-                <TextView
-                    style="@style/TextView.Screen.Description1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+
+                <ImageView
+                    android:id="@+id/img_wall"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_backdrop_height"
                     android:layout_gravity="center"
-                    android:layout_weight="2"
-                    android:gravity="center|left"
-                    android:text="@string/add_area_van_use"
-                    android:textSize="@dimen/connect_text_size_title" />
+                    android:layout_marginTop="10dp"
+                    android:onClick="selectBackdrop"
+                    android:scaleType="center"
+                    app:srcCompat="@mipmap/backdrop_5" />
 
-                <TextView
-                    android:id="@+id/txt_van"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_rect_bg"
-                    android:gravity="center"
-                    android:minHeight="40dp"
-                    android:onClick="onSelectVanUsed"
-                    android:text="2 Van"
-                    android:textSize="@dimen/connect_text_size_title" />
-
-            </LinearLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/input_detail"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/add_area_detail"
-                    android:inputType="text"
-                    android:textSize="@dimen/connect_text_size_title" />
+                    android:layout_marginTop="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/input_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/add_area_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLength="25"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-        </LinearLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/add_container"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_grey"
-            android:minHeight="46dp"
-            android:onClick="onSaveData"
-            android:text="@string/add_area_submit" />
+                    <EditText
+                        android:id="@+id/input_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/add_area_phone"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:textSize="@dimen/connect_text_size_title" />
 
-    </FrameLayout>
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center|left"
+                    android:minHeight="60dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextView.Screen.Description1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:text="@string/add_area_van_use"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                    <TextView
+                        android:id="@+id/txt_van"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_rect_bg"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:onClick="onSelectVanUsed"
+                        android:text="2 Van"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/input_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/add_area_detail"
+                        android:inputType="text"
+                        android:textSize="@dimen/connect_text_size_title" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/add_container"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/bg_grey"
+                    android:minHeight="46dp"
+                    android:onClick="onSaveData"
+                    android:text="@string/add_area_submit" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 </layout>

@@ -33,6 +33,7 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
     fun updateDataArea(listVans: List<VanModel>) {
         var areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+
         model.areaVans = listVans
         areaModels[position] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)

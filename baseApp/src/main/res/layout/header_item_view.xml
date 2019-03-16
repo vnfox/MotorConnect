@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|left"
         android:layout_marginLeft="10dp"
-        android:text="Motor Connect"
+        android:text="Motor Control"
         android:textColor="@color/color_text_white"
         android:textSize="@dimen/connect_text_size_22" />
 

@@ -61,6 +61,7 @@
     <string name="schedule_settup_schedule">Thiết Lập Lịch Tưới</string>
 
     <!--Add Area-->
+    <string name="edit_area_title">Sửa Thông Tin</string>
     <string name="add_area_title">Thêm Khu Vực Tưới</string>
     <string name="add_area_name">Tên khu vực</string>
     <string name="add_area_phone">Số điện thoại</string>
@@ -79,7 +80,7 @@
     <string name="detail_note">Ghi chú</string>
     <string name="detail_info_motor">Thông tin máy bơm</string>
     <string name="detail_info_area">Thông tin khu vực</string>
-    <string name="detail_title">Thông Tin Chi Tiết</string>
+    <string name="detail_title">Chi Tiết</string>
     <string name="detail_van_total">Tổng số van hiện có: %s</string>
     <string name="detail_status">Trạng thái: %s</string>
     <string name="detail_van_open">Van đang mở: %s</string>

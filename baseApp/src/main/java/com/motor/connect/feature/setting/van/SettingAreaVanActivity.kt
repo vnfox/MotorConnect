@@ -9,7 +9,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.TextView
 import com.feature.area.R
 import com.feature.area.databinding.SettingAreaVanViewBinding
 import com.motor.connect.base.BaseModel
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.action_bar_view.*
 import kotlinx.android.synthetic.main.setting_area_van_view.*
 
 
-class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, SettingAreaVanViewModel>(), SettingAreaVanView {
+class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, SettingAreaVanViewModel>(), SettingAreaVanView, SettingAreaVanAdapter.ItemListener {
 
     companion object {
         fun show(context: Context) {
@@ -34,6 +34,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     private lateinit var needPermissions: MutableList<String>
     private var vanUsed = StringBuilder()
     private var countVan = 0
+    private var currentPosition = 0
 
     private val viewModel = SettingAreaVanViewModel(this, BaseModel())
     private var adapter: SettingAreaVanAdapter? = null
@@ -49,10 +50,8 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
         txt_title.text = "Schedule"
         btn_action_right.text = "Save"
-        //Adapter item click
-        adapter = SettingAreaVanAdapter { areaModel, position ->
-            //nothing
-        }
+
+        adapter = SettingAreaVanAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 1)
 
@@ -73,6 +72,74 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     fun actionRight(v: View) {
         showUnderConstruction()
     }
+
+    //============================================
+
+    override fun onAddSchedule(position: Int, stepSchedule: Int, holder: SettingAreaVanAdapter.ItemViewHolder) {
+        //adapter?.updateSchedule(position, stepSchedule + 1, holder)
+
+    }
+
+    override fun onRemoveSchedule(position: Int, stepSchedule: Int, holder: SettingAreaVanAdapter.ItemViewHolder) {
+        adapter?.updateSchedule(position, stepSchedule - 1, holder)
+
+//        adapter?.notifyItemChanged(position)
+    }
+
+    override fun onSetDuration(position: Int, holder: SettingAreaVanAdapter.ItemViewHolder, positionItem: Int) {
+
+        adapter?.updateDuration(position, holder, positionItem, "25")
+
+        if (currentPosition != position) {
+
+            awaitNotifyItemChange(currentPosition)
+            currentPosition = position
+        }
+    }
+
+    override fun onSchedule(position: Int, textView: TextView, positionItem: Int) {
+        //Todo show timePicker
+
+        adapter?.updateTimeSchedule(position, textView, positionItem, "09:15")
+
+        if (currentPosition != position) {
+            currentPosition = position
+            awaitNotifyItemChange(position)
+        }
+    }
+
+    private fun awaitNotifyItemChange(position: Int) {
+        handler.post {
+            adapter?.notifyItemChanged(position)
+        }
+        try {
+            // Sleep for 200 milliseconds.
+            // Just to display the progress slowly
+            Thread.sleep(100) //thread will take approx 3 seconds to finish
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+    }
+
+    //====== Start Set time schedule ==============
+
+    fun actionDuration1(v: View) {
+        showUnderConstruction()
+    }
+
+    fun actionDuration2(v: View) {
+        showUnderConstruction()
+    }
+
+    fun actionDuration3(v: View) {
+        showUnderConstruction()
+    }
+
+    fun actionDuration4(v: View) {
+        showUnderConstruction()
+    }
+
+    //====== End Set time schedule ==============
 
     //Todo re-used later
     /*fun setupVanUsed(v: View) {
