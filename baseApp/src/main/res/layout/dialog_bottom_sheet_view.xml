@@ -39,9 +39,22 @@
         style="@style/TextView.Screen.Title"
         android:gravity="left|center"
         android:minHeight="@dimen/actionbar_height"
-        android:onClick="reviewScheduleArea"
+        android:onClick="actionManual"
         android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_review_schedule" />
+        android:text="Tưới Manual" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_grey" />
+
+    <TextView
+        style="@style/TextView.Screen.Title"
+        android:gravity="left|center"
+        android:minHeight="@dimen/actionbar_height"
+        android:onClick="actionAgenda"
+        android:paddingLeft="@dimen/connect_margin_16"
+        android:text="Tưới ngay theo giờ" />
 
     <View
         android:layout_width="match_parent"
@@ -56,18 +69,7 @@
         android:paddingLeft="@dimen/connect_margin_16"
         android:text="@string/setting_van_used" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_grey" />
 
-    <TextView
-        style="@style/TextView.Screen.Title"
-        android:gravity="left|center"
-        android:minHeight="@dimen/actionbar_height"
-        android:onClick="scheduleStopArea"
-        android:paddingLeft="@dimen/connect_margin_16"
-        android:text="@string/setting_schedule_in_day" />
 
     <View
         android:layout_width="match_parent"

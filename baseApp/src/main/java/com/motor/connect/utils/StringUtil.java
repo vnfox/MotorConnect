@@ -146,6 +146,35 @@ public class StringUtil {
         return result.toString().trim();
     }
 
+    public static String prepareSMSManualSchedule(String password, String vanId, String option) {
+        StringBuilder result = new StringBuilder();
+        result.append(MotorConstants.AreaCode.PREFIX_REPEAT);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
+        result.append(vanId);
+        result.append(" ");
+
+        if (option.equals("Tắt")) {
+            result.append(MotorConstants.AreaCode.PREFIX_MANUAL_OFF);
+        } else {
+            result.append(MotorConstants.AreaCode.PREFIX_MANUAL_ON);
+        }
+        return result.toString().trim();
+    }
+
+    public static String prepareSMSWorkingManual(String password, String time) {
+        String[] array = time.split(" ");
+        StringBuilder result = new StringBuilder();
+        result.append(MotorConstants.AreaCode.PREFIX_WORKING_TIME);
+        if (!password.isEmpty())
+            result.append(password);
+        result.append(" ");
+        result.append(array[0]);
+
+        return result.toString().trim();
+    }
+
     @NotNull
     public static String prepareSmsVanAreaUsed(String password, @NotNull String areaId, int countVan, @NotNull String vanUsed) {
         StringBuilder result = new StringBuilder();

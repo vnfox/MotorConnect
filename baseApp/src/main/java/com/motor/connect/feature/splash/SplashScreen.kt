@@ -14,6 +14,9 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.feature.area.R
 import com.motor.connect.feature.main.MainActivity
+import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.utils.MotorConstants
+import com.orhanobut.hawk.Hawk
 import io.reactivex.annotations.NonNull
 import java.util.*
 
@@ -30,7 +33,8 @@ class SplashScreen : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= 23) {
                 // Marshmallow+
                 permissionCheck()
-
+                var dataArea: MutableList<AreaModel> = mutableListOf()
+                Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
             } else {
                 // Pre-Marshmallow
                 openMainScreen()

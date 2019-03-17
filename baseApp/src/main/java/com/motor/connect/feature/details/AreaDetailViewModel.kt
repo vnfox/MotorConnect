@@ -186,4 +186,19 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     fun getAreaId(): String {
         return model.areaId
     }
+
+    // check only van ON
+    fun getVanId(): String {
+
+        var areaVanss: MutableList<VanModel> = mutableListOf()
+        areaVanss = model.areaVans
+
+        //Check only On
+        for (i in 0..(areaVanss.size - 1)) {
+            if (areaVanss[i].vanStatus) {
+                return areaVanss[i].vanId
+            }
+        }
+        return "01"
+    }
 }

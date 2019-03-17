@@ -17,7 +17,9 @@
     <string name="sms_sending">Sending…</string>
 
     <string name="home_area_empty">Thêm\nKhu Vực</string>
+
     <string name="setting_time_working">Thời gian hoạt động</string>
+    <string name="setting_manual">Chế độ tưới tức thời</string>
 
 
     <string name="setting_schedule_empty">Chưa có khu vực nào\nđược thêm vào</string>
@@ -37,10 +39,11 @@
     <string name="setting_schedule_off_description">Tính năng này sẽ ngắt tưới tiêu trong ngày cho tất cả khu vực.</string>
     <string name="setting_schedule">Cài đặt lịch tưới</string>
     <string name="setting_review_schedule">Xem lại lịch tưới</string>
-    <string name="setting_van_used">Thiết lập van sử dụng</string>
+    <string name="setting_van_used">Thiết lập Van sử dụng</string>
     <string name="setting_schedule_in_day">Ngắt lịch tưới trong ngày</string>
     <string name="setting_edit_info_area">Sửa thông tin</string>
     <string name="setting_title">Cài Đặt</string>
+    <string name="time_working">Thời gian tưới</string>
 
     <!--Setting Schedule Area-->
     <string name="schedule_title">Số lần tưới trong ngày</string>

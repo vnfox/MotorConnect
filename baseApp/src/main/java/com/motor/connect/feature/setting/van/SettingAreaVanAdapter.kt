@@ -40,6 +40,12 @@ class SettingAreaVanAdapter(val onClick: (VanModel, Int) -> Unit) : RecyclerView
         holder.vanUsed.isChecked = areaVan[position].vanStatus
         holder.vanUsed.setOnClickListener {
             areaVan[position].vanStatus = holder.vanUsed.isChecked
+
+            for (i in 0 until areaVan.size) {
+                if (i != position)
+                    areaVan[i].vanStatus = false
+
+            }
         }
     }
 

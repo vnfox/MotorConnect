@@ -55,7 +55,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 Log.d("hqdat", ">>>>   phone    " + msgs[i].getOriginatingAddress());
 
                 Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
-                showDialogMessage(context);
+//                showDialogMessage(context);
 //                if (CommonUtil.checkPhoneContainArea(msgs[i].getOriginatingAddress())) {
 //                    Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
 //                    showDialogMessage(context);

@@ -15,11 +15,13 @@ class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
     }
 
     fun initData(isFirst: Boolean?) {
-        if (isFirst!!) {
+        dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        if (isFirst!! || dataArea.isEmpty()) {
             mView?.showEmptyView()
         } else {
             dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
             mView?.updateUI(dataArea)
+
         }
     }
 

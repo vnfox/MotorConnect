@@ -32,8 +32,8 @@
                 android:layout_marginBottom="@dimen/actionbar_height"
                 android:background="@drawable/cirle_background"
                 android:gravity="center"
-                android:text="@string/home_area_empty"
                 android:onClick="openEmptyScreen"
+                android:text="@string/home_area_empty"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/connect_text_size_36"
                 android:visibility="gone" />
@@ -72,7 +72,8 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Màn Hình Chính"
-                    android:textSize="@dimen/connect_text_size_menu" />
+                    android:textSize="@dimen/connect_text_size_menu"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/btn_add"

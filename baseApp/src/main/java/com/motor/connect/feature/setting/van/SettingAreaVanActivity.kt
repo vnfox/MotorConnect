@@ -76,8 +76,10 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
                 countVan++
             }
         }
-        //Send SMS
+        //Update data
         viewModel.updateDataArea(listVans)
+
+        //No send sms
         setupVanUsedDetail(vanUsed.toString())
     }
 
@@ -119,7 +121,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
                     if (pStatus == MotorConstants.TIME_PROGRESS) {
                         hideLoadingView()
                         //Send sms
-                        smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
+                        //smsManager.sendTextMessage(smsNumber, null, smsText, null, null)
                         backPreviousScreen()
                     }
                 }

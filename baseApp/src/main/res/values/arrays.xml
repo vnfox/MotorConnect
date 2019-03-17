@@ -19,6 +19,7 @@
     </string-array>
 
     <string-array name="number_van_choice">
+        <item>1 Van</item>
         <item>2 Van</item>
         <item>3 Van</item>
         <item>4 Van</item>
@@ -29,6 +30,7 @@
     </string-array>
 
     <string-array name="times_day">
+        <item>1 Van</item>
         <item>2 Van</item>
         <item>3 Van</item>
         <item>4 Van</item>
@@ -45,5 +47,22 @@
         <item>40 phút</item>
         <item>50 phút</item>
         <item>60 phút</item>
+    </string-array>
+
+    <string-array name="times_working_schedule">
+        <item>10 phút</item>
+        <item>20 phút</item>
+        <item>30 phút</item>
+        <item>40 phút</item>
+        <item>50 phút</item>
+        <item>60 phút</item>
+        <item>70 phút</item>
+        <item>80 phút</item>
+        <item>90 phút</item>
+    </string-array>
+
+    <string-array name="manual">
+        <item>Tắt </item>
+        <item>Mở</item>
     </string-array>
 </resources>

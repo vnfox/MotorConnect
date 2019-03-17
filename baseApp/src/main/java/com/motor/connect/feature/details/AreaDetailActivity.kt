@@ -3,18 +3,18 @@ package com.motor.connect.feature.details
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
-import android.os.Handler
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -55,6 +55,7 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
     private lateinit var needPermissions: MutableList<String>
     private var smsPhone = String()
     private var smsContent = String()
+    private var smsOption = String()
 
     private var alertDialogHelper: DialogHelper? = null
 
@@ -200,11 +201,45 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         SettingAreaScheduleActivity.show(this)
     }
 
-    fun reviewScheduleArea(v: View) {
-        smsContent = StringUtil.prepareSmsReviewSchedule(viewModel.getPassWordArea(), viewModel.getAreaId())
+    fun actionManual(v: View) {
 
-        showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_review_schedule_content))
-        bottomSheetDialog?.dismiss()
+        smsOption = "Tat"
+        var items = resources.getStringArray(R.array.manual)
+        AlertDialog.Builder(this)
+                .setTitle(getString(R.string.setting_manual))
+                .setSingleChoiceItems(items, 0) { onDialogClicked, i ->
+
+                    smsOption = items[i].toString()
+                }
+                .setPositiveButton(getString(R.string.btn_chon)) { dialog, which ->
+                    smsContent = StringUtil.prepareSMSManualSchedule(viewModel.getPassWordArea(), viewModel.getVanId(), smsOption)
+                    //Send sms
+                    Log.d("hqdat", "actionManual =====   $smsContent")
+                    onSendSms(smsContent)
+                }
+                .setNegativeButton(getString(R.string.btn_huy), null)
+                .show()
+    }
+
+    fun actionAgenda(v: View) {
+        var time: String = ""
+        var items = resources.getStringArray(R.array.times_working_schedule)
+        AlertDialog.Builder(this)
+                .setTitle(getString(R.string.time_working))
+                .setSingleChoiceItems(items, 0) { onDialogClicked, i ->
+
+                    time = items[i].toString()
+                }
+                .setPositiveButton(getString(R.string.btn_chon)) { dialog, which ->
+
+                    smsContent = StringUtil.prepareSMSWorkingManual(viewModel.getPassWordArea(), time)
+                    Log.d("hqdat", "actionAgenda =====   $smsContent")
+
+                    //Send sms
+                    onSendSms(smsContent)
+                }
+                .setNegativeButton(getString(R.string.btn_huy), null)
+                .show()
     }
 
     fun setupVanUsedArea(v: View) {
@@ -212,12 +247,6 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
         SettingAreaVanActivity.show(this)
     }
 
-    fun scheduleStopArea(v: View) {
-        smsContent = StringUtil.prepareSmsStopSchedule(viewModel.getPassWordArea(), viewModel.getAreaId())
-
-        showDialogConfirm(getString(R.string.sms_warning_title), getString(R.string.sms_stop_schedule_content))
-        bottomSheetDialog?.dismiss()
-    }
 
     fun editInfoArea(v: View) {
         EditAreaActivity.show(this)
@@ -232,11 +261,15 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 
     override fun onPositiveClick() {
         //Send Sms
-        setupSchedulerDetail(smsContent)
+        //setupSchedulerDetail(smsContent)
+        showUnderConstruction()
+
+        Log.d("hqdat", "=====   " + smsContent)
     }
 
     override fun onNegativeClick() {
         //do nothing
+        showUnderConstruction()
     }
 
     private fun onWorkingProgress() {

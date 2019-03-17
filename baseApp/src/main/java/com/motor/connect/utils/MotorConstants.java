@@ -45,6 +45,11 @@ public class MotorConstants {
         public static final String PREFIX_OPEN = "Co";
         public static final String STOP_ALL = "00";
 
+        public static final String PREFIX_WORKING_TIME = "Do";
+
+        public static final String PREFIX_MANUAL_ON = "01 9999 000 01";
+        public static final String PREFIX_MANUAL_OFF = "01 9988 000 01";
+
         public static final String SELECT_SCHEDULE_ONE = "01";
         public static final String SELECT_SCHEDULE_TWO = "02";
         public static final String SELECT_SCHEDULE_THREE = "03";
