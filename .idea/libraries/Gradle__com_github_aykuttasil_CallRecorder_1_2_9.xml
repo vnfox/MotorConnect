@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.aykuttasil:CallRecorder-1.2.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CallRecorder-1.2.9.aar/213d7ffc534939660361bd3a7d696d35/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CallRecorder-1.2.9.aar/213d7ffc534939660361bd3a7d696d35/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.aykuttasil/CallRecorder/1.2.9/32608fa6e26135b1213a4f582b9497fc86ec041e/CallRecorder-1.2.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
