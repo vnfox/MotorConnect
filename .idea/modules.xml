@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MotorConnect.iml" filepath="$PROJECT_DIR$/MotorConnect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MotorConnect.iml" filepath="$PROJECT_DIR$/.idea/MotorConnect.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseApp/baseApp.iml" filepath="$PROJECT_DIR$/baseApp/baseApp.iml" />
     </modules>
   </component>
