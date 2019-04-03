@@ -1,10 +1,12 @@
 package com.motor.connect.feature.setting.van
 
 import android.Manifest
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
 import android.util.Log
@@ -14,6 +16,7 @@ import com.feature.area.R
 import com.feature.area.databinding.SettingAreaVanViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.feature.model.RepeatModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.PermissionUtils
@@ -21,6 +24,8 @@ import com.motor.connect.utils.StringUtil
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.action_bar_view.*
 import kotlinx.android.synthetic.main.setting_area_van_view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, SettingAreaVanViewModel>(), SettingAreaVanView, SettingAreaVanAdapter.ItemListener {
@@ -67,45 +72,82 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 
     fun actionLeft(v: View) {
         actionLeft()
+
+        shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, true)
     }
 
     fun actionRight(v: View) {
         showUnderConstruction()
+        // Setup sms
+        //Get data
     }
 
     //============================================
 
     override fun onAddSchedule(position: Int, stepSchedule: Int, holder: SettingAreaVanAdapter.ItemViewHolder) {
-        //adapter?.updateSchedule(position, stepSchedule + 1, holder)
+        adapter?.updateScheduleAdded(stepSchedule + 1, holder)
 
+        awaitingUpdateDataChange(position)
     }
 
     override fun onRemoveSchedule(position: Int, stepSchedule: Int, holder: SettingAreaVanAdapter.ItemViewHolder) {
-        adapter?.updateSchedule(position, stepSchedule - 1, holder)
+        adapter?.updateScheduleAdded(stepSchedule - 1, holder)
 
-//        adapter?.notifyItemChanged(position)
+        awaitingUpdateDataChange(position)
+    }
+
+    private fun awaitingUpdateDataChange(position: Int) {
+        handler.post {
+            viewModel.updateDataChange(position)
+        }
+        try {
+            // Sleep for 200 milliseconds.
+            // Just to display the progress slowly
+            Thread.sleep(100) //thread will take approx 3 seconds to finish
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
     }
 
     override fun onSetDuration(position: Int, holder: SettingAreaVanAdapter.ItemViewHolder, positionItem: Int) {
+        var items = resources.getStringArray(R.array.times_working)
+        AlertDialog.Builder(this)
+                .setTitle(getString(R.string.setting_time_working))
+                .setSingleChoiceItems(items, 0) { onDialogClicked, i ->
 
-        adapter?.updateDuration(position, holder, positionItem, "25")
+                    var result = items[i].toString()
+                    holder.duration.text = items[i].toString()
 
-        if (currentPosition != position) {
-
-            awaitNotifyItemChange(currentPosition)
-            currentPosition = position
-        }
+                    //Notify UI
+                    adapter?.updateDuration(position, holder, positionItem, result.split(" ")[0])
+                    viewModel.updateDataChange(position)
+                    if (currentPosition != position) {
+                        awaitNotifyItemChange(currentPosition)
+                        currentPosition = position
+                    }
+                }
+                .setPositiveButton(getString(R.string.btn_chon), null)
+                .setNegativeButton(getString(R.string.btn_huy), null)
+                .show()
     }
 
     override fun onSchedule(position: Int, textView: TextView, positionItem: Int) {
-        //Todo show timePicker
+        val cal = Calendar.getInstance()
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            cal.set(Calendar.HOUR_OF_DAY, hour)
+            cal.set(Calendar.MINUTE, minute)
+            textView.text = SimpleDateFormat("HH:mm").format(cal.time)
 
-        adapter?.updateTimeSchedule(position, textView, positionItem, "09:15")
-
-        if (currentPosition != position) {
-            currentPosition = position
-            awaitNotifyItemChange(position)
+            Log.d("hqdat", "========= textView.text position ====  $textView.text")
+            //Update data & notify UI
+            adapter?.updateTimeSchedule(position, textView, positionItem, textView.text.toString())
+            viewModel.updateDataChange(position)
+            if (currentPosition != position) {
+                currentPosition = position
+                awaitNotifyItemChange(position)
+            }
         }
+        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
     }
 
     private fun awaitNotifyItemChange(position: Int) {
@@ -121,23 +163,15 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
         }
     }
 
+    override fun onCheckRepeat(position: Int, repeat: RepeatModel) {
+            viewModel.updateDataRepeatChange(position, repeat)
+    }
+
     //====== Start Set time schedule ==============
 
-    fun actionDuration1(v: View) {
-        showUnderConstruction()
-    }
 
-    fun actionDuration2(v: View) {
-        showUnderConstruction()
-    }
 
-    fun actionDuration3(v: View) {
-        showUnderConstruction()
-    }
 
-    fun actionDuration4(v: View) {
-        showUnderConstruction()
-    }
 
     //====== End Set time schedule ==============
 

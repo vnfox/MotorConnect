@@ -66,7 +66,7 @@
                 android:src="@mipmap/ic_clock" />
 
             <TextView
-
+                android:id="@+id/time_working"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -74,14 +74,14 @@
                 android:gravity="center"
                 android:text="20"
                 android:textColor="@color/color_text_white"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <TextView
                 style="@style/TextView.Screen.Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/connect_margin_5"
+                android:layout_marginLeft="@dimen/connect_margin_10"
                 android:gravity="center"
                 android:text="min"
                 android:textColor="@color/color_text_white"
@@ -92,24 +92,24 @@
 
     <View
         android:layout_width="2dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:background="@color/color_grey" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Time Process"
-            android:textColor="@color/color_text_black"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center|right">
+            <include
+
+                layout="@layout/progressing_view" />
+        </FrameLayout>
 
     </LinearLayout>
 

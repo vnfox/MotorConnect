@@ -19,8 +19,9 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     var model = AreaModel()
 
     override fun initViewModel() {
-
-        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        val areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+        model = areaModels[pos]
         //get data
         mView?.viewLoaded()
 

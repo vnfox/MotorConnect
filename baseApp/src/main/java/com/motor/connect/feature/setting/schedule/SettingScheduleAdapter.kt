@@ -43,6 +43,8 @@ class SettingScheduleAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerVi
         } else {
             holder.schedule.text = "Lịch tuới: ngày tưới " + areas[position].schedule.size + " lần"
         }
+
+
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

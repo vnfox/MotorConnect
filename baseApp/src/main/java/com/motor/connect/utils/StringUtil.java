@@ -207,4 +207,20 @@ public class StringUtil {
         result.append(minutes.replace(":", " giờ "));
         return result.toString();
     }
+
+    //==================== New ==============================================
+
+    public static String getNameAndStatusVan(String vanId, Boolean on) {
+        StringBuilder result = new StringBuilder();
+        result.append("Van ");
+        result.append(vanId);
+        if (on) {
+            result.append("          ON");
+        } else {
+            result.append("          OFF");
+        }
+        return result.toString();
+    }
+
+
 }

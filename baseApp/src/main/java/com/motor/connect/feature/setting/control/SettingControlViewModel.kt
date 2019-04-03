@@ -10,12 +10,16 @@ import com.orhanobut.hawk.Hawk
 class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
     : BaseViewModel<SettingControlView, BaseModel>(mView, mModel) {
 
+    var areaModels: MutableList<AreaModel> = mutableListOf()
     var model = AreaModel()
 
     override fun initViewModel() {
-        model = Hawk.get<AreaModel>(MotorConstants.KEY_PUT_AREA_DETAIL)
+        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+
+        model = areaModels[pos]
         //Update UIS
-        mView?.viewLoaded(model.areaVans)
+        mView?.viewLoaded(model.areaVans, model.agenda)
     }
 
     fun getPhoneNumber(): String {
@@ -30,11 +34,23 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
         return model.password
     }
 
-    fun updateDataArea(listVans: List<VanModel>) {
-        var areaModels: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-        val position = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-        model.areaVans = listVans
-        areaModels[position] = model
+    fun updateDataChange(position: Int) {
+        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+
+        model.areaVans[position] = Hawk.get<VanModel>(MotorConstants.KEY_PUT_VAN_MODEL)
+
+        areaModels[pos] = model
+        Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
+    }
+
+    fun updateAgendaWorking(isAgenda: Boolean) {
+        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+
+        model = areaModels[pos]
+        model.agenda = isAgenda
+        areaModels[pos] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
     }
 }

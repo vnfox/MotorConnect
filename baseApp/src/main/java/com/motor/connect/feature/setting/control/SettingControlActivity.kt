@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
 import android.util.Log
@@ -22,7 +23,8 @@ import kotlinx.android.synthetic.main.action_bar_view.*
 import kotlinx.android.synthetic.main.setting_control_view.*
 
 
-class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, SettingControlViewModel>(), SettingControlView {
+class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, SettingControlViewModel>(),
+        SettingControlView, SettingControlAdapter.ItemListener {
 
     companion object {
         fun show(context: Context) {
@@ -49,9 +51,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
         txt_title.text = "Control"
         btn_action_right.text = "Apply"
         //Adapter item click
-        adapter = SettingControlAdapter { areaModel, position ->
-            //nothing
-        }
+        adapter = SettingControlAdapter(this)
         rc_control.adapter = adapter
         rc_control.layoutManager = GridLayoutManager(this, 1)
 
@@ -60,9 +60,17 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
         return mBinding
     }
 
-    override fun viewLoaded(areaVans: MutableList<VanModel>) {
+    override fun viewLoaded(areaVans: MutableList<VanModel>, agenda: Boolean) {
         adapter?.setData(areaVans)
         rc_control.adapter?.notifyDataSetChanged()
+
+        if (agenda) {
+            btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
+            btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
+        } else {
+            btn_manual.background = getDrawable(R.drawable.bg_button_selected)
+            btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
+        }
     }
 
     fun actionLeft(v: View) {
@@ -71,6 +79,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 
     fun actionRight(v: View) {
         showUnderConstruction()
+        //Save data
         //Todo set up schedule
     }
 
@@ -78,12 +87,34 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
         showUnderConstruction()
         btn_manual.background = getDrawable(R.drawable.bg_button_selected)
         btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
+        viewModel.updateAgendaWorking(false)
     }
 
     fun agendaControl(v: View) {
         showUnderConstruction()
         btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
         btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
+        viewModel.updateAgendaWorking(true)
+    }
+
+    override fun onSetDuration(position: Int, holder: SettingControlAdapter.ItemViewHolder) {
+        var items = resources.getStringArray(R.array.times_working)
+        AlertDialog.Builder(this)
+                .setTitle(getString(R.string.setting_time_working))
+                .setSingleChoiceItems(items, 0) { onDialogClicked, i ->
+
+                    var result = items[i].toString()
+                    holder.timeWorking.text = items[i].toString()
+
+                    //Notify UI
+                    adapter?.updateDuration(position, holder, result.split(" ")[0])
+                    viewModel.updateDataChange(position)
+
+                }
+                .setPositiveButton(getString(R.string.btn_chon), null)
+                .setNegativeButton(getString(R.string.btn_huy), null)
+                .show()
+
     }
 
     //Todo re-used later

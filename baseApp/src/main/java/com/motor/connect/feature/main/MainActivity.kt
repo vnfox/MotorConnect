@@ -10,7 +10,6 @@ import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
-import com.motor.connect.feature.demo.DemoActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
@@ -45,15 +44,11 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         //Adapter item click
         adapter = UserAdapter { areaModel, position ->
             Hawk.put(MotorConstants.KEY_POSITION, position)
-            Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
+            //Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
             val intent = Intent(this, AreaDetailActivity::class.java)
             this.startActivity(intent)
         }
         recyclerView.adapter = adapter
-
-        //Todo fake default Item
-//        viewModel.initViewModel()
-//        shef!!.setTriggerData(MotorConstants.FIRST_USED, false)
 
         val isUser = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.initData(isUser)
@@ -96,10 +91,6 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
 
     fun openEmptyScreen(v: View) {
         AddAreaActivity.show(this)
-    }
-
-    fun openMainScreen(v: View) {
-        DemoActivity.show(this)
     }
 
     fun openAddAreaScreen(v: View) {

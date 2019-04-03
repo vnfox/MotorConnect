@@ -15,6 +15,7 @@ public class AreaModel {
     private List<ScheduleModel> schedule;
     private String scheduleRepeat;
     private String password = "1234";
+    private Boolean isAgenda = false;
 
 
     public String getAreaId() {
@@ -103,5 +104,13 @@ public class AreaModel {
 
     public void setSchedule(List<ScheduleModel> schedule) {
         this.schedule = schedule;
+    }
+
+    public Boolean getAgenda() {
+        return isAgenda;
+    }
+
+    public void setAgenda(Boolean agenda) {
+        isAgenda = agenda;
     }
 }

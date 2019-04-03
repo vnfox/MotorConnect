@@ -5,5 +5,5 @@ import com.motor.connect.feature.model.VanModel
 
 interface SettingControlView : ActionBarView {
 
-    fun viewLoaded(areaVans: MutableList<VanModel>)
+    fun viewLoaded(areaVans: MutableList<VanModel>, agenda: Boolean)
 }
