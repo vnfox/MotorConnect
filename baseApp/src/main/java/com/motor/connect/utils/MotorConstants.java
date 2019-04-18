@@ -4,6 +4,8 @@ import com.feature.area.BuildConfig;
 
 public class MotorConstants {
 
+    public static final String API_KEY_WEATHER = "5e9ae4d227935f02e246b8798b6b0a1e";
+
     public static final String KEY_PUT_AREA_DETAIL = "PUT_AREA";
     public static final String KEY_PUT_AREA_LIST = "PUT_AREA_LIST";
     public static final String KEY_PUT_VAN_MODEL = "KEY_PUT_VAN_MODEL";
@@ -14,6 +16,7 @@ public class MotorConstants {
     public static final String KEY_TRIGGER_DATA = "KEY_TRIGGER_DATA";
     public static final String KEY_VANS_USED = "KEY_VANS_USED";
     public static final String KEY_SMS_RECEIVER = "KEY_SMS_RECEIVER";
+    public static final String KEY_WEATHER_INFO = "KEY_WEATHER_INFO";
 
 
     public static final int MSG_UNCOLOR_START = 0;

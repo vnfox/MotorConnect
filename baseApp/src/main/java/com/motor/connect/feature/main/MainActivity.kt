@@ -11,11 +11,13 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
 import com.motor.connect.feature.details.AreaDetailActivity
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.feature.model.WeatherModel
 import com.motor.connect.feature.notification.NotificationActivity
 import com.motor.connect.feature.setting.SettingActivity
 import com.motor.connect.utils.DialogHelper
 import com.motor.connect.utils.MotorConstants
 import com.orhanobut.hawk.Hawk
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -69,6 +71,27 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         txt_empty.visibility = View.GONE
         adapter?.setData(dataArea)
         recyclerView.adapter?.notifyDataSetChanged()
+
+
+        //Get Weather Info
+        viewModel.getWeatherInfo(this)
+    }
+
+    override fun updateWeatherInfo(weather: WeatherModel) {
+        w_temp.text = weather.temp
+        w_city.text = weather.cityName
+        w_speed_wind.text = String.format(getString(R.string.weather_speed), weather.speed)
+        w_temp_max.text = String.format(getString(R.string.weather_temp_max), weather.tempMax)
+        w_temp_min.text = String.format(getString(R.string.weather_temp_min), weather.tempMin)
+
+        if (weather.urlWeather.isNotEmpty()) {
+            Picasso.get()
+                    .load(weather.urlWeather)
+                    .placeholder(R.mipmap.ic_weather_default)
+                    .error(R.mipmap.ic_weather_default)
+                    .into(img_weather)
+        }
+
     }
 
     override fun onResume() {

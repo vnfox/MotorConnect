@@ -63,4 +63,75 @@ public class EnumHelper {
             return mValue;
         }
     }
+
+   public enum  DayOfWeek {
+       Monday("01", 1),
+       Tuesday("02", 2),
+       Wednesday("03", 4),
+       Thursday("04", 8),
+       Friday("05", 16),
+       Saturday("06", 32),
+       Sunday("07", 64),
+       UNKNOWN("00", 0);
+
+       DayOfWeek(String key, int value) {
+           mKey = key;
+           mValue = value;
+       }
+
+       private final String mKey;
+       private final int mValue;
+
+       public String getKey() {
+           return mKey;
+       }
+
+       public int getValue() {
+           return mValue;
+       }
+
+       public static DayOfWeek getFromValue(String key) {
+           for (DayOfWeek c : DayOfWeek.values()) {
+               if (c.getKey().equals(key))
+                   return c;
+           }
+           return UNKNOWN;
+       }
+    }
+
+    public enum  ValveValue {
+        Valve1("01", 1),
+        Valve2("02", 2),
+        Valve3("03", 4),
+        Valve4("04", 8),
+        Valve5("05", 16),
+        Valve6("06", 32),
+        Valve7("07", 64),
+        Valve8("08", 128),
+        UNKNOWN("00", 0);
+
+        ValveValue(String key, int value) {
+            mKey = key;
+            mValue = value;
+        }
+
+        private final String mKey;
+        private final int mValue;
+
+        public String getKey() {
+            return mKey;
+        }
+
+        public int getValue() {
+            return mValue;
+        }
+
+        public static ValveValue getFromValue(String key) {
+            for (ValveValue c : ValveValue.values()) {
+                if (c.getKey().equals(key))
+                    return c;
+            }
+            return UNKNOWN;
+        }
+    }
 }

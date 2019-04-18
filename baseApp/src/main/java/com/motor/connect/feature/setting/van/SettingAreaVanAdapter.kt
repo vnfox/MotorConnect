@@ -111,19 +111,16 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
             }
         }
         holder.btnRemove.setOnClickListener {
-            Log.d("hqdat", "========= btnRemove position ====  $position")
-            Log.d("hqdat", "========= btnRemove currentPosition ====  $currentPosition")
-
             if (currentPosition != position) {
                 stepSchedule = areaVan[position].schedule.size
                 currentPosition = position
                 checkStatusButton(stepSchedule, holder)
-                areaVan[position].schedule.dropLast(areaVan[position].schedule.size)
+                areaVan[position].schedule.removeAt(areaVan[position].schedule.size - 1)
                 put(MotorConstants.KEY_PUT_VAN_MODEL, areaVan[position])
             } else {
                 stepSchedule = areaVan[currentPosition].schedule.size
                 checkStatusButton(stepSchedule, holder)
-                areaVan[position].schedule.dropLast(areaVan[currentPosition].schedule.size)
+                areaVan[position].schedule.removeAt(areaVan[currentPosition].schedule.size - 1)
                 put(MotorConstants.KEY_PUT_VAN_MODEL, areaVan[currentPosition])
             }
 
@@ -233,8 +230,6 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
                 holder.schedule2.text = schedule[1]
                 holder.schedule3.text = schedule[2]
                 holder.schedule4.text = schedule[3]
-
-
             }
             else -> {
                 holder.btnAdd.isEnabled = true

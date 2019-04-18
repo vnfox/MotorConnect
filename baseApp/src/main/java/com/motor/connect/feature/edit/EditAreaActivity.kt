@@ -14,6 +14,7 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
+import kotlinx.android.synthetic.main.edit_area_view.*
 
 
 class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel>(), EditAreaView {
@@ -75,6 +76,30 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
 
     fun onSelectVanUsed(view: View?) {
         selectVanView()
+    }
+
+    fun actionRemove(view: View?) {
+        showUnderConstruction()
+        var vansUsed = viewModel.getNumberVanUsed() - 1
+        if (vansUsed < 1) {
+            btn_remove.isEnabled = false
+        } else {
+            btn_remove.isEnabled = true
+            areaVan?.text = "$vansUsed Van"
+            viewModel.updateVansUsed(false, vansUsed)
+        }
+    }
+
+    fun actionAdd(view: View?) {
+        showUnderConstruction()
+        var vansUsed = viewModel.getNumberVanUsed() + 1
+        if (vansUsed >= 8) {
+            btn_add.isEnabled = false
+        } else {
+            btn_add.isEnabled = true
+            areaVan?.text = "$vansUsed Van"
+            viewModel.updateVansUsed(true, vansUsed)
+        }
     }
 
     fun onSaveData(view: View?) {

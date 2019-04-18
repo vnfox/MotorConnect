@@ -41,38 +41,104 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:gravity="center">
+            android:layout_margin="@dimen/connect_margin_10"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/TextView.Screen.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
-                android:text="Weather Info"
-                android:textColor="@color/color_text_white"
-                android:textSize="@dimen/connect_text_size_22" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/w_temp"
+                    style="@style/TextView.Screen.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="34"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="42sp" />
+
+                <TextView
+                    android:id="@+id/w_city"
+                    style="@style/TextView.Screen.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Ho Chi Minh"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="@dimen/connect_text_size_16" />
+
+                <TextView
+                    android:id="@+id/w_speed_wind"
+                    style="@style/TextView.Screen.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tốc độ gió 3.1 km/h"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="@dimen/connect_text_size_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_weather"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_weather_default" />
+
+                <TextView
+                    android:id="@+id/w_temp_min"
+                    style="@style/TextView.Screen.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Nhiệt độ thấp  34"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="@dimen/connect_text_size_16" />
+
+                <TextView
+                    android:id="@+id/w_temp_max"
+                    style="@style/TextView.Screen.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Nhiệt độ cao nhất 34"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="@dimen/connect_text_size_16" />
+            </LinearLayout>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_empty"
                 style="@style/TextView.Screen.Title"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@drawable/cirle_background"
                 android:gravity="center"
                 android:onClick="openEmptyScreen"
                 android:text="@string/home_area_empty"
                 android:textColor="@color/color_white"
-
                 android:textSize="@dimen/connect_text_size_30"
                 android:visibility="gone" />
 
@@ -91,7 +157,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1.5"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView

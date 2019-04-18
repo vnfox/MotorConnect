@@ -79,7 +79,59 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     fun actionRight(v: View) {
         showUnderConstruction()
         // Setup sms
-        //Get data
+        // De1234 009 04 0601 030 0701 030 0801 030 0901 030  21 02 0601 030 0701 030  42
+        // DE1234 09 4610:710D810N910X0E 4610:710D810N910X0Z
+
+        // prefix   : DE1234 09
+
+        // pattern 1: 4610:710D810N910X0E  =
+        // 4 tuoi 4 lan /ngay
+        // 61 thoi gian tuoi ~ 6h01 bat dau tuoi
+        // 0: so phut tuoi ~ 10ph
+        //0E ~ 21 => 2,4,6
+
+
+        // pattern 2: 4610:710D810N910X0Z
+        // 0Z ~ 42 => 3,5,7
+        // prepareSMSContent()
+
+        /*fun toSMSStringCompact(): String
+        {
+            var string1: String = String()
+            var string2: String = String()
+            string1 = ""
+            string1 += MainActivity:decimal2ATSSexagesimal(hour) + decimal2ATSSexagesimal(minute)
+            string2 = MainActivity:decimal2ATSSexagesimal(duration)
+            if(string2.length == 1)
+            {
+                string1 += "0"+string2
+            }else
+            {
+                string1 += string2
+            }
+            return  string1
+        }*/
+
+        //0601  30
+        var string1: String = ""
+        var string2: String = ""
+
+        string1 = decimal2ATSSexagesimal(6) + decimal2ATSSexagesimal(1)
+        string2 = decimal2ATSSexagesimal(30)
+
+        Log.d("hqdat","====      string 0 1 ===  $string1")
+        Log.d("hqdat","====      string 0 2 ===  $string2")
+
+        if(string2.length == 1)
+        {
+            string1 += "0"+string2
+        }else
+        {
+            string1 += string2
+        }
+        Log.d("hqdat","====      string 1 ===  $string1")
+        Log.d("hqdat","====      string 2 ===  $string2")
+
     }
 
     //============================================
@@ -164,13 +216,10 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     }
 
     override fun onCheckRepeat(position: Int, repeat: RepeatModel) {
-            viewModel.updateDataRepeatChange(position, repeat)
+        viewModel.updateDataRepeatChange(position, repeat)
     }
 
     //====== Start Set time schedule ==============
-
-
-
 
 
     //====== End Set time schedule ==============
@@ -246,7 +295,24 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
     private fun backPreviousScreen() {
         //Trigger Data
         shef!!.setUpdateData(MotorConstants.KEY_EDIT_AREA, true)
+
         actionLeft()
         this.finish()
+    }
+
+    private fun decimal2ATSSexagesimal(number: Int): String {
+        var sexagesimalLetters = Array<Char>(60, { '0';'1';'2';'3';'4';'5';'6';'7';'8';'9';':';';';'<';'=';'>';'?';'@';'A';'B';'C';'D';'E';'F';'G';'H';'I';'J';'K';'L';'M';'N';'O';'P';'Q';'R';'S';'T';'U';'V';'W';'X';'Y';'Z';'[';'\\';']';'^';'_';'`';'a';'b';'c';'d';'e';'f';'g';'h';'i';'j';'k'; })
+        var string1: String = String()
+        var num: Int
+        num = number
+        var sexagesimalList: MutableList<Char> = mutableListOf<Char>()
+        do {
+            sexagesimalList.add(sexagesimalLetters[num % 60])
+            num = (num / 60)
+        } while (num > 0)
+        for (i in sexagesimalList.size downTo 1) {
+            string1 += sexagesimalList.get(i - 1)
+        }
+        return string1
     }
 }

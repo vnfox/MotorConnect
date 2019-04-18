@@ -25,7 +25,7 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_data, parent, false))
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_area, parent, false))
     }
 
     override fun getItemCount() = areas.size
@@ -40,19 +40,14 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         holder.phone.text = areas[position].areaPhone
         holder.vanused.text = "Số van sử dụng: " + areas[position].areaVans.size.toString()
 
-        if (areas[position].schedule == null || areas[position].schedule.isEmpty()) {
-            holder.status.text = "Trạng thái: Đang tắt "
-            holder.schedule.text = "Lịch tưới: Chưa cài đặt lịch tưới"
-            holder.repeat.visibility = View.GONE
-        } else {
-            holder.status.text = "Trạng thái: Đang hoạt động"
-
-            holder.schedule.text = "Lịch tuới: ngày tưới " + areas[position].schedule.size + " lần"
-            holder.repeat.visibility = View.VISIBLE
-            if (areas[position].scheduleRepeat.isNullOrEmpty())
-                holder.repeat.text = "Lịch chỉ tuới trong ngày"
-            else
-                holder.repeat.text = areas[position].scheduleRepeat
+        if(areas[position].areaVans.size > 0){
+            areas[position].areaVans.forEach {
+                if(it.schedule.isNotEmpty()){
+                    holder.status.text = "Đang hoạt động"
+                }else{
+                    holder.status.text = "Chưa có lịch tưới"
+                }
+            }
         }
     }
 
@@ -62,8 +57,6 @@ class UserAdapter(val onClick: (AreaModel, Int) -> Unit) : RecyclerView.Adapter<
         var phone: TextView = itemView.findViewById(R.id.txt_phone) as TextView
         var status: TextView = itemView.findViewById(R.id.txt_status) as TextView
         var vanused: TextView = itemView.findViewById(R.id.txt_van_number) as TextView
-        var schedule: TextView = itemView.findViewById(R.id.txt_schedule) as TextView
-        var repeat: TextView = itemView.findViewById(R.id.txt_repeat) as TextView
 
     }
 }

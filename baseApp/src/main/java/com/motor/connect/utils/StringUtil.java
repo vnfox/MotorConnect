@@ -3,6 +3,9 @@ package com.motor.connect.utils;
 import com.motor.connect.feature.model.ScheduleModel;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class StringUtil {
 
@@ -222,5 +225,33 @@ public class StringUtil {
         return result.toString();
     }
 
+    @Nullable
+    public static Object getScheduleArea(@NotNull List<String> schedule, String vanId, String duration) {
+        StringBuilder result = new StringBuilder();
+        result.append("Lịch Tưới ");
+        result.append("Khu Vuc ").append(vanId).append("\n");
 
+        for(Object element : schedule) {
+            result.append(getTime(element.toString())).append("\n");
+        }
+        result.append(getDuration(duration)).append("\n");
+        return result.toString();
+    }
+
+    public static String getTime(String value) {
+        //06:00
+        StringBuilder result = new StringBuilder();
+        String[] array = value.split(":");
+        result.append(" * Bắt đầu ").append(array[0]).append(" giờ ");
+
+        result.append(array[1]).append(" phút");
+        return result.toString();
+    }
+
+    public static String getDuration(String value) {
+        //06:00
+        StringBuilder result = new StringBuilder();
+        result.append(" * Thời gian tưới ").append(value);
+        return result.toString();
+    }
 }

@@ -91,4 +91,8 @@
     <string name="detail_time_start">Bắt đầu</string>
     <string name="detail_motor_running">Đang hoạt động</string>
 
+    <string name="weather_speed">Tốc độ gió: %s</string>
+    <string name="weather_temp_max">Nhiệt độ max: %s</string>
+    <string name="weather_temp_min">Nhiệt độ min: %s</string>
+
 </resources>
