@@ -130,7 +130,7 @@
                         android:gravity="center"
                         android:minHeight="40dp"
                         android:onClick="onSelectVanUsed"
-                        android:text="2 Van"
+                        android:text="1 Van"
                         android:textSize="@dimen/connect_text_size_title" />
 
                 </LinearLayout>

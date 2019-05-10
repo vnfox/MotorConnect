@@ -18,8 +18,15 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
         val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 
         model = areaModels[pos]
-        //Update UIS
-        mView?.viewLoaded(model.areaVans, model.agenda)
+        selectNavigateUi(model.agenda)
+    }
+
+    private fun selectNavigateUi(agenda: Boolean?) {
+        if (agenda!!) {
+            mView?.fetchDataAgenda(model.areaVans)
+        } else {
+            mView?.fetchDataManual(model.areaVans)
+        }
     }
 
     fun getPhoneNumber(): String {
@@ -37,9 +44,7 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
     fun updateDataChange(position: Int) {
         areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-
         model.areaVans[position] = Hawk.get<VanModel>(MotorConstants.KEY_PUT_VAN_MODEL)
-
         areaModels[pos] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
     }
@@ -52,5 +57,28 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
         model.agenda = isAgenda
         areaModels[pos] = model
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
+
+        //Update UI
+        selectNavigateUi(isAgenda)
+    }
+
+    fun prepareDataSendSms() {
+        var vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
+        var items: MutableList<VanModel> = mutableListOf()
+        if (model.agenda) {
+            vanModels.forEach {
+                if(!it.duration.isNullOrEmpty()){
+                    items.add(it)
+                }
+            }
+            mView?.prepareDataForAgenda(items)
+        } else {
+            vanModels.forEach {
+                if(it.manual){
+                    items.add(it)
+                }
+            }
+            mView?.prepareDataForManual(items)
+        }
     }
 }

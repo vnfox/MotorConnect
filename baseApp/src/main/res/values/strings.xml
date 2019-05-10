@@ -94,5 +94,7 @@
     <string name="weather_speed">Tốc độ gió: %s</string>
     <string name="weather_temp_max">Nhiệt độ max: %s</string>
     <string name="weather_temp_min">Nhiệt độ min: %s</string>
+    <string name="setting_controll_title">Control</string>
+    <string name="setting_controll_apply">Apply</string>
 
 </resources>

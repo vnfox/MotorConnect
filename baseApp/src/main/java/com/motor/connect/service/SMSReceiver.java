@@ -51,10 +51,11 @@ public class SMSReceiver extends BroadcastReceiver {
                 strMessage += "SMS from " + msgs[i].getOriginatingAddress();
                 strMessage += " :" + msgs[i].getMessageBody() + "\n";
                 // Log and display the SMS message.
-                Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
-                Log.d("hqdat", ">>>>   phone    " + msgs[i].getOriginatingAddress());
+//                Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+                //Log.d("hqdat", ">>>>   phone    " + msgs[i].getOriginatingAddress());
 
                 Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);
+
                 //showDialogMessage(context);
 //                if (CommonUtil.checkPhoneContainArea(msgs[i].getOriginatingAddress())) {
 //                    Hawk.put(MotorConstants.KEY_SMS_RECEIVER, strMessage);

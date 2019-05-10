@@ -5,5 +5,11 @@ import com.motor.connect.feature.model.VanModel
 
 interface SettingControlView : ActionBarView {
 
-    fun viewLoaded(areaVans: MutableList<VanModel>, agenda: Boolean)
+    fun fetchDataAgenda(areaVans: List<VanModel>)
+
+    fun fetchDataManual(areaVans: List<VanModel>)
+
+    fun prepareDataForAgenda(items: MutableList<VanModel>)
+
+    fun prepareDataForManual(items: MutableList<VanModel>)
 }

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -31,7 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name="com.motor.connect.base.view.FragmentHostActivity" />
+
         <activity android:name="com.motor.connect.feature.splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,9 +67,6 @@
         <activity android:name="com.motor.connect.utils.dialog.DialogActivity" />
         <activity android:name="com.motor.connect.feature.setting.howuse.HowToUseActivity" />
         <activity android:name="com.motor.connect.feature.setting.help.HelpFeedbackActivity" />
-
-        <activity android:name="com.motor.connect.feature.demo.DemoActivity" />
-
 
     </application>
 

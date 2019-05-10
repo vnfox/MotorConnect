@@ -90,7 +90,7 @@
     </style>
 
     <style name="SwitchCompatTheme">
-        <item name="colorControlActivated">@color/color_blue</item>
+        <item name="colorControlActivated">@color/color_yellow</item>
     </style>
 
 </resources>

@@ -1,34 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="dialog_single_choice_array">
-        <item>Male</item>
-        <item>Female</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Female</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-        <item>Others</item>
-    </string-array>
 
     <string-array name="number_van_choice">
-        <item>2 Van</item>
-        <item>3 Van</item>
-        <item>4 Van</item>
-        <item>5 Van</item>
-        <item>6 Van</item>
-        <item>7 Van</item>
-        <item>8 Van</item>
-    </string-array>
-
-    <string-array name="times_day">
+        <item>1 Van</item>
         <item>2 Van</item>
         <item>3 Van</item>
         <item>4 Van</item>

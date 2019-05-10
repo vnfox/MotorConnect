@@ -53,4 +53,5 @@
     <dimen name="connect_margin_5">5dp</dimen>
     <dimen name="connect_margin_10">10dp</dimen>
     <dimen name="connect_margin_16">16dp</dimen>
+    <dimen name="connect_margin_20">20dp</dimen>
 </resources>

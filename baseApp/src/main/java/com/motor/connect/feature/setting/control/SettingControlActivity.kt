@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.setting_control_view.*
 
 
 class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, SettingControlViewModel>(),
-        SettingControlView, SettingControlAdapter.ItemListener {
+        SettingControlView, SettingControlAgendaAdapter.ItemListener {
 
     companion object {
         fun show(context: Context) {
@@ -37,7 +37,8 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
     private var countVan = 0
 
     private val viewModel = SettingControlViewModel(this, BaseModel())
-    private var adapter: SettingControlAdapter? = null
+    private var agendaAdapter: SettingControlAgendaAdapter? = null
+    private var manualAdapter: SettingControlManualAdapter? = null
 
     override fun createViewModel(): SettingControlViewModel {
         viewModel.mView = this
@@ -48,11 +49,13 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
         mBinding = DataBindingUtil.setContentView(this, R.layout.setting_control_view)
         mBinding.viewModel = mViewModel
 
-        txt_title.text = "Control"
-        btn_action_right.text = "Apply"
+        txt_title.text = getString(R.string.setting_controll_title)
+        btn_action_right.text = getString(R.string.setting_controll_apply)
         //Adapter item click
-        adapter = SettingControlAdapter(this)
-        rc_control.adapter = adapter
+        agendaAdapter = SettingControlAgendaAdapter(this)
+        manualAdapter = SettingControlManualAdapter()
+
+        rc_control.adapter = agendaAdapter
         rc_control.layoutManager = GridLayoutManager(this, 1)
 
         viewModel.initViewModel()
@@ -60,17 +63,24 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
         return mBinding
     }
 
-    override fun viewLoaded(areaVans: MutableList<VanModel>, agenda: Boolean) {
-        adapter?.setData(areaVans)
+    override fun fetchDataAgenda(areaVans: List<VanModel>) {
+        rc_control.adapter = agendaAdapter
+        rc_control.layoutManager = GridLayoutManager(this, 1)
+        agendaAdapter?.setData(areaVans)
         rc_control.adapter?.notifyDataSetChanged()
 
-        if (agenda) {
-            btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
-            btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
-        } else {
-            btn_manual.background = getDrawable(R.drawable.bg_button_selected)
-            btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
-        }
+        btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
+        btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
+    }
+
+    override fun fetchDataManual(areaVans: List<VanModel>) {
+        rc_control.adapter = manualAdapter
+        rc_control.layoutManager = GridLayoutManager(this, 1)
+        manualAdapter?.setData(areaVans)
+        rc_control.adapter?.notifyDataSetChanged()
+
+        btn_manual.background = getDrawable(R.drawable.bg_button_selected)
+        btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
     }
 
     fun actionLeft(v: View) {
@@ -78,38 +88,38 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
     }
 
     fun actionRight(v: View) {
-        showUnderConstruction()
-        //Save data
-        //Todo set up schedule
+        viewModel.prepareDataSendSms()
     }
 
     fun manualControl(v: View) {
-        showUnderConstruction()
-        btn_manual.background = getDrawable(R.drawable.bg_button_selected)
-        btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
         viewModel.updateAgendaWorking(false)
     }
 
     fun agendaControl(v: View) {
-        showUnderConstruction()
-        btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
-        btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
         viewModel.updateAgendaWorking(true)
     }
 
-    override fun onSetDuration(position: Int, holder: SettingControlAdapter.ItemViewHolder) {
+    override fun prepareDataForManual(items: MutableList<VanModel>) {
+        showUnderConstruction("prepareDataForManual $items")
+        //prepare sms
+    }
+
+    override fun prepareDataForAgenda(items: MutableList<VanModel>) {
+        showUnderConstruction("prepareDataForAgenda   $items")
+                //prepare sms
+    }
+
+    override fun onSetDuration(position: Int, holder: SettingControlAgendaAdapter.ItemViewHolder) {
         var items = resources.getStringArray(R.array.times_working)
         AlertDialog.Builder(this)
                 .setTitle(getString(R.string.setting_time_working))
-                .setSingleChoiceItems(items, 0) { onDialogClicked, i ->
-
+                .setSingleChoiceItems(items, 0) { _, i ->
                     var result = items[i].toString()
                     holder.timeWorking.text = items[i].toString()
 
                     //Notify UI
-                    adapter?.updateDuration(position, holder, result.split(" ")[0])
+                    agendaAdapter?.updateDuration(position, holder, result.split(" ")[0])
                     viewModel.updateDataChange(position)
-
                 }
                 .setPositiveButton(getString(R.string.btn_chon), null)
                 .setNegativeButton(getString(R.string.btn_huy), null)
@@ -119,7 +129,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 
     //Todo re-used later
     /*fun setupVanUsed(v: View) {
-        var listVans = adapter?.getDataView()
+        var listVans = agendaAdapter?.getDataView()
 
         for (i in 0 until listVans!!.size) {
             if (listVans!![i].vanStatus) {

@@ -9,6 +9,7 @@ public class VanModel {
     private Boolean vanStatus;
     private List<String> schedule = new ArrayList<>();
     private String duration;
+    private Boolean isManual = false;
     private RepeatModel repeatModel = new RepeatModel();
 
 
@@ -42,6 +43,14 @@ public class VanModel {
 
     public void setSchedule(List<String> schedule) {
         this.schedule = schedule;
+    }
+
+    public Boolean getManual() {
+        return isManual;
+    }
+
+    public void setManual(Boolean manual) {
+        isManual = manual;
     }
 
     public RepeatModel getRepeatModel() {

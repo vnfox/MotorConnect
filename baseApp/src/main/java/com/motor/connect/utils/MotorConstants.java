@@ -9,6 +9,7 @@ public class MotorConstants {
     public static final String KEY_PUT_AREA_DETAIL = "PUT_AREA";
     public static final String KEY_PUT_AREA_LIST = "PUT_AREA_LIST";
     public static final String KEY_PUT_VAN_MODEL = "KEY_PUT_VAN_MODEL";
+    public static final String KEY_PUT_LIST_VAN_MODEL = "KEY_PUT_LIST_VAN_MODEL";
     public static final String KEY_EDIT_AREA = "EDIT_DATA_AREA";
     public static final String KEY_REPEAT_MODEL = "KEY_REPEAT_MODEL";
     public static final String KEY_POSITION = "KEY_POSITION";

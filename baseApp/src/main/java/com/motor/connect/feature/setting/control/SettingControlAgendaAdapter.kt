@@ -1,7 +1,6 @@
 package com.motor.connect.feature.setting.control
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtil
 import com.orhanobut.hawk.Hawk
 
-class SettingControlAdapter(val onClick: SettingControlActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class SettingControlAgendaAdapter(val onClick: SettingControlActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         BindableAdapter<VanModel> {
 
     lateinit var itemClick: ItemListener
@@ -35,7 +34,7 @@ class SettingControlAdapter(val onClick: SettingControlActivity) : RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_control, parent, false))
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_agenda_control, parent, false))
     }
 
     override fun getItemCount() = areaVan.size
@@ -71,6 +70,7 @@ class SettingControlAdapter(val onClick: SettingControlActivity) : RecyclerView.
 
         areaVan[position].duration = value
         Hawk.put(MotorConstants.KEY_PUT_VAN_MODEL, areaVan[position])
+        Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, areaVan)
     }
 
     private fun onWorkingProgress(holder: ItemViewHolder) {
