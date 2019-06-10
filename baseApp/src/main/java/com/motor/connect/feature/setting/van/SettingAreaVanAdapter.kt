@@ -23,7 +23,7 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
     private var vanModel = VanModel()
 
     var stepSchedule = 0
-    private var currentPosition = 0
+    private var currentPosition = -1
 
     override fun setData(items: List<VanModel>) {
         areaVan = items
@@ -46,7 +46,7 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
 
         var repeatModel: RepeatModel = areaVan[position]?.repeatModel
         vanModel = areaVan[position]
-        (holder as ItemViewHolder).areaName.text = "Van " + areaVan[position].vanId
+        (holder as ItemViewHolder).areaName.text = "Van " + "0" + (position + 1).toString()
         holder.areaId.text = "0" + (position + 1).toString()
 
         //=======Update Schedule =====
