@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import com.feature.area.R
+import com.motor.connect.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.RepeatModel
 import com.motor.connect.feature.model.VanModel

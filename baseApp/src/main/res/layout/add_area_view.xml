@@ -62,7 +62,6 @@
                     android:layout_height="@dimen/detail_backdrop_height"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:onClick="selectBackdrop"
                     android:scaleType="center"
                     app:srcCompat="@mipmap/backdrop_5" />
 

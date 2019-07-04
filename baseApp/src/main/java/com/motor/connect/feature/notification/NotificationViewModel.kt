@@ -10,6 +10,7 @@ import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.SmsModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtil
+import com.motor.connect.utils.getSmsContentFromCode
 import com.orhanobut.hawk.Hawk
 
 class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
@@ -49,7 +50,7 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
             smsModel.contactName = contact
             smsModel.phoneNumber = StringUtil.comparePrefixPhone(address)
             smsModel.smsType = type
-            smsModel.messageContent = body
+            smsModel.messageContent = getSmsContentFromCode(body)
             smsModel.date = timestamp
             if (address.length in 9..12) {
                 sms.add(smsModel)
@@ -90,7 +91,6 @@ class NotificationViewModel(mView: NotificationView?, mModel: BaseModel)
                         name = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME))
                     }
                 }
-
                 name
             }
         } finally {

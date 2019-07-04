@@ -1,6 +1,6 @@
 package com.motor.connect.utils;
 
-import com.feature.area.BuildConfig;
+import com.motor.connect.BuildConfig;
 
 public class MotorConstants {
 
@@ -31,6 +31,7 @@ public class MotorConstants {
             BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
 
     public static final int PERMISSION_REQUEST_CODE = 101;
+    public static final int PASSWORD_DEFAULT = 1234;
 
     public static final int TIME_PROGRESS = 15;
     public static Boolean IsProgramRunning = false;
@@ -39,6 +40,9 @@ public class MotorConstants {
         private AreaCode() {
             // do nothing
         }
+
+        public static final String PREFIX_DE = "DE";
+        public static final String PREFIX_DM = "DM";
 
 
         public static final String PREFIX_REPEAT = "De";

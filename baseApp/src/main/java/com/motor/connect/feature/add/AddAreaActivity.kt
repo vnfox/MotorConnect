@@ -7,10 +7,10 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import com.feature.area.R
-import com.feature.area.databinding.AddAreaViewBinding
+import com.motor.connect.R
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.databinding.AddAreaViewBinding
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
@@ -52,10 +52,6 @@ class AddAreaActivity : BaseViewActivity<AddAreaViewBinding, AddAreaViewModel>()
 
     fun actionClose(view: View?) {
         actionLeft()
-    }
-
-    fun selectBackdrop(view: View?) {
-        showUnderConstruction()
     }
 
     fun onSelectVanUsed(view: View?) {

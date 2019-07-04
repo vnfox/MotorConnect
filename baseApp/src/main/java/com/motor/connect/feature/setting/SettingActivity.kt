@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.view.View
-import com.feature.area.R
-import com.feature.area.databinding.SettingViewBinding
+import com.motor.connect.R
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.databinding.SettingViewBinding
 import com.motor.connect.feature.setting.schedule.SettingScheduleActivity
 
 

@@ -3,10 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fl_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/bg_view_control"
-    android:minHeight="80dp"
+    android:minHeight="60dp"
     android:orientation="vertical">
 
     <TextView
@@ -52,7 +52,8 @@
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/connect_margin_10"
+            android:layout_marginBottom="@dimen/connect_margin_5"
+            android:layout_marginTop="@dimen/connect_margin_5"
             android:background="@color/color_grey_light" />
 
         <LinearLayout

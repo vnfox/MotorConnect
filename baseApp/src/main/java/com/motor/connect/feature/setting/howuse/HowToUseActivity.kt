@@ -6,8 +6,8 @@ import android.databinding.DataBindingUtil
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.view.View
-import com.feature.area.R
-import com.feature.area.databinding.HowUseViewBinding
+import com.motor.connect.R
+import com.motor.connect.databinding.HowUseViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import kotlinx.android.synthetic.main.how_use_view.*

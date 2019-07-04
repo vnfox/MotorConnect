@@ -13,6 +13,7 @@
     </string-array>
 
     <string-array name="times_working">
+        <item>None</item>
         <item>10 phút</item>
         <item>20 phút</item>
         <item>30 phút</item>

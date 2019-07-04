@@ -8,7 +8,7 @@ import java.util.List;
 public class CommonUtil {
 
     public static Boolean checkPhoneContainArea(String phone) {
-        phone = StringUtil.comparePrefixPhone(phone);
+        phone = StringUtil.INSTANCE.comparePrefixPhone(phone);
         List<AreaModel> dataArea;
         dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST);
 

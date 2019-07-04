@@ -12,7 +12,7 @@ import github.vatsal.easyweather.Helper.WeatherCallback
 import github.vatsal.easyweather.WeatherMap
 import github.vatsal.easyweather.retrofit.models.WeatherResponseModel
 
-class UserViewModel(mView: MainAreaView?, mModel: BaseModel)
+class MainViewModel(mView: MainAreaView?, mModel: BaseModel)
     : BaseViewModel<MainAreaView, BaseModel>(mView, mModel) {
 
     var dataArea: MutableList<AreaModel> = mutableListOf()

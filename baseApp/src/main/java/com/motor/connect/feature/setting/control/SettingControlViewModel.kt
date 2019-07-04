@@ -33,14 +33,6 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
         return model.areaPhone
     }
 
-    fun getAreaId(): String {
-        return model.areaId
-    }
-
-    fun getPassWordArea(): String {
-        return model.password
-    }
-
     fun updateDataChange(position: Int) {
         areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
         val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
@@ -63,11 +55,12 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
     }
 
     fun prepareDataSendSms() {
+        
         var vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
         var items: MutableList<VanModel> = mutableListOf()
         if (model.agenda) {
             vanModels.forEach {
-                if(!it.duration.isNullOrEmpty()){
+                if(!it.duration.isNullOrEmpty() && it.schedule.isNotEmpty()){
                     items.add(it)
                 }
             }

@@ -1,7 +1,7 @@
 package com.motor.connect.utils
 
 import android.util.Log
-import com.feature.area.BuildConfig
+import com.motor.connect.BuildConfig
 
 class Logger {
     companion object {

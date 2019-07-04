@@ -7,8 +7,8 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import com.feature.area.R
-import com.feature.area.databinding.EditAreaViewBinding
+import com.motor.connect.R
+import com.motor.connect.databinding.EditAreaViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.AreaModel
@@ -51,7 +51,6 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
     }
 
     override fun viewLoaded(model: AreaModel?) {
-
         areaName?.setText(model?.areaName)
         areaPhone?.setText(model?.areaPhone)
         areaDetail?.setText(model?.areaDetails)
@@ -79,7 +78,6 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
     }
 
     fun actionRemove(view: View?) {
-        showUnderConstruction()
         var vansUsed = viewModel.getNumberVanUsed() - 1
         if (vansUsed < 1) {
             btn_remove.isEnabled = false
@@ -91,8 +89,7 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
     }
 
     fun actionAdd(view: View?) {
-        showUnderConstruction()
-        var vansUsed = viewModel.getNumberVanUsed() + 1
+        var vansUsed = viewModel.getNumberVanUsed()
         if (vansUsed >= 8) {
             btn_add.isEnabled = false
         } else {
@@ -107,25 +104,10 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
         dataModel.areaName = areaName?.text.toString()
         dataModel.areaPhone = areaPhone?.text.toString()
         dataModel.areaDetails = areaDetail?.text.toString()
-        dataModel.areaVans = getAreaVans(areaVan?.text.toString())
+        //dataModel.areaVans = getAreaVans(areaVan?.text.toString())
         dataModel.areaId = areaPhone?.text.toString()
 
         viewModel.updateDataArea(dataModel)
-    }
-
-    private fun getAreaVans(vanSelected: String): List<VanModel>? {
-
-        var areaVans: MutableList<VanModel> = mutableListOf()
-
-        var numVan = vanSelected.substring(0, 1).toInt()
-
-        for (i in 1..numVan) {
-            val van = VanModel()
-            van.vanId = "0$i"
-            van.vanStatus = false
-            areaVans.add(van)
-        }
-        return areaVans
     }
 
     private fun selectVanView() {

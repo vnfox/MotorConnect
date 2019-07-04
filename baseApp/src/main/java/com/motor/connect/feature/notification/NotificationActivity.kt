@@ -6,8 +6,8 @@ import android.databinding.DataBindingUtil
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import com.feature.area.R
-import com.feature.area.databinding.NotificationViewBinding
+import com.motor.connect.R
+import com.motor.connect.databinding.NotificationViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.SmsModel

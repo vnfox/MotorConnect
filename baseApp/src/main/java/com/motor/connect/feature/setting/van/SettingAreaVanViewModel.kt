@@ -1,6 +1,5 @@
 package com.motor.connect.feature.setting.van
 
-import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel

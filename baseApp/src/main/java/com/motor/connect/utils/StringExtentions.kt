@@ -2,9 +2,8 @@ package com.motor.connect.utils
 
 import com.motor.connect.feature.model.RepeatModel
 
-
 fun decimal2ATSSexagesimal(value: Int): String {
-	var sexagesimalLetters = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k')
+	var sexagesimalLetters = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x')
 	var result: String = String()
 	var num: Int
 	num = value
@@ -22,6 +21,8 @@ fun decimal2ATSSexagesimal(value: Int): String {
 fun getAvailableATS(zone: Int): String {
 	val result = decimal2ATSSexagesimal(zone)
 	if (result.length == 1) {
+		return "00$result"
+	} else if (result.length == 2) {
 		return "0$result"
 	}
 	return result
@@ -81,30 +82,35 @@ fun getDecimalValueTue(value: Boolean): Int {
 	}
 	return 0
 }
+
 fun getDecimalValueWed(value: Boolean): Int {
 	if (value) {
 		return 4
 	}
 	return 0
 }
+
 fun getDecimalValueThu(value: Boolean): Int {
 	if (value) {
 		return 8
 	}
 	return 0
 }
+
 fun getDecimalValueFri(value: Boolean): Int {
 	if (value) {
 		return 16
 	}
 	return 0
 }
+
 fun getDecimalValueSat(value: Boolean): Int {
 	if (value) {
 		return 32
 	}
 	return 0
 }
+
 fun getDecimalValueSun(value: Boolean): Int {
 	if (value) {
 		return 64
@@ -125,4 +131,16 @@ fun getDayOfWeek(position: Int, repeatModel: RepeatModel): Int {
 		6 -> scheduleRepeat = getDecimalValueSun(repeatModel.statusCN)
 	}
 	return scheduleRepeat
+}
+
+fun getSmsContentFromCode(content: String): String {
+	when {
+		content.contentEquals("00") -> return "Tin nhắn đã được xử lý"
+		content.contentEquals("01") -> return "Tin nhắn đang được xử lý"
+		content.contentEquals("02") -> return "Lỗi hệ thống"
+	}
+	if (content.length == 2) {
+		return "Lỗi cú pháp $content"
+	}
+	return content
 }

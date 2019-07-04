@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.feature.area.R
+import com.motor.connect.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.SmsModel
 

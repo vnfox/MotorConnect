@@ -12,7 +12,7 @@ import android.provider.Settings
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.feature.area.R
+import com.motor.connect.R
 import com.motor.connect.feature.main.MainActivity
 import io.reactivex.annotations.NonNull
 import java.util.*

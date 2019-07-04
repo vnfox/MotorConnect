@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.view.View
-import com.feature.area.R
-import com.feature.area.databinding.ActivityMainBinding
+import com.motor.connect.R
+import com.motor.connect.databinding.ActivityMainBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.add.AddAreaActivity
@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), MainAreaView, DialogHelper.AlertDialogListener {
+class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), MainAreaView, DialogHelper.AlertDialogListener {
 
     companion object {
         fun show(context: Context) {
@@ -29,24 +29,23 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         }
     }
 
-    private val viewModel = UserViewModel(this, BaseModel())
-    private var adapter: UserAdapter? = null
+    private val viewModel = MainViewModel(this, BaseModel())
+    private var adapter: MainAdapter? = null
     private var isFirst: Boolean = false
 
 
-    override fun createViewModel(): UserViewModel {
+    override fun createViewModel(): MainViewModel {
         viewModel.mView = this
         return viewModel
     }
 
-    override fun createDataBinding(mViewModel: UserViewModel): ActivityMainBinding {
+    override fun createDataBinding(mViewModel: MainViewModel): ActivityMainBinding {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.viewModel = mViewModel
 
         //Adapter item click
-        adapter = UserAdapter { areaModel, position ->
+        adapter = MainAdapter { areaModel, position ->
             Hawk.put(MotorConstants.KEY_POSITION, position)
-            //Hawk.put(MotorConstants.KEY_PUT_AREA_DETAIL, areaModel)
             val intent = Intent(this, AreaDetailActivity::class.java)
             this.startActivity(intent)
         }
@@ -62,7 +61,6 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         isFirst = true
         recyclerView.visibility = View.GONE
         txt_empty.visibility = View.VISIBLE
-
     }
 
     override fun updateUI(dataArea: MutableList<AreaModel>) {
@@ -71,8 +69,7 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
         txt_empty.visibility = View.GONE
         adapter?.setData(dataArea)
         recyclerView.adapter?.notifyDataSetChanged()
-
-
+        
         //Get Weather Info
         viewModel.getWeatherInfo(this)
     }
@@ -91,7 +88,6 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, UserViewModel>(), Mai
                     .error(R.mipmap.ic_weather_default)
                     .into(img_weather)
         }
-
     }
 
     override fun onResume() {

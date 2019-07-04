@@ -1,6 +1,5 @@
 package com.motor.connect.feature.details
 
-import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
@@ -32,13 +31,7 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
     }
 
     fun updateInfoMotor() {
-        //val schedule = getScheduleWorking()
-        val schedule = "Need to refactor"
-        mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans), schedule)
-    }
-
-    fun checkScheduleWorking() {
-
+        mView?.updateInfoMotor(model.areaStatus, getVansUsed(model.areaVans))
     }
 
     private fun getVansUsed(areaVans: MutableList<VanModel>): String {
@@ -53,26 +46,14 @@ class AreaDetailViewModel(mView: AreaDetailView?, mModel: BaseModel)
 
     private fun getScheduleWorking(): String {
         var result = ""
-
         if (model.areaVans == null || model.areaVans.isEmpty())
             return "Chưa cài đặt lịch tưới"
 
         model.areaVans.forEach {
             if (it.schedule.isNotEmpty()) {
-                Log.d("hqdat", "=====  >>>>>>   1   $result")
                 result += StringUtil.getScheduleArea(it.schedule, it.vanId, it.duration)
-
-                Log.d("hqdat", "=====  >>>>>>   2   $result")
             }
         }
         return result!!
-    }
-
-    fun getPassWordArea(): String {
-        return model.password
-    }
-
-    fun getAreaId(): String {
-        return model.areaId
     }
 }

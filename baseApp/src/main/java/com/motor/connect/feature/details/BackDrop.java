@@ -2,7 +2,8 @@
 
 package com.motor.connect.feature.details;
 
-import com.feature.area.R;
+
+import com.motor.connect.R;
 
 import java.util.Random;
 

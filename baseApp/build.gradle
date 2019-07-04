@@ -1,15 +1,13 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.feature.area"
+        applicationId "com.motor.connect"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -22,6 +20,32 @@ android {
     sourceSets {
         main.res.srcDirs = ['src/main/res']
     }
+
+//    buildscript {
+//
+//        repositories {
+//            // Check that you have the following line (if not, add it):
+//            jcenter()
+//            google()  // Google's Maven repository
+//        }
+//        dependencies {
+//            // ...
+//
+//            // Add the following line:
+//            classpath 'com.google.gms:google-services:4.2.0'  // Google Services plugin
+//
+//        }
+//    }
+//
+//    allprojects {
+//        // ...
+//
+//        repositories {
+//            // Check that you have the following line (if not, add it):
+//            google()  // Google's Maven repository
+//            // ...
+//        }
+//    }
 
     buildTypes {
         release {
@@ -100,4 +124,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Firebase
+//    implementation 'com.google.firebase:firebase-core:17.0.0'
+//    implementation 'com.google.gms:google-services:4.2.0'
 }

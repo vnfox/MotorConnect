@@ -18,8 +18,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.feature.area.R
-import com.feature.area.databinding.SettingAreaVanViewBinding
+import com.motor.connect.R
+import com.motor.connect.databinding.SettingAreaVanViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.RepeatModel
@@ -41,8 +41,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	}
 	
 	private lateinit var needPermissions: MutableList<String>
-	private var vanUsed = StringBuilder()
-	private var countVan = 0
 	private var currentPosition = 0
 	private var smsContent = StringBuilder()
 	
@@ -77,46 +75,30 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	
 	fun actionLeft(v: View) {
 		actionLeft()
-		
 		shef!!.setTriggerData(MotorConstants.KEY_TRIGGER_DATA, true)
 	}
 	
 	fun actionRight(v: View) {
-		//val result = StringBuilder()
+		smsContent.setLength(0)
 		var dataZone = viewModel.getDataZone()
 		var timeSchedule = StringBuilder()
 
 		dataZone.forEach {
-			Log.d("hqdat", "==== vanId  Available    ${it.vanId}")
 			getZoneAvailable(it.vanId.toInt())
-			
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
-			
 			timeSchedule.append(getScheduleRepeat(it.repeatModel))
-			Log.d("hqdat", "==== getTimeScheduleAndDurationATS   $timeSchedule")
 		}
 		
 		var zoneAvailable: String = getAvailableATS(bit_mask)
-		Log.d("hqdat", "==== value   $zoneAvailable")
-		
-		var password = decimal2ATSSexagesimal(1234) // ATS password
-		Log.d("hqdat", "==== pass======   $password")
-		smsContent.append("DE")
+		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT) // ATS password
+		smsContent.append(MotorConstants.AreaCode.PREFIX_DE)
 		smsContent.append(password)
-		
 		smsContent.append(zoneAvailable)
 		smsContent.append(timeSchedule)
 		
-		
-		/// Prepare data
-		//  Prefix  DE + pass
-		//  zone:   => zoneAvailable
-		//  count schedule =>
-		//  timeSchedule  => timeSchedule
-		
-		Log.d("hqdat", "==== ====================================   $smsContent")
-		
-		setupSMSDetail(smsContent.toString())
+		Log.d("hqdat", "\n================  Scheduler SMS Content ========\n ===>>>>>>>    $smsContent")
+
+		checkGrantedPermissionSms(smsContent.toString())
 	}
 	
 	private fun getScheduleRepeat(repeatModel: RepeatModel): String {
@@ -174,9 +156,11 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 					
 					var result = items[i].toString()
 					holder.duration.text = items[i].toString()
-					
+					result = if (result.contentEquals("None")) "00" else {
+						result.split(" ")[0]
+					}
 					//Notify UI
-					adapter?.updateDuration(position, holder, positionItem, result.split(" ")[0])
+					adapter?.updateDuration(position, holder, positionItem, result)
 					viewModel.updateDataChange(position)
 					if (currentPosition != position) {
 						awaitNotifyItemChange(currentPosition)
@@ -195,7 +179,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 			cal.set(Calendar.MINUTE, minute)
 			textView.text = SimpleDateFormat("HH:mm").format(cal.time)
 			
-			Log.d("hqdat", "========= textView.text position ====  $textView.text")
 			//Update data & notify UI
 			adapter?.updateTimeSchedule(position, textView, positionItem, textView.text.toString())
 			viewModel.updateDataChange(position)
@@ -224,7 +207,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		viewModel.updateDataRepeatChange(position, repeat)
 	}
 	
-	private fun setupSMSDetail(smsContent: String) {
+	private fun checkGrantedPermissionSms(smsContent: String) {
 		//Send SMS
 		if (PermissionUtils.isGranted(this,
 						Manifest.permission.SEND_SMS)) {
