@@ -28,14 +28,6 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 		return model.areaPhone
 	}
 	
-	fun getAreaId(): String {
-		return model.areaId
-	}
-	
-	fun getPassWordArea(): String {
-		return model.password
-	}
-	
 	fun updateDataChange(position: Int) {
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 		vansUsed[position] = Hawk.get<VanModel>(MotorConstants.KEY_PUT_VAN_MODEL)
@@ -45,6 +37,7 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 	
 	fun updateDataRepeatChange(position: Int, repeat: RepeatModel) {
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+		//Todo check if data empty
 		vansUsed[position] = Hawk.get<VanModel>(MotorConstants.KEY_PUT_VAN_MODEL)
 		
 		vansUsed[position].repeatModel = repeat

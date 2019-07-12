@@ -106,8 +106,13 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 		viewModel.updateInfoMotor()
 	}
 	
-	override fun updateInfoMotor(areaStatus: String?, vansUsed: String) {
-		txt_area_status.text = String.format(getString(R.string.detail_status), areaStatus)
+	override fun updateInfoMotor(schedules: String?, vansUsed: String) {
+		var statusMotor: String = if (schedules.isNullOrEmpty()) {
+			getString(R.string.detail_no_setup_schedule)
+		} else {
+			getString(R.string.detail_motor_running)
+		}
+		txt_area_status.text = String.format(getString(R.string.detail_status), statusMotor)
 		txt_area_van_used.text = String.format(getString(R.string.detail_van_open), vansUsed)
 	}
 	

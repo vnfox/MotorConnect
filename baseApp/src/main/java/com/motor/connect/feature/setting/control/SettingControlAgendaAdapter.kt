@@ -56,7 +56,7 @@ class SettingControlAgendaAdapter(val onClick: SettingControlActivity) : Recycle
 			holder.workingProgress?.setCurrentProgress(currentProgress.toDouble())
 			holder.workingProgress?.setProgressTextAdapter(timeText)
 			
-			onWorkingProgress(holder)
+			//onWorkingProgress(holder)
 		} else {
 			//show status OFF
 			holder.vanId.text = StringUtil.getNameAndStatusVan(areaVan[position].vanId, false)

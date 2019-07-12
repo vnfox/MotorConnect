@@ -230,37 +230,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		}
 	}
 	
-	/*private fun onSendSms(smsContent: String) {
-		//Send sms in background
-		showLoadingView(getString(R.string.sms_sending))
-		val smsNumber = viewModel.getPhoneNumber()
-		Log.d("hqdat", ">>>>>  smsText   $smsContent")
-		val smsManager = SmsManager.getDefault()
-		var pStatus: Int = 0
-		
-		Thread(Runnable {
-			while (pStatus < MotorConstants.TIME_PROGRESS) {
-				pStatus += 1
-				handler.post {
-					if (pStatus == MotorConstants.TIME_PROGRESS) {
-						hideLoadingView()
-						//Send sms
-						smsManager.sendTextMessage(smsNumber, null, smsContent, null, null)
-						backPreviousScreen()
-					}
-				}
-				try {
-					// Sleep for 200 milliseconds.
-					// Just to display the progress slowly
-					Thread.sleep(100) //thread will take approx 3 seconds to finish
-				} catch (e: InterruptedException) {
-					e.printStackTrace()
-				}
-			}
-		}).start()
-	}*/
-	
-	
 	//---sends an SMS message to another device---
 	
 	private fun onSendSms( message: String) {
@@ -281,31 +250,24 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				hideLoadingView()
 				when (resultCode) {
 					Activity.RESULT_OK -> {
-						Toast.makeText(baseContext, "SMS sent",
-								Toast.LENGTH_SHORT).show()
 						Log.d("hqdat", "........  SMS sent")
 						backPreviousScreen()
-						//delete message
-						//handleDeleteMessage(phoneNumber, message)
+						showUnderConstruction("SMS Sent")
 					}
 					SmsManager.RESULT_ERROR_GENERIC_FAILURE -> {
-						Toast.makeText(baseContext, "Generic failure",
-								Toast.LENGTH_SHORT).show()
+						showUnderConstruction("SMS sent failed")
 						Log.d("hqdat", "........  Generic failure")
 					}
 					SmsManager.RESULT_ERROR_NO_SERVICE -> {
-						Toast.makeText(baseContext, "No service",
-								Toast.LENGTH_SHORT).show()
+						showUnderConstruction("SMS sent failed")
 						Log.d("hqdat", "........  No Service")
 					}
 					SmsManager.RESULT_ERROR_NULL_PDU -> {
-						Toast.makeText(baseContext, "Null PDU",
-								Toast.LENGTH_SHORT).show()
+						showUnderConstruction("SMS sent failed")
 						Log.d("hqdat", "........  Null PDU")
 					}
 					SmsManager.RESULT_ERROR_RADIO_OFF -> {
-						Toast.makeText(baseContext, "Radio off",
-								Toast.LENGTH_SHORT).show()
+						showUnderConstruction("SMS sent failed")
 						Log.d("hqdat", "........  Radio off")
 					}
 				}
@@ -317,17 +279,13 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 			override fun onReceive(arg0: Context, arg1: Intent) {
 				when (resultCode) {
 					Activity.RESULT_OK -> {
-						Toast.makeText(baseContext, "SMS delivered",
-								Toast.LENGTH_SHORT).show()
-						
+						showUnderConstruction("SMS delivered")
 						Log.d("hqdat", "........  SMS delivered")
 						// Update UI
 					}
 					Activity.RESULT_CANCELED -> {
-						Toast.makeText(baseContext, "SMS not delivered",
-								Toast.LENGTH_SHORT).show()
+						showUnderConstruction("SMS not delivered")
 						Log.d("hqdat", "........  SMS not delivered")
-						//Update UI
 					}
 				}
 			}
@@ -335,68 +293,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		
 		val sms = SmsManager.getDefault()
 		sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI)
-	}
-	
-	private fun handleDeleteMessage(number: String, message: String) {
-		// val handler = Handler()
-		showLoadingView("Delete message ...")
-		handler.postDelayed(Runnable {
-			
-			deleteSMS(this, number, message)
-			hideLoadingView()
-			
-			backPreviousScreen()
-			this.finish()
-		}, 3000)
-	}
-	
-	private fun deleteSMS(ctx: Context, number: String, message: String) {
-		try {
-			val ADDRESS_COLUMN_NAME = "address"
-			val DATE_COLUMN_NAME = "date"
-			val BODY_COLUMN_NAME = "body"
-			val ID_COLUMN_NAME = "_id"
-			
-			val uriSms = Uri.parse("content://sms")
-			val c = ctx.contentResolver.query(uriSms,
-					arrayOf("_id", "thread_id", "address", "person", "date", "body"), null, null, null)
-			
-			
-			// Defines selection criteria for the rows you want to delete
-			val mSelectionClause = "$ADDRESS_COLUMN_NAME = ? AND $BODY_COLUMN_NAME = ? AND $DATE_COLUMN_NAME = ?"
-			
-			
-			Log.i("hqdat", "c count......" + c!!.count)
-			if (c != null && c.moveToFirst()) {
-				do {
-					
-					val id = c.getLong(0)
-					val threadId = c.getLong(1)
-					val address = c.getString(2)
-					val body = c.getString(5)
-					val date = c.getString(3)
-					
-					val mSelectionArgs = arrayOfNulls<String>(3)
-					mSelectionArgs[0] = address
-					mSelectionArgs[1] = body
-					mSelectionArgs[2] = threadId.toString()
-					
-					if (message == body && address == number) {
-						Log.d("hqdat", "Deleting SMS with id: $threadId")
-						val rows = ctx.contentResolver.delete(Uri.parse("content://sms/$id"),
-								null,
-								null)
-						//ctx.contentResolver.delete()
-						Log.d("hqdat", "Delete success......... rows: $rows")
-						Log.d("hqdat", "Delete success......... body: $body")
-					}
-				} while (c.moveToNext())
-			}
-			
-		} catch (e: Exception) {
-			Log.e("hqdat", e.toString())
-			Log.e("hqdat", e.message)
-		}
 	}
 	
 	private fun backPreviousScreen() {

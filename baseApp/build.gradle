@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -20,32 +19,6 @@ android {
     sourceSets {
         main.res.srcDirs = ['src/main/res']
     }
-
-//    buildscript {
-//
-//        repositories {
-//            // Check that you have the following line (if not, add it):
-//            jcenter()
-//            google()  // Google's Maven repository
-//        }
-//        dependencies {
-//            // ...
-//
-//            // Add the following line:
-//            classpath 'com.google.gms:google-services:4.2.0'  // Google Services plugin
-//
-//        }
-//    }
-//
-//    allprojects {
-//        // ...
-//
-//        repositories {
-//            // Check that you have the following line (if not, add it):
-//            google()  // Google's Maven repository
-//            // ...
-//        }
-//    }
 
     buildTypes {
         release {
@@ -78,10 +51,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:15.0.1'
     // kotlin utils
     implementation 'androidx.core:core-ktx:0.3'
-    // preference manage lib
-    implementation 'com.orhanobut:hawk:2.0.1'
-    // Recorder
-    implementation 'com.github.aykuttasil:CallRecorder:1.2.9'
     // Image loader
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
@@ -105,10 +74,6 @@ dependencies {
     implementation 'com.github.code-crusher:EasyWeather:v1.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-
-    //Timeout
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
-
     // Dependency Injection framework
     implementation 'com.google.dagger:dagger-android:2.17'
     implementation 'com.google.dagger:dagger-android-support:2.17'
@@ -116,16 +81,4 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.14.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
-    // Internal push event
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    //crashlytics
-    implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') { transitive = true }
-    //
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    //Firebase
-//    implementation 'com.google.firebase:firebase-core:17.0.0'
-//    implementation 'com.google.gms:google-services:4.2.0'
 }
