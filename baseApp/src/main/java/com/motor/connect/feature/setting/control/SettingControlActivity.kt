@@ -150,7 +150,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
 		var zoneAvailable: String = getAvailableATS(bit_mask)
 		
-		smsContent.append(MotorConstants.AreaCode.PREFIX_DE)
+		smsContent.append(MotorConstants.AreaCode.PREFIX_DN)
 		smsContent.append(password)
 		
 		smsContent.append(zoneAvailable)
