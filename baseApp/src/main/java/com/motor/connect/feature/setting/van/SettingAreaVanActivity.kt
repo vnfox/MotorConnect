@@ -10,14 +10,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
-import android.net.Uri
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.motor.connect.R
 import com.motor.connect.databinding.SettingAreaVanViewBinding
 import com.motor.connect.base.BaseModel
@@ -42,7 +40,8 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	
 	private lateinit var needPermissions: MutableList<String>
 	private var currentPosition = 0
-	private var smsContent = StringBuilder()
+	private var smsContentRound1 = StringBuilder()
+	private var smsContentRound2 = StringBuilder()
 	
 	private val viewModel = SettingAreaVanViewModel(this, BaseModel())
 	private var adapter: SettingAreaVanAdapter? = null
@@ -56,15 +55,14 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		mBinding = DataBindingUtil.setContentView(this, R.layout.setting_area_van_view)
 		mBinding.viewModel = mViewModel
 		
-		txt_title.text = "Schedule"
-		btn_action_right.text = "Save"
+		txt_title.text = getString(R.string.text_schedule)
+		btn_action_right.text = getString(R.string.btn_save)
 		
 		adapter = SettingAreaVanAdapter(this)
 		recyclerView.adapter = adapter
 		recyclerView.layoutManager = GridLayoutManager(this, 1)
 		
 		viewModel.initViewModel()
-		
 		return mBinding
 	}
 	
@@ -79,10 +77,50 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	}
 	
 	fun actionRight(v: View) {
-		smsContent.setLength(0)
-		var dataZone = viewModel.getDataZone()
+		smsContentRound1.setLength(0)
+		smsContentRound2.setLength(0)
+		
+		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
+		val (round1, round2) = viewModel.getDataZoneAvailable()
+		
+		when {
+			round2.isEmpty() -> {  // Support 8 Wave
+				//round 1
+				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
+				
+				smsContentRound1.append(MotorConstants.AreaCode.PREFIX_DE)
+				smsContentRound1.append(password)
+				
+				smsContentRound1.append(zoneAvailable)
+				smsContentRound1.append(timeSchedule)
+				checkGrantedPermissionSms(smsContentRound1.toString())
+			}
+			else -> { // Support 16 Wave
+				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
+				
+				smsContentRound1.append(MotorConstants.AreaCode.PREFIX_DG)
+				smsContentRound1.append(password)
+				smsContentRound1.append(zoneAvailable)
+				smsContentRound1.append(timeSchedule)
+				checkGrantedPermissionSms(smsContentRound1.toString())
+				
+				//======== Round2 =================
+				val (timeSchedule2, zoneAvailable2) = getTimeScheduleAndZoneAvailable(round2)
+				
+				smsContentRound2.append(MotorConstants.AreaCode.PREFIX_DE)
+				smsContentRound2.append(password)
+				smsContentRound2.append(zoneAvailable2)
+				smsContentRound2.append(timeSchedule2)
+			}
+		}
+		
+		Log.d("hqdat", "================  Scheduler SMS Round 1 ========\n ===>>>>>>>    $smsContentRound1")
+		Log.d("hqdat", "================  Scheduler SMS Round 2 ========\n ===>>>>>>>    $smsContentRound2")
+	}
+	
+	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
 		var timeSchedule = StringBuilder()
-
+		
 		dataZone.forEach {
 			getZoneAvailable(it.vanId.toInt())
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
@@ -90,15 +128,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		}
 		
 		var zoneAvailable: String = getAvailableATS(bit_mask)
-		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT) // ATS password
-		smsContent.append(MotorConstants.AreaCode.PREFIX_DE)
-		smsContent.append(password)
-		smsContent.append(zoneAvailable)
-		smsContent.append(timeSchedule)
-		
-		Log.d("hqdat", "\n================  Scheduler SMS Content ========\n ===>>>>>>>    $smsContent")
-
-		checkGrantedPermissionSms(smsContent.toString())
+		return Pair(timeSchedule.toString(), zoneAvailable)
 	}
 	
 	private fun getScheduleRepeat(repeatModel: RepeatModel): String {
@@ -225,14 +255,27 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 			MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty()
 					&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				
-				onSendSms(smsContent.toString())
+				onSendSms(smsContentRound1.toString())
 			}
+		}
+	}
+	
+	private fun handelSendSmsRound2(smsMessage: String) {
+		handler.post {
+			onSendSms(smsMessage)
+		}
+		try {
+			// Sleep for 200 milliseconds.
+			// Just to display the progress slowly
+			Thread.sleep(200) //thread will take approx 3 seconds to finish
+		} catch (e: InterruptedException) {
+			e.printStackTrace()
 		}
 	}
 	
 	//---sends an SMS message to another device---
 	
-	private fun onSendSms( message: String) {
+	private fun onSendSms(message: String) {
 		val SENT = "SMS_SENT"
 		val DELIVERED = "SMS_DELIVERED"
 		val phoneNumber = viewModel.getPhoneNumber()
@@ -250,25 +293,26 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				hideLoadingView()
 				when (resultCode) {
 					Activity.RESULT_OK -> {
-						Log.d("hqdat", "........  SMS sent")
-						backPreviousScreen()
-						showUnderConstruction("SMS Sent")
+						showUnderConstruction(getString(R.string.sms_sent))
+						smsContentRound1.setLength(0)
+						if(smsContentRound2.isNotEmpty()){
+							handelSendSmsRound2(smsContentRound2.toString())
+							smsContentRound2.setLength(0)
+						} else {
+							backPreviousScreen()
+						}
 					}
 					SmsManager.RESULT_ERROR_GENERIC_FAILURE -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  Generic failure")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 					SmsManager.RESULT_ERROR_NO_SERVICE -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  No Service")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 					SmsManager.RESULT_ERROR_NULL_PDU -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  Null PDU")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 					SmsManager.RESULT_ERROR_RADIO_OFF -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  Radio off")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 				}
 			}
@@ -279,13 +323,11 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 			override fun onReceive(arg0: Context, arg1: Intent) {
 				when (resultCode) {
 					Activity.RESULT_OK -> {
-						showUnderConstruction("SMS delivered")
-						Log.d("hqdat", "........  SMS delivered")
+						showUnderConstruction(getString(R.string.sms_delivered))
 						// Update UI
 					}
 					Activity.RESULT_CANCELED -> {
-						showUnderConstruction("SMS not delivered")
-						Log.d("hqdat", "........  SMS not delivered")
+						showUnderConstruction(getString(R.string.sms_not_delivered))
 					}
 				}
 			}
@@ -298,7 +340,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	private fun backPreviousScreen() {
 		//Trigger Data
 		shef!!.setUpdateData(MotorConstants.KEY_EDIT_AREA, true)
-		
 		actionLeft()
 		this.finish()
 	}

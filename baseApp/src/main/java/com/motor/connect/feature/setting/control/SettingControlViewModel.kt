@@ -55,8 +55,11 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
     }
 
     fun prepareDataSendSms() {
+        areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+        val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+        model = areaModels[pos]
+        var vanModels: MutableList<VanModel> = model.areaVans
         
-        var vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
         var items: MutableList<VanModel> = mutableListOf()
         if (model.agenda) {
             vanModels.forEach {
@@ -73,5 +76,18 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
             }
             mView?.prepareDataForManual(items)
         }
+    }
+    
+    fun getDataZoneAvailable(items: MutableList<VanModel>): Pair<MutableList<VanModel>, MutableList<VanModel>> {
+        var zone1: MutableList<VanModel> = mutableListOf()
+        var zone2: MutableList<VanModel> = mutableListOf()
+        
+        items.forEachIndexed { index, element ->
+                when {
+                    index < 8 -> zone1.add(element)
+                    else -> zone2.add(element)
+                }
+        }
+        return Pair(zone1, zone2)
     }
 }

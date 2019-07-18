@@ -9,13 +9,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
-import android.net.Uri
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.motor.connect.R
 import com.motor.connect.databinding.SettingControlViewBinding
 import com.motor.connect.base.BaseModel
@@ -37,7 +35,8 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	}
 	
 	private lateinit var needPermissions: MutableList<String>
-	private var smsContent = StringBuilder()
+	private var smsContent1 = StringBuilder()
+	private var smsContent2 = StringBuilder()
 	
 	private val viewModel = SettingControlViewModel(this, BaseModel())
 	private var agendaAdapter: SettingControlAgendaAdapter? = null
@@ -123,42 +122,73 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	}
 	
 	override fun prepareDataForManual(items: MutableList<VanModel>) {
-		// Make sure smsContent clear
-		smsContent.setLength(0)
+		// Make sure smsContent1 clear
+		smsContent1.setLength(0)
 		items.forEach {
 			getZoneAvailable(it.vanId.toInt())
 		}
 		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
 		var zoneAvailable: String = getAvailableATS(bit_mask)
 		
-		smsContent.append(MotorConstants.AreaCode.PREFIX_DM)
-		smsContent.append(password)
-		smsContent.append(zoneAvailable)
-		smsContent.append("001")
-		Log.d("hqdat", "================ Manual SMS Content =======\n ===>>>>>>>    $smsContent")
-		checkGrantedPermissionSms(smsContent.toString())
+		smsContent1.append(MotorConstants.AreaCode.PREFIX_DM)
+		smsContent1.append(password)
+		smsContent1.append(zoneAvailable)
+		smsContent1.append("001")
+		Log.d("hqdat", "================ Manual SMS Content =======\n ===>>>>>>>    $smsContent1")
+		checkGrantedPermissionSms(smsContent1.toString())
 	}
 	
 	override fun prepareDataForAgenda(items: MutableList<VanModel>) {
-		smsContent.setLength(0)
+		smsContent1.setLength(0)
+		smsContent2.setLength(0)
+		//var timeSchedule = StringBuilder()
+		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
+		val (round1, round2) = viewModel.getDataZoneAvailable(items)
+		
+		when {
+			round2.isEmpty() -> {  //====== Support 8 Wave ==================
+				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
+				
+				smsContent1.append(MotorConstants.AreaCode.PREFIX_DN)
+				smsContent1.append(password)
+				
+				smsContent1.append(zoneAvailable)
+				smsContent1.append(timeSchedule)
+				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
+				//checkGrantedPermissionSms(smsContent1.toString())
+			}
+			else -> {  //======= Support 16 Wave ==================
+				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
+				smsContent1.append(MotorConstants.AreaCode.PREFIX_DH)
+				smsContent1.append(password)
+				
+				smsContent1.append(zoneAvailable)
+				smsContent1.append(timeSchedule)
+				checkGrantedPermissionSms(smsContent1.toString())
+				
+				val (timeSchedule2, zoneAvailable2) = getTimeScheduleAndZoneAvailable(round2)
+				smsContent2.append(MotorConstants.AreaCode.PREFIX_DN)
+				smsContent2.append(password)
+				
+				smsContent2.append(zoneAvailable2)
+				smsContent2.append(timeSchedule2)
+				
+				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
+				Log.d("hqdat", "================ Agenda SMS Content 2 =======\n ===>>>>>>>    $smsContent2")
+			}
+		}
+	}
+	
+	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
 		var timeSchedule = StringBuilder()
-		items.forEach {
+		
+		dataZone.forEach {
 			getZoneAvailable(it.vanId.toInt())
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
 		}
 		
-		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
 		var zoneAvailable: String = getAvailableATS(bit_mask)
-		
-		smsContent.append(MotorConstants.AreaCode.PREFIX_DN)
-		smsContent.append(password)
-		
-		smsContent.append(zoneAvailable)
-		smsContent.append(timeSchedule)
-		
-		// setup send sms
-		Log.d("hqdat", "================ Agenda SMS Content =======\n ===>>>>>>>    $smsContent")
-		checkGrantedPermissionSms(smsContent.toString())
+		return Pair(timeSchedule.toString(), zoneAvailable)
 	}
 	
 	private fun getTimeScheduleAndDurationATS(schedule: List<String>, duration: String): String {
@@ -188,11 +218,23 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		when (requestCode) {
 			MotorConstants.PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty()
 					&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				onSendSms(smsContent.toString())
+				onSendSms(smsContent1.toString())
 			}
 		}
 	}
 	
+	private fun handelSendSmsRound2(smsMessage: String) {
+		handler.post {
+			onSendSms(smsMessage)
+		}
+		try {
+			// Sleep for 200 milliseconds.
+			// Just to display the progress slowly
+			Thread.sleep(200) //thread will take approx 3 seconds to finish
+		} catch (e: InterruptedException) {
+			e.printStackTrace()
+		}
+	}
 	//---sends an SMS message to another device---
 	
 	private fun onSendSms(message: String) {
@@ -213,24 +255,24 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				hideLoadingView()
 				when (resultCode) {
 					Activity.RESULT_OK -> {
-						showUnderConstruction("SMS Sent")
-						Log.d("hqdat", "........  SMS sent")
+						showUnderConstruction(getString(R.string.sms_sent))
+						smsContent1.setLength(0)
+						if(smsContent2.isNotEmpty()){
+							handelSendSmsRound2(smsContent2.toString())
+							smsContent2.setLength(0)
+						}
 					}
 					SmsManager.RESULT_ERROR_GENERIC_FAILURE -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  Generic failure")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 					SmsManager.RESULT_ERROR_NO_SERVICE -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  No Service")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 					SmsManager.RESULT_ERROR_NULL_PDU -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  Null PDU")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 					SmsManager.RESULT_ERROR_RADIO_OFF -> {
-						showUnderConstruction("SMS sent failed")
-						Log.d("hqdat", "........  Radio off")
+						showUnderConstruction(getString(R.string.sms_send_failed))
 					}
 				}
 			}
@@ -241,13 +283,10 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 			override fun onReceive(arg0: Context, arg1: Intent) {
 				when (resultCode) {
 					Activity.RESULT_OK -> {
-						showUnderConstruction("SMS delivered")
-						Log.d("hqdat", "........  SMS delivered")
-						// Update UI
+						showUnderConstruction(getString(R.string.sms_delivered))
 					}
 					Activity.RESULT_CANCELED -> {
-						showUnderConstruction("SMS not delivered")
-						Log.d("hqdat", "........  SMS not delivered")
+						showUnderConstruction(getString(R.string.sms_not_delivered))
 					}
 				}
 			}

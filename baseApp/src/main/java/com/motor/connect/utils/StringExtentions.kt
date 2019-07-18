@@ -60,6 +60,7 @@ fun getTimeDurationATS(duration: String): String {
 var bit_mask = 0
 
 fun getZoneAvailable(index: Int): Int {
+	bit_mask = 0
 	bit_mask = bit_mask or (1 shl (index - 1))
 	
 	return bit_mask
@@ -143,4 +144,10 @@ fun getSmsContentFromCode(content: String): String {
 		return "Lỗi cú pháp $content"
 	}
 	return content
+}
+
+fun getVanId(value: Int): String {
+	if (value < 10)
+		return "0$value"
+	return "$value"
 }

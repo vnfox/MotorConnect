@@ -11,6 +11,7 @@ import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtil
+import com.motor.connect.utils.getVanId
 import com.orhanobut.hawk.Hawk
 
 class SettingControlAgendaAdapter(val onClick: SettingControlActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
@@ -40,7 +41,7 @@ class SettingControlAgendaAdapter(val onClick: SettingControlActivity) : Recycle
 	override fun getItemCount() = areaVan.size
 	
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-		(holder as ItemViewHolder).vanNumber.text = "0" + (position + 1).toString()
+		(holder as ItemViewHolder).vanNumber.text =  getVanId(position + 1)
 		holder.vanId.text = "Van " + areaVan[position].vanId
 		
 		holder.timeWorking.setOnClickListener {

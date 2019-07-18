@@ -10,6 +10,14 @@
         <item>6 Van</item>
         <item>7 Van</item>
         <item>8 Van</item>
+        <item>9 Van</item>
+        <item>10 Van</item>
+        <item>11 Van</item>
+        <item>12 Van</item>
+        <item>13 Van</item>
+        <item>14 Van</item>
+        <item>15 Van</item>
+        <item>16 Van</item>
     </string-array>
 
     <string-array name="times_working">
@@ -23,5 +31,21 @@
         <item>70 phút</item>
         <item>80 phút</item>
         <item>90 phút</item>
+        <item>100 phút</item>
+        <item>110 phút</item>
+        <item>120 phút</item>
+        <item>130 phút</item>
+        <item>140 phút</item>
+        <item>150 phút</item>
+        <item>160 phút</item>
+        <item>170 phút</item>
+        <item>180 phút</item>
+        <item>190 phút</item>
+        <item>200 phút</item>
+        <item>210 phút</item>
+        <item>220 phút</item>
+        <item>230 phút</item>
+        <item>240 phút</item>
+        <item>250 phút</item>
     </string-array>
 </resources>

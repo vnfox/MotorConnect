@@ -45,17 +45,22 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
 	}
 	
-	fun getDataZone(): MutableList<VanModel> {
+	fun getDataZoneAvailable(): Pair<MutableList<VanModel>, MutableList<VanModel>> {
+		var zone1: MutableList<VanModel> = mutableListOf()
+		var zone2: MutableList<VanModel> = mutableListOf()
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-		var vanZone: MutableList<VanModel> = mutableListOf()
+		
 		dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
 		var data = dataArea[pos]
 		data.areaVans.forEachIndexed { index, element ->
 			if (element.schedule.isNotEmpty() && element.duration != null) {
 				element.vanId = (index + 1).toString()
-				vanZone.add(element)
+				when {
+					index < 8 -> zone1.add(element)
+					else -> zone2.add(element)
+				}
 			}
 		}
-		return vanZone
+		return Pair(zone1, zone2)
 	}
 }

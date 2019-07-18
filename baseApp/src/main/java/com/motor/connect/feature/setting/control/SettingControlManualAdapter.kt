@@ -10,6 +10,7 @@ import com.motor.connect.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.getVanId
 import com.orhanobut.hawk.Hawk
 
 
@@ -35,7 +36,7 @@ class SettingControlManualAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
     override fun getItemCount() = areaVan.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ItemViewHolder).vanNumber.text = "0" + (position + 1).toString()
+        (holder as ItemViewHolder).vanNumber.text = getVanId(position + 1)
         holder.vanId.text = "Van " + areaVan[position].vanId
 
         holder.switch.setOnCheckedChangeListener { _, isChecked ->

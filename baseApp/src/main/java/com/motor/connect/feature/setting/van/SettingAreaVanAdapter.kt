@@ -1,7 +1,6 @@
 package com.motor.connect.feature.setting.van
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.RepeatModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.getVanId
 import com.orhanobut.hawk.Hawk.put
 import java.util.*
 
@@ -46,8 +46,8 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
 
         var repeatModel: RepeatModel = areaVan[position]?.repeatModel
         vanModel = areaVan[position]
-        (holder as ItemViewHolder).areaName.text = "Van " + "0" + (position + 1).toString()
-        holder.areaId.text = "0" + (position + 1).toString()
+        (holder as ItemViewHolder).areaName.text = "Van " + getVanId(position + 1)
+        holder.areaId.text = getVanId(position + 1)
 
         //=======Update Schedule =====
         if (areaVan[position].schedule != null) {
@@ -78,15 +78,11 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
         holder.cn.isChecked = repeatModel.statusCN
 
         holder.btnAdd.setOnClickListener {
-            Log.d("hqdat", "========= btnAdd position ====  $position")
-
-            Log.d("hqdat", "========= btnAdd currentPosition ====  $currentPosition")
             if (currentPosition != position) {
                 stepSchedule = areaVan[position].schedule.size
                 currentPosition = position
 
                 checkStatusButton(stepSchedule, holder)
-
                 itemClick.onAddSchedule(position, stepSchedule, holder)
 
                 var schedule = ArrayList<String>()
@@ -99,7 +95,6 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
             } else {
                 stepSchedule = areaVan[currentPosition].schedule.size
                 checkStatusButton(stepSchedule, holder)
-
                 itemClick.onAddSchedule(currentPosition, stepSchedule, holder)
 
                 var schedule = ArrayList<String>()
@@ -131,7 +126,6 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
             itemClick.onSetDuration(position, holder, currentPosition)
             currentPosition = position
         }
-
         holder.schedule1.setOnClickListener { itemClick.onSchedule(position, holder.schedule1, 0) }
         holder.schedule2.setOnClickListener { itemClick.onSchedule(position, holder.schedule2, 1) }
         holder.schedule3.setOnClickListener { itemClick.onSchedule(position, holder.schedule3, 2) }

@@ -3,6 +3,9 @@ package com.motor.connect.feature.main
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.location.Location
+import android.location.LocationListener
+import android.os.Bundle
 import android.view.View
 import com.motor.connect.R
 import com.motor.connect.databinding.ActivityMainBinding
@@ -19,16 +22,20 @@ import com.motor.connect.utils.MotorConstants
 import com.orhanobut.hawk.Hawk
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import android.location.LocationManager
+import android.util.Log
 
 
-class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), MainAreaView, DialogHelper.AlertDialogListener {
-
+class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), MainAreaView,
+        DialogHelper.AlertDialogListener, LocationListener {
+    
     companion object {
         fun show(context: Context) {
             context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
-
+    
+    private var locationManager: LocationManager? = null
     private val viewModel = MainViewModel(this, BaseModel())
     private var adapter: MainAdapter? = null
     private var isFirst: Boolean = false
@@ -37,6 +44,12 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), Mai
     override fun createViewModel(): MainViewModel {
         viewModel.mView = this
         return viewModel
+    }
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Create persistent LocationManager reference
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
     }
 
     override fun createDataBinding(mViewModel: MainViewModel): ActivityMainBinding {
@@ -53,7 +66,6 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), Mai
 
         val isUser = shef?.getFirstUserPref(MotorConstants.FIRST_USED)
         viewModel.initData(isUser)
-
         return mBinding
     }
 
@@ -71,7 +83,7 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), Mai
         recyclerView.adapter?.notifyDataSetChanged()
         
         //Get Weather Info
-        viewModel.getWeatherInfo(this)
+        viewModel.getWeatherInfo(this, 0.0, 0.0)
     }
 
     override fun updateWeatherInfo(weather: WeatherModel) {
@@ -132,4 +144,15 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), Mai
     override fun onNegativeClick() {
         //do nothing
     }
+    
+    override fun onLocationChanged(location: Location?) {
+        Log.d("hqdat","====  latitude ==  ${location!!.latitude}     \nlongitude  ==   ${location!!.longitude}")
+        viewModel.getWeatherInfo(this, location!!.latitude, location!!.longitude)
+    }
+    
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+    
+    override fun onProviderEnabled(provider: String?) {}
+    
+    override fun onProviderDisabled(provider: String?) {}
 }

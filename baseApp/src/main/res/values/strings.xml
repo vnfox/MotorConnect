@@ -96,5 +96,11 @@
     <string name="weather_temp_min">Nhiệt độ min: %s</string>
     <string name="setting_controll_title">Control</string>
     <string name="setting_controll_apply">Apply</string>
+    <string name="text_schedule">Schedule</string>
+    <string name="btn_save">Save</string>
+    <string name="sms_delivered">SMS delivered</string>
+    <string name="sms_not_delivered">SMS not delivered</string>
+    <string name="sms_send_failed">SMS sent failed</string>
+    <string name="sms_sent">SMS Sent</string>
 
 </resources>

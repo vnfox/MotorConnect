@@ -14,6 +14,7 @@ import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
+import com.motor.connect.utils.getVanId
 import kotlinx.android.synthetic.main.edit_area_view.*
 
 
@@ -90,7 +91,7 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
 
     fun actionAdd(view: View?) {
         var vansUsed = viewModel.getNumberVanUsed()
-        if (vansUsed >= 8) {
+        if (vansUsed >= 16) {
             btn_add.isEnabled = false
         } else {
             btn_add.isEnabled = true
@@ -104,7 +105,7 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
         dataModel.areaName = areaName?.text.toString()
         dataModel.areaPhone = areaPhone?.text.toString()
         dataModel.areaDetails = areaDetail?.text.toString()
-        //dataModel.areaVans = getAreaVans(areaVan?.text.toString())
+        dataModel.areaVans = getAreaVans(areaVan?.text.toString())
         dataModel.areaId = areaPhone?.text.toString()
 
         viewModel.updateDataArea(dataModel)
@@ -122,4 +123,19 @@ class EditAreaActivity : BaseViewActivity<EditAreaViewBinding, EditAreaViewModel
                 .setNegativeButton(getString(R.string.btn_huy), null)
                 .show()
     }
+	
+	private fun getAreaVans(vanSelected: String): List<VanModel>? {
+		var areaVans: MutableList<VanModel> = mutableListOf()
+        val array = vanSelected.split(" ")
+        
+		var numVan = array[0].toInt()
+		
+		for (i in 1..numVan) {
+			val van = VanModel()
+            van.vanId = getVanId(i)
+			van.vanStatus = true
+			areaVans.add(van)
+		}
+		return areaVans
+	}
 }
