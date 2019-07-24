@@ -17,9 +17,9 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.motor.connect.R
-import com.motor.connect.databinding.SettingAreaVanViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.databinding.SettingAreaVanViewBinding
 import com.motor.connect.feature.model.RepeatModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.*
@@ -77,6 +77,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	}
 	
 	fun actionRight(v: View) {
+		bit_mask = 0
 		smsContentRound1.setLength(0)
 		smsContentRound2.setLength(0)
 		
@@ -90,7 +91,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				
 				smsContentRound1.append(MotorConstants.AreaCode.PREFIX_DE)
 				smsContentRound1.append(password)
-				
 				smsContentRound1.append(zoneAvailable)
 				smsContentRound1.append(timeSchedule)
 				checkGrantedPermissionSms(smsContentRound1.toString())
@@ -105,15 +105,14 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				checkGrantedPermissionSms(smsContentRound1.toString())
 				
 				//======== Round2 =================
+				bit_mask = 0
 				val (timeSchedule2, zoneAvailable2) = getTimeScheduleAndZoneAvailable(round2)
-				
 				smsContentRound2.append(MotorConstants.AreaCode.PREFIX_DE)
 				smsContentRound2.append(password)
 				smsContentRound2.append(zoneAvailable2)
 				smsContentRound2.append(timeSchedule2)
 			}
 		}
-		
 		Log.d("hqdat", "================  Scheduler SMS Round 1 ========\n ===>>>>>>>    $smsContentRound1")
 		Log.d("hqdat", "================  Scheduler SMS Round 2 ========\n ===>>>>>>>    $smsContentRound2")
 	}

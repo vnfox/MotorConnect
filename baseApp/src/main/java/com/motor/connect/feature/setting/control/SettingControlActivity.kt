@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
@@ -120,6 +121,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	
 	override fun prepareDataForManual(items: MutableList<VanModel>) {
 		// Make sure smsContent1 clear
+		bit_mask = 0
 		smsContent1.setLength(0)
 		items.forEach {
 			Log.d("hqdat", "================ Manual VAN ID ==========>>>>>>>    ${it.vanId}")
@@ -139,7 +141,6 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 			smsContent1.append(zoneAvailable)
 			smsContent1.append("001")
 		}
-		
 		Log.d("hqdat", "================ Manual SMS Content ==========>>>>>>>    $smsContent1")
 		checkGrantedPermissionSms(smsContent1.toString())
 	}
@@ -170,6 +171,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	}
 	
 	override fun prepareDataForAgenda(items: MutableList<VanModel>) {
+		bit_mask = 0
 		smsContent1.setLength(0)
 		smsContent2.setLength(0)
 		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
@@ -181,17 +183,14 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				
 				smsContent1.append(MotorConstants.AreaCode.PREFIX_DN)
 				smsContent1.append(password)
-				
 				smsContent1.append(zoneAvailable)
 				smsContent1.append(timeSchedule)
-				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
 				checkGrantedPermissionSms(smsContent1.toString())
 			}
 			else -> {  //======= Support 16 Wave ==================
 				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
 				smsContent1.append(MotorConstants.AreaCode.PREFIX_DH)
 				smsContent1.append(password)
-				
 				smsContent1.append(zoneAvailable)
 				smsContent1.append(timeSchedule)
 				checkGrantedPermissionSms(smsContent1.toString())
@@ -200,14 +199,12 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				val (timeSchedule2, zoneAvailable2) = getTimeScheduleAndZoneAvailable(round2)
 				smsContent2.append(MotorConstants.AreaCode.PREFIX_DN)
 				smsContent2.append(password)
-				
 				smsContent2.append(zoneAvailable2)
 				smsContent2.append(timeSchedule2)
-				
-				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
-				Log.d("hqdat", "================ Agenda SMS Content 2 =======\n ===>>>>>>>    $smsContent2")
 			}
 		}
+		Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
+		Log.d("hqdat", "================ Agenda SMS Content 2 =======\n ===>>>>>>>    $smsContent2")
 	}
 	
 	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
