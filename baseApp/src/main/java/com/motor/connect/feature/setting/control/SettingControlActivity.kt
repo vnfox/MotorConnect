@@ -3,10 +3,7 @@ package com.motor.connect.feature.setting.control
 import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
@@ -37,6 +34,8 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	private lateinit var needPermissions: MutableList<String>
 	private var smsContent1 = StringBuilder()
 	private var smsContent2 = StringBuilder()
+	private var isSpontaneous: Boolean = false
+	private lateinit var timeManual: String
 	
 	private val viewModel = SettingControlViewModel(this, BaseModel())
 	private var agendaAdapter: SettingControlAgendaAdapter? = null
@@ -59,9 +58,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		
 		rc_control.adapter = agendaAdapter
 		rc_control.layoutManager = GridLayoutManager(this, 1)
-		
 		viewModel.initViewModel()
-		
 		return mBinding
 	}
 	
@@ -70,9 +67,6 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		rc_control.layoutManager = GridLayoutManager(this, 1)
 		agendaAdapter?.setData(areaVans)
 		rc_control.adapter?.notifyDataSetChanged()
-		
-		btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
-		btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
 	}
 	
 	override fun fetchDataManual(areaVans: List<VanModel>) {
@@ -80,9 +74,162 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		rc_control.layoutManager = GridLayoutManager(this, 1)
 		manualAdapter?.setData(areaVans)
 		rc_control.adapter?.notifyDataSetChanged()
-		
-		btn_manual.background = getDrawable(R.drawable.bg_button_selected)
+	}
+	
+	fun actionLeft(v: View) {
+		actionLeft()
+	}
+	
+	fun actionRight(v: View) {
+		viewModel.prepareDataSendSms()
+	}
+	
+	fun manualControl(v: View) {
+		isSpontaneous = false
 		btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
+		btn_manual.background = getDrawable(R.drawable.bg_button_selected)
+		btn_spontaneous.background = getDrawable(R.drawable.bg_button_unselected)
+		viewModel.updateAgendaWorking(false)
+	}
+	
+	fun spontaneousControl(v: View) {
+		isSpontaneous = true
+		btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
+		btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
+		btn_spontaneous.background = getDrawable(R.drawable.bg_button_selected)
+		
+		handler.post {
+			onSetDurationForSpontaneous()
+		}
+		try {
+			// Sleep for 200 milliseconds.
+			// Just to display the progress slowly
+			Thread.sleep(200) //thread will take approx 3 seconds to finish
+		} catch (e: InterruptedException) {
+			e.printStackTrace()
+		}
+	}
+	
+	fun agendaControl(v: View) {
+		isSpontaneous = false
+		btn_agenda.background = getDrawable(R.drawable.bg_button_selected)
+		btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
+		btn_spontaneous.background = getDrawable(R.drawable.bg_button_unselected)
+		viewModel.updateAgendaWorking(true)
+	}
+	
+	override fun prepareDataForManual(items: MutableList<VanModel>) {
+		// Make sure smsContent1 clear
+		smsContent1.setLength(0)
+		items.forEach {
+			Log.d("hqdat", "================ Manual VAN ID ==========>>>>>>>    ${it.vanId}")
+			getZoneAvailable(it.vanId.toInt())
+		}
+		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
+		var zoneAvailable: String = getAvailableATS(bit_mask)
+		
+		if (isSpontaneous) {
+			smsContent1.append(MotorConstants.AreaCode.PREFIX_DO)
+			smsContent1.append(password)
+			smsContent1.append(zoneAvailable)
+			smsContent1.append(getTimeSpontaneousATS(timeManual))
+		} else {
+			smsContent1.append(MotorConstants.AreaCode.PREFIX_DM)
+			smsContent1.append(password)
+			smsContent1.append(zoneAvailable)
+			smsContent1.append("001")
+		}
+		
+		Log.d("hqdat", "================ Manual SMS Content ==========>>>>>>>    $smsContent1")
+		checkGrantedPermissionSms(smsContent1.toString())
+	}
+	
+	//=============== Spontaneous =======================
+	
+	private val positiveClick = { _: DialogInterface, _: Int ->
+		viewModel.updateAgendaWorking(false)
+	}
+	
+	private val negativeClick = { _: DialogInterface, _: Int ->
+		timeManual = ""
+		viewModel.updateAgendaWorking(false)
+	}
+	
+	private fun onSetDurationForSpontaneous() {
+		var items = resources.getStringArray(R.array.times_spontaneous)
+		AlertDialog.Builder(this)
+				.setTitle(getString(R.string.setting_time_working))
+				.setSingleChoiceItems(items, 0) { _, i ->
+					var result = items[i].toString()
+					
+					timeManual = result
+				}
+				.setPositiveButton(getString(R.string.btn_chon), DialogInterface.OnClickListener(positiveClick))
+				.setNegativeButton(getString(R.string.btn_huy), DialogInterface.OnClickListener(negativeClick))
+				.show()
+	}
+	
+	override fun prepareDataForAgenda(items: MutableList<VanModel>) {
+		smsContent1.setLength(0)
+		smsContent2.setLength(0)
+		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
+		val (round1, round2) = viewModel.getDataZoneAvailable(items)
+		
+		when {
+			round2.isEmpty() -> {  //====== Support 8 Wave ==================
+				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
+				
+				smsContent1.append(MotorConstants.AreaCode.PREFIX_DN)
+				smsContent1.append(password)
+				
+				smsContent1.append(zoneAvailable)
+				smsContent1.append(timeSchedule)
+				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
+				checkGrantedPermissionSms(smsContent1.toString())
+			}
+			else -> {  //======= Support 16 Wave ==================
+				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
+				smsContent1.append(MotorConstants.AreaCode.PREFIX_DH)
+				smsContent1.append(password)
+				
+				smsContent1.append(zoneAvailable)
+				smsContent1.append(timeSchedule)
+				checkGrantedPermissionSms(smsContent1.toString())
+				
+				bit_mask = 0
+				val (timeSchedule2, zoneAvailable2) = getTimeScheduleAndZoneAvailable(round2)
+				smsContent2.append(MotorConstants.AreaCode.PREFIX_DN)
+				smsContent2.append(password)
+				
+				smsContent2.append(zoneAvailable2)
+				smsContent2.append(timeSchedule2)
+				
+				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
+				Log.d("hqdat", "================ Agenda SMS Content 2 =======\n ===>>>>>>>    $smsContent2")
+			}
+		}
+	}
+	
+	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
+		var timeSchedule = StringBuilder()
+		dataZone.forEach {
+			getZoneAvailable(it.vanId.toInt())
+			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
+		}
+		var zoneAvailable: String = getAvailableATS(bit_mask)
+		return Pair(timeSchedule.toString(), zoneAvailable)
+	}
+	
+	private fun getTimeScheduleAndDurationATS(schedule: List<String>, duration: String): String {
+		val result = StringBuilder()
+		var schedule = schedule.reversed()
+		result.append(schedule.size)
+		
+		schedule.forEachIndexed { index, element ->
+			result.append(getScheduleTimeATS(element))
+			result.append(getTimeDurationATS(duration))
+		}
+		return result.toString()
 	}
 	
 	override fun onSetDuration(position: Int, holder: SettingControlAgendaAdapter.ItemViewHolder) {
@@ -103,104 +250,6 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				.setPositiveButton(getString(R.string.btn_chon), null)
 				.setNegativeButton(getString(R.string.btn_huy), null)
 				.show()
-	}
-	
-	fun actionLeft(v: View) {
-		actionLeft()
-	}
-	
-	fun actionRight(v: View) {
-		viewModel.prepareDataSendSms()
-	}
-	
-	fun manualControl(v: View) {
-		viewModel.updateAgendaWorking(false)
-	}
-	
-	fun agendaControl(v: View) {
-		viewModel.updateAgendaWorking(true)
-	}
-	
-	override fun prepareDataForManual(items: MutableList<VanModel>) {
-		// Make sure smsContent1 clear
-		smsContent1.setLength(0)
-		items.forEach {
-			getZoneAvailable(it.vanId.toInt())
-		}
-		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
-		var zoneAvailable: String = getAvailableATS(bit_mask)
-		
-		smsContent1.append(MotorConstants.AreaCode.PREFIX_DM)
-		smsContent1.append(password)
-		smsContent1.append(zoneAvailable)
-		smsContent1.append("001")
-		Log.d("hqdat", "================ Manual SMS Content =======\n ===>>>>>>>    $smsContent1")
-		checkGrantedPermissionSms(smsContent1.toString())
-	}
-	
-	override fun prepareDataForAgenda(items: MutableList<VanModel>) {
-		smsContent1.setLength(0)
-		smsContent2.setLength(0)
-		//var timeSchedule = StringBuilder()
-		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
-		val (round1, round2) = viewModel.getDataZoneAvailable(items)
-		
-		when {
-			round2.isEmpty() -> {  //====== Support 8 Wave ==================
-				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
-				
-				smsContent1.append(MotorConstants.AreaCode.PREFIX_DN)
-				smsContent1.append(password)
-				
-				smsContent1.append(zoneAvailable)
-				smsContent1.append(timeSchedule)
-				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
-				//checkGrantedPermissionSms(smsContent1.toString())
-			}
-			else -> {  //======= Support 16 Wave ==================
-				val (timeSchedule, zoneAvailable) = getTimeScheduleAndZoneAvailable(round1)
-				smsContent1.append(MotorConstants.AreaCode.PREFIX_DH)
-				smsContent1.append(password)
-				
-				smsContent1.append(zoneAvailable)
-				smsContent1.append(timeSchedule)
-				checkGrantedPermissionSms(smsContent1.toString())
-				
-				val (timeSchedule2, zoneAvailable2) = getTimeScheduleAndZoneAvailable(round2)
-				smsContent2.append(MotorConstants.AreaCode.PREFIX_DN)
-				smsContent2.append(password)
-				
-				smsContent2.append(zoneAvailable2)
-				smsContent2.append(timeSchedule2)
-				
-				Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
-				Log.d("hqdat", "================ Agenda SMS Content 2 =======\n ===>>>>>>>    $smsContent2")
-			}
-		}
-	}
-	
-	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
-		var timeSchedule = StringBuilder()
-		
-		dataZone.forEach {
-			getZoneAvailable(it.vanId.toInt())
-			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
-		}
-		
-		var zoneAvailable: String = getAvailableATS(bit_mask)
-		return Pair(timeSchedule.toString(), zoneAvailable)
-	}
-	
-	private fun getTimeScheduleAndDurationATS(schedule: List<String>, duration: String): String {
-		val result = StringBuilder()
-		var schedule = schedule.reversed()
-		result.append(schedule.size)
-		
-		schedule.forEachIndexed { index, element ->
-			result.append(getScheduleTimeATS(element))
-			result.append(getTimeDurationATS(duration))
-		}
-		return result.toString()
 	}
 	
 	//Check Grant permission
@@ -257,7 +306,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 					Activity.RESULT_OK -> {
 						showUnderConstruction(getString(R.string.sms_sent))
 						smsContent1.setLength(0)
-						if(smsContent2.isNotEmpty()){
+						if (smsContent2.isNotEmpty()) {
 							handelSendSmsRound2(smsContent2.toString())
 							smsContent2.setLength(0)
 						}

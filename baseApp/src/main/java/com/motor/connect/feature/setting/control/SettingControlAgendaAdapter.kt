@@ -8,6 +8,7 @@ import android.widget.TextView
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.motor.connect.R
 import com.motor.connect.feature.adapter.BindableAdapter
+import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.StringUtil
@@ -63,6 +64,12 @@ class SettingControlAgendaAdapter(val onClick: SettingControlActivity) : Recycle
 			holder.vanId.text = StringUtil.getNameAndStatusVan(areaVan[position].vanId, false)
 			holder.timeWorking.text = "00"
 		}
+		
+		var dataArea: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
+		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+		areaVan[position].vanId = (position + 1).toString()
+		dataArea[pos].areaVans = areaVan
+		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
 	}
 	
 	fun updateDuration(position: Int, holder: ItemViewHolder, value: String) {

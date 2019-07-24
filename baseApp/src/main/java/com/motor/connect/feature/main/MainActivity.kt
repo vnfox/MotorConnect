@@ -57,7 +57,7 @@ class MainActivity : BaseViewActivity<ActivityMainBinding, MainViewModel>(), Mai
         mBinding.viewModel = mViewModel
 
         //Adapter item click
-        adapter = MainAdapter { areaModel, position ->
+        adapter = MainAdapter { _, position ->
             Hawk.put(MotorConstants.KEY_POSITION, position)
             val intent = Intent(this, AreaDetailActivity::class.java)
             this.startActivity(intent)

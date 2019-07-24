@@ -46,6 +46,7 @@ public class MotorConstants {
         public static final String PREFIX_DN = "DN";
         public static final String PREFIX_DH = "DH";
         public static final String PREFIX_DG = "DG";
+        public static final String PREFIX_DO = "DO";
 
 
         public static final String PREFIX_REPEAT = "De";

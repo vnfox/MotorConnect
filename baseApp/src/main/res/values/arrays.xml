@@ -48,4 +48,32 @@
         <item>240 phút</item>
         <item>250 phút</item>
     </string-array>
+
+    <string-array name="times_spontaneous">
+        <item>10 phút</item>
+        <item>20 phút</item>
+        <item>30 phút</item>
+        <item>40 phút</item>
+        <item>50 phút</item>
+        <item>60 phút</item>
+        <item>70 phút</item>
+        <item>80 phút</item>
+        <item>90 phút</item>
+        <item>100 phút</item>
+        <item>110 phút</item>
+        <item>120 phút</item>
+        <item>130 phút</item>
+        <item>140 phút</item>
+        <item>150 phút</item>
+        <item>160 phút</item>
+        <item>170 phút</item>
+        <item>180 phút</item>
+        <item>190 phút</item>
+        <item>200 phút</item>
+        <item>210 phút</item>
+        <item>220 phút</item>
+        <item>230 phút</item>
+        <item>240 phút</item>
+        <item>250 phút</item>
+    </string-array>
 </resources>

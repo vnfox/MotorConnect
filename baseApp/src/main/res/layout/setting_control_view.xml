@@ -23,7 +23,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/actionbar_height"
+            android:layout_height="@dimen/button_height"
             android:layout_marginTop="@dimen/connect_margin_10"
             android:orientation="horizontal">
 
@@ -32,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/connect_margin_16"
-                android:layout_marginRight="@dimen/connect_margin_16"
+                android:layout_marginRight="@dimen/connect_margin_10"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_selected"
                 android:gravity="center"
@@ -42,10 +42,24 @@
                 android:textSize="24sp" />
 
             <TextView
+                android:id="@+id/btn_spontaneous"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/connect_margin_10"
+                android:layout_marginRight="@dimen/connect_margin_10"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_unselected"
+                android:gravity="center"
+                android:onClick="spontaneousControl"
+                android:text="Spon"
+                android:textColor="@color/color_text_black"
+                android:textSize="24sp" />
+
+            <TextView
                 android:id="@+id/btn_agenda"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/connect_margin_16"
+                android:layout_marginLeft="@dimen/connect_margin_10"
                 android:layout_marginRight="@dimen/connect_margin_16"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_unselected"

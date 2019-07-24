@@ -123,6 +123,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		
 		dataZone.forEach {
 			getZoneAvailable(it.vanId.toInt())
+			Log.d("hqdat", "================  VAN ID ===========>>>>>>>    ${it.vanId}")
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
 			timeSchedule.append(getScheduleRepeat(it.repeatModel))
 		}
