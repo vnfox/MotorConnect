@@ -93,6 +93,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				smsContentRound1.append(password)
 				smsContentRound1.append(zoneAvailable)
 				smsContentRound1.append(timeSchedule)
+				
 				checkGrantedPermissionSms(smsContentRound1.toString())
 			}
 			else -> { // Support 16 Wave
@@ -102,6 +103,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				smsContentRound1.append(password)
 				smsContentRound1.append(zoneAvailable)
 				smsContentRound1.append(timeSchedule)
+				
 				checkGrantedPermissionSms(smsContentRound1.toString())
 				
 				//======== Round2 =================
@@ -113,8 +115,8 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				smsContentRound2.append(timeSchedule2)
 			}
 		}
-		Log.d("hqdat", "================  Scheduler SMS Round 1 ========\n ===>>>>>>>    $smsContentRound1")
-		Log.d("hqdat", "================  Scheduler SMS Round 2 ========\n ===>>>>>>>    $smsContentRound2")
+		Log.d("hqdat", "\n================  Scheduler SMS Round 1 ===========>>>>>>>    $smsContentRound1")
+		Log.d("hqdat", "\n================  Scheduler SMS Round 2 ===========>>>>>>>    $smsContentRound2")
 	}
 	
 	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
@@ -122,7 +124,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		
 		dataZone.forEach {
 			getZoneAvailable(it.vanId.toInt())
-			Log.d("hqdat", "================  VAN ID ===========>>>>>>>    ${it.vanId}")
+			Log.d("hqdat", "\n================  VAN ID ===========>>>>>>>    ${it.vanId}")
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
 			timeSchedule.append(getScheduleRepeat(it.repeatModel))
 		}

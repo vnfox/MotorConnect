@@ -5,6 +5,7 @@
     <string name="btn_chon">Chọn</string>
     <string name="btn_huy">Hủy</string>
     <string name="btn_accept">Đồng Ý</string>
+    <string name="btn_ok">Ok</string>
 
     <!-- Message Config -->
     <string name="sms_dung">Dung</string>
@@ -102,5 +103,7 @@
     <string name="sms_not_delivered">SMS not delivered</string>
     <string name="sms_send_failed">SMS sent failed</string>
     <string name="sms_sent">SMS Sent</string>
+    <string name="sms_input_duration">Vui lòng nhập thời gian tưới</string>
+    <string name="sms_select_wave">Vui lòng chọn khu vực tưới</string>
 
 </resources>

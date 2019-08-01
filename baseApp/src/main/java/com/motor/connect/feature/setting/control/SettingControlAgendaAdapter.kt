@@ -65,11 +65,9 @@ class SettingControlAgendaAdapter(val onClick: SettingControlActivity) : Recycle
 			holder.timeWorking.text = "00"
 		}
 		
-		var dataArea: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 		areaVan[position].vanId = (position + 1).toString()
-		dataArea[pos].areaVans = areaVan
-		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
+		Hawk.put(MotorConstants.KEY_PUT_VAN_MODEL, areaVan[position])
+		Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, areaVan)
 	}
 	
 	fun updateDuration(position: Int, holder: ItemViewHolder, value: String) {

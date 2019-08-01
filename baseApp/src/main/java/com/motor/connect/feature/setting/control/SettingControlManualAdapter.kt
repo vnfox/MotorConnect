@@ -45,12 +45,8 @@ class SettingControlManualAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
 		}
 		holder.switch.setOnCheckedChangeListener { _, isChecked ->
 			areaVan[position].manual = isChecked
-			Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, areaVan)
-			var dataArea: MutableList<AreaModel> = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-			val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 			areaVan[position].vanId = (position + 1).toString()
-			dataArea[pos].areaVans = areaVan
-			Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
+			Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, areaVan)
 		}
 	}
 	

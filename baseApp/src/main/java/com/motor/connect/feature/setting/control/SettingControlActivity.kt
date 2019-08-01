@@ -8,14 +8,13 @@ import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
 import com.motor.connect.R
-import com.motor.connect.databinding.SettingControlViewBinding
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
+import com.motor.connect.databinding.SettingControlViewBinding
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.*
 import io.reactivex.annotations.NonNull
@@ -98,14 +97,14 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		btn_agenda.background = getDrawable(R.drawable.bg_button_unselected)
 		btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
 		btn_spontaneous.background = getDrawable(R.drawable.bg_button_selected)
-		
+		viewModel.clearDataSet(false)
 		handler.post {
 			onSetDurationForSpontaneous()
 		}
 		try {
 			// Sleep for 200 milliseconds.
 			// Just to display the progress slowly
-			Thread.sleep(200) //thread will take approx 3 seconds to finish
+			Thread.sleep(100)
 		} catch (e: InterruptedException) {
 			e.printStackTrace()
 		}
@@ -120,11 +119,15 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	}
 	
 	override fun prepareDataForManual(items: MutableList<VanModel>) {
-		// Make sure smsContent1 clear
 		bit_mask = 0
 		smsContent1.setLength(0)
+		if (items.isEmpty()) {
+			showDialogWarning(getString(R.string.sms_select_wave))
+			return
+		}
+		
 		items.forEach {
-			Log.d("hqdat", "================ Manual VAN ID ==========>>>>>>>    ${it.vanId}")
+			Log.d("hqdat", "\n================ Manual VAN ID ==========>>>>>>>    ${it.vanId}")
 			getZoneAvailable(it.vanId.toInt())
 		}
 		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
@@ -135,13 +138,14 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 			smsContent1.append(password)
 			smsContent1.append(zoneAvailable)
 			smsContent1.append(getTimeSpontaneousATS(timeManual))
+			Log.d("hqdat", "\n================ Manual VAN ID ==========>>>>>>>    $timeManual")
 		} else {
 			smsContent1.append(MotorConstants.AreaCode.PREFIX_DM)
 			smsContent1.append(password)
 			smsContent1.append(zoneAvailable)
 			smsContent1.append("001")
 		}
-		Log.d("hqdat", "================ Manual SMS Content ==========>>>>>>>    $smsContent1")
+		Log.d("hqdat", "\n================ Manual SMS Content ==========>>>>>>>    $smsContent1")
 		checkGrantedPermissionSms(smsContent1.toString())
 	}
 	
@@ -157,12 +161,11 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 	}
 	
 	private fun onSetDurationForSpontaneous() {
-		var items = resources.getStringArray(R.array.times_spontaneous)
+		val items = resources.getStringArray(R.array.times_spontaneous)
 		AlertDialog.Builder(this)
 				.setTitle(getString(R.string.setting_time_working))
 				.setSingleChoiceItems(items, 0) { _, i ->
-					var result = items[i].toString()
-					
+					val result = items[i].toString()
 					timeManual = result
 				}
 				.setPositiveButton(getString(R.string.btn_chon), DialogInterface.OnClickListener(positiveClick))
@@ -174,7 +177,12 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		bit_mask = 0
 		smsContent1.setLength(0)
 		smsContent2.setLength(0)
-		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
+		
+		if (items.isEmpty()) {
+			showDialogWarning(getString(R.string.sms_input_duration))
+			return
+		}
+		val password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
 		val (round1, round2) = viewModel.getDataZoneAvailable(items)
 		
 		when {
@@ -203,8 +211,8 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				smsContent2.append(timeSchedule2)
 			}
 		}
-		Log.d("hqdat", "================ Agenda SMS Content 1 =======\n ===>>>>>>>    $smsContent1")
-		Log.d("hqdat", "================ Agenda SMS Content 2 =======\n ===>>>>>>>    $smsContent2")
+		Log.d("hqdat", "\n================ Agenda SMS Content 1 ==========>>>>>>>    $smsContent1")
+		Log.d("hqdat", "\n================ Agenda SMS Content 2 ==========>>>>>>>    $smsContent2")
 	}
 	
 	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
@@ -222,7 +230,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		var schedule = schedule.reversed()
 		result.append(schedule.size)
 		
-		schedule.forEachIndexed { index, element ->
+		schedule.forEachIndexed { _, element ->
 			result.append(getScheduleTimeATS(element))
 			result.append(getTimeDurationATS(duration))
 		}
@@ -340,5 +348,13 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		
 		val sms = SmsManager.getDefault()
 		sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI)
+	}
+	
+	private fun showDialogWarning(message: String) {
+		AlertDialog.Builder(this)
+				.setTitle(getString(R.string.sms_warning_title))
+				.setMessage(message)
+				.setPositiveButton(getString(R.string.btn_ok), null)
+				.show()
 	}
 }

@@ -37,7 +37,6 @@ class SettingAreaVanViewModel(mView: SettingAreaVanView?, mModel: BaseModel)
 	
 	fun updateDataRepeatChange(position: Int, repeat: RepeatModel) {
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-		//Todo check if data empty
 		vansUsed[position] = Hawk.get<VanModel>(MotorConstants.KEY_PUT_VAN_MODEL)
 		
 		vansUsed[position].repeatModel = repeat
