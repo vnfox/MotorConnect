@@ -127,7 +127,6 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		}
 		
 		items.forEach {
-			Log.d("hqdat", "\n================ Manual VAN ID ==========>>>>>>>    ${it.vanId}")
 			getZoneAvailable(it.vanId.toInt())
 		}
 		var password = decimal2ATSSexagesimal(MotorConstants.PASSWORD_DEFAULT)
@@ -138,17 +137,14 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 			smsContent1.append(password)
 			smsContent1.append(zoneAvailable)
 			smsContent1.append(getTimeSpontaneousATS(timeManual))
-			Log.d("hqdat", "\n================ Manual VAN ID ==========>>>>>>>    $timeManual")
 		} else {
 			smsContent1.append(MotorConstants.AreaCode.PREFIX_DM)
 			smsContent1.append(password)
 			smsContent1.append(zoneAvailable)
 			smsContent1.append("001")
 		}
-		Log.d("hqdat", "\n================ Manual SMS Content ==========>>>>>>>    $smsContent1")
 		checkGrantedPermissionSms(smsContent1.toString())
 	}
-	
 	//=============== Spontaneous =======================
 	
 	private val positiveClick = { _: DialogInterface, _: Int ->
@@ -211,8 +207,6 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				smsContent2.append(timeSchedule2)
 			}
 		}
-		Log.d("hqdat", "\n================ Agenda SMS Content 1 ==========>>>>>>>    $smsContent1")
-		Log.d("hqdat", "\n================ Agenda SMS Content 2 ==========>>>>>>>    $smsContent2")
 	}
 	
 	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
@@ -318,15 +312,23 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 					}
 					SmsManager.RESULT_ERROR_GENERIC_FAILURE -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContent1.setLength(0)
+						smsContent2.setLength(0)
 					}
 					SmsManager.RESULT_ERROR_NO_SERVICE -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContent1.setLength(0)
+						smsContent2.setLength(0)
 					}
 					SmsManager.RESULT_ERROR_NULL_PDU -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContent1.setLength(0)
+						smsContent2.setLength(0)
 					}
 					SmsManager.RESULT_ERROR_RADIO_OFF -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContent1.setLength(0)
+						smsContent2.setLength(0)
 					}
 				}
 			}

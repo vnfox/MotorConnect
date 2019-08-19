@@ -115,8 +115,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 				smsContentRound2.append(timeSchedule2)
 			}
 		}
-		Log.d("hqdat", "\n================  Scheduler SMS Round 1 ===========>>>>>>>    $smsContentRound1")
-		Log.d("hqdat", "\n================  Scheduler SMS Round 2 ===========>>>>>>>    $smsContentRound2")
 	}
 	
 	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
@@ -124,7 +122,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		
 		dataZone.forEach {
 			getZoneAvailable(it.vanId.toInt())
-			Log.d("hqdat", "\n================  VAN ID ===========>>>>>>>    ${it.vanId}")
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
 			timeSchedule.append(getScheduleRepeat(it.repeatModel))
 		}
@@ -306,15 +303,23 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 					}
 					SmsManager.RESULT_ERROR_GENERIC_FAILURE -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContentRound1.setLength(0)
+						smsContentRound2.setLength(0)
 					}
 					SmsManager.RESULT_ERROR_NO_SERVICE -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContentRound1.setLength(0)
+						smsContentRound2.setLength(0)
 					}
 					SmsManager.RESULT_ERROR_NULL_PDU -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContentRound1.setLength(0)
+						smsContentRound2.setLength(0)
 					}
 					SmsManager.RESULT_ERROR_RADIO_OFF -> {
 						showUnderConstruction(getString(R.string.sms_send_failed))
+						smsContentRound1.setLength(0)
+						smsContentRound2.setLength(0)
 					}
 				}
 			}
