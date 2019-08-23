@@ -15,7 +15,7 @@ import com.motor.connect.utils.getVanId
 import com.orhanobut.hawk.Hawk
 
 
-class SettingControlManualAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class SettingControlAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 		BindableAdapter<VanModel> {
 	
 	private var areaVan = emptyList<VanModel>()

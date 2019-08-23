@@ -6,6 +6,7 @@
     <string name="btn_huy">Hủy</string>
     <string name="btn_accept">Đồng Ý</string>
     <string name="btn_ok">Ok</string>
+    <string name="btn_apply">Apply</string>
 
     <!-- Message Config -->
     <string name="sms_dung">Dung</string>
@@ -95,8 +96,8 @@
     <string name="weather_speed">Tốc độ gió: %s</string>
     <string name="weather_temp_max">Nhiệt độ max: %s</string>
     <string name="weather_temp_min">Nhiệt độ min: %s</string>
-    <string name="setting_controll_title">Control</string>
-    <string name="setting_controll_apply">Apply</string>
+    <string name="setting_control_title">Control</string>
+    <string name="setting_control_apply">Apply</string>
     <string name="text_schedule">Schedule</string>
     <string name="btn_save">Save</string>
     <string name="sms_delivered">SMS delivered</string>
@@ -105,5 +106,7 @@
     <string name="sms_sent">SMS Sent</string>
     <string name="sms_input_duration">Vui lòng nhập thời gian tưới</string>
     <string name="sms_select_wave">Vui lòng chọn khu vực tưới</string>
+    <string name="setting_agenda">Nhật trình</string>
+    <string name="settting_agenda">Agenda</string>
 
 </resources>

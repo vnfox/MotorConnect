@@ -55,19 +55,6 @@
                 android:textColor="@color/color_text_black"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/btn_agenda"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/connect_margin_10"
-                android:layout_marginRight="@dimen/connect_margin_16"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button_unselected"
-                android:gravity="center"
-                android:onClick="agendaControl"
-                android:text="Agenda"
-                android:textColor="@color/color_text_black"
-                android:textSize="24sp" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

@@ -161,3 +161,14 @@ fun getTimeSpontaneousATS(time: String): String {
 	}
 	return result
 }
+
+fun getCurrentIndex(duration: CharSequence?, items: Array<String>?): Int {
+	
+	items?.forEachIndexed { index, element ->
+		val value = element.split(" ")[0]
+		if (value.contentEquals(duration.toString())) {
+			return index
+		}
+	}
+	return 0
+}

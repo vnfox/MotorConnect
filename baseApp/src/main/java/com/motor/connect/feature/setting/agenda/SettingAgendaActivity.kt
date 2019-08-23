@@ -1,4 +1,4 @@
-package com.motor.connect.feature.setting.van
+package com.motor.connect.feature.setting.agenda
 
 import android.Manifest
 import android.app.Activity
@@ -18,8 +18,7 @@ import android.widget.TextView
 import com.motor.connect.R
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
-import com.motor.connect.databinding.SettingAreaVanViewBinding
-import com.motor.connect.feature.model.RepeatModel
+import com.motor.connect.databinding.SettingAgendaViewBinding
 import com.motor.connect.feature.model.VanModel
 import com.motor.connect.utils.*
 import io.reactivex.annotations.NonNull
@@ -29,11 +28,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, SettingAreaVanViewModel>(), SettingAreaVanView, SettingAreaVanAdapter.ItemListener {
+class SettingAgendaActivity : BaseViewActivity<SettingAgendaViewBinding, SettingAgendaModel>(), SettingAgendaView, SettingAgendaAdapter.ItemListener {
 	
 	companion object {
 		fun show(context: Context) {
-			context.startActivity(Intent(context, SettingAreaVanActivity::class.java))
+			context.startActivity(Intent(context, SettingAgendaActivity::class.java))
 		}
 	}
 	
@@ -42,22 +41,22 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	private var smsContentRound1 = StringBuilder()
 	private var smsContentRound2 = StringBuilder()
 	
-	private val viewModel = SettingAreaVanViewModel(this, BaseModel())
-	private var adapter: SettingAreaVanAdapter? = null
+	private val viewModel = SettingAgendaModel(this, BaseModel())
+	private var adapter: SettingAgendaAdapter? = null
 	
-	override fun createViewModel(): SettingAreaVanViewModel {
+	override fun createViewModel(): SettingAgendaModel {
 		viewModel.mView = this
 		return viewModel
 	}
 	
-	override fun createDataBinding(mViewModel: SettingAreaVanViewModel): SettingAreaVanViewBinding {
-		mBinding = DataBindingUtil.setContentView(this, R.layout.setting_area_van_view)
+	override fun createDataBinding(mViewModel: SettingAgendaModel): SettingAgendaViewBinding {
+		mBinding = DataBindingUtil.setContentView(this, R.layout.setting_agenda_view)
 		mBinding.viewModel = mViewModel
 		
-		txt_title.text = getString(R.string.text_schedule)
+		txt_title.text = getString(R.string.settting_agenda)
 		btn_action_right.text = getString(R.string.btn_apply)
 		
-		adapter = SettingAreaVanAdapter(this)
+		adapter = SettingAgendaAdapter(this)
 		recyclerView.adapter = adapter
 		recyclerView.layoutManager = GridLayoutManager(this, 1)
 		
@@ -118,22 +117,14 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	
 	private fun getTimeScheduleAndZoneAvailable(dataZone: MutableList<VanModel>): Pair<String, String> {
 		var timeSchedule = StringBuilder()
+		
 		dataZone.forEach {
 			getZoneAvailable(it.vanId.toInt())
 			timeSchedule.append(getTimeScheduleAndDurationATS(it.schedule, it.duration))
-			timeSchedule.append(getScheduleRepeat(it.repeatModel))
 		}
 		
 		var zoneAvailable: String = getAvailableATS(bit_mask)
 		return Pair(timeSchedule.toString(), zoneAvailable)
-	}
-	
-	private fun getScheduleRepeat(repeatModel: RepeatModel): String {
-		var scheduleRepeat = 0
-		for (i in 0..6) {
-			scheduleRepeat += getDayOfWeek(i, repeatModel)
-		}
-		return getDayOfWeekATS(scheduleRepeat)
 	}
 	
 	private fun getTimeScheduleAndDurationATS(schedule: List<String>, duration: String): String {
@@ -150,13 +141,13 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	
 	//============================================
 	
-	override fun onAddSchedule(position: Int, stepSchedule: Int, holder: SettingAreaVanAdapter.ItemViewHolder) {
+	override fun onAddSchedule(position: Int, stepSchedule: Int, holder: SettingAgendaAdapter.ItemViewHolder) {
 		adapter?.updateScheduleAdded(stepSchedule + 1, holder)
 		
 		awaitingUpdateDataChange(position)
 	}
 	
-	override fun onRemoveSchedule(position: Int, stepSchedule: Int, holder: SettingAreaVanAdapter.ItemViewHolder) {
+	override fun onRemoveSchedule(position: Int, stepSchedule: Int, holder: SettingAgendaAdapter.ItemViewHolder) {
 		adapter?.updateScheduleAdded(stepSchedule - 1, holder)
 		
 		awaitingUpdateDataChange(position)
@@ -175,10 +166,11 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		}
 	}
 	
-	override fun onSetDuration(position: Int, holder: SettingAreaVanAdapter.ItemViewHolder, positionItem: Int) {
+	override fun onSetDuration(position: Int, holder: SettingAgendaAdapter.ItemViewHolder, positionItem: Int) {
 		var items = resources.getStringArray(R.array.times_working)
 		val duration = holder.duration.text
 		val index = getCurrentIndex(duration, items)
+		
 		AlertDialog.Builder(this)
 				.setTitle(getString(R.string.setting_time_working))
 				.setSingleChoiceItems(items, index) { _, i ->
@@ -203,7 +195,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 	
 	override fun onSchedule(position: Int, textView: TextView, positionItem: Int) {
 		val cal = Calendar.getInstance()
-		val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+		val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
 			cal.set(Calendar.HOUR_OF_DAY, hour)
 			cal.set(Calendar.MINUTE, minute)
 			textView.text = SimpleDateFormat("HH:mm").format(cal.time)
@@ -230,10 +222,6 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 		} catch (e: InterruptedException) {
 			e.printStackTrace()
 		}
-	}
-	
-	override fun onCheckRepeat(position: Int, repeat: RepeatModel) {
-		viewModel.updateDataRepeatChange(position, repeat)
 	}
 	
 	private fun checkGrantedPermissionSms(smsContent: String) {
@@ -294,7 +282,7 @@ class SettingAreaVanActivity : BaseViewActivity<SettingAreaVanViewBinding, Setti
 					Activity.RESULT_OK -> {
 						showUnderConstruction(getString(R.string.sms_sent))
 						smsContentRound1.setLength(0)
-						if(smsContentRound2.isNotEmpty()){
+						if (smsContentRound2.isNotEmpty()) {
 							handelSendSmsRound2(smsContentRound2.toString())
 							smsContentRound2.setLength(0)
 						} else {

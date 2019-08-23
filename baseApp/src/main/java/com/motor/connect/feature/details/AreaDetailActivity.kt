@@ -17,6 +17,7 @@ import com.motor.connect.base.BaseModel
 import com.motor.connect.base.view.BaseViewActivity
 import com.motor.connect.feature.edit.EditAreaActivity
 import com.motor.connect.feature.model.AreaModel
+import com.motor.connect.feature.setting.agenda.SettingAgendaActivity
 import com.motor.connect.feature.setting.control.SettingControlActivity
 import com.motor.connect.feature.setting.van.SettingAreaVanActivity
 import com.motor.connect.utils.MotorConstants
@@ -131,6 +132,11 @@ class AreaDetailActivity : BaseViewActivity<DetailViewBinding, AreaDetailViewMod
 	fun setupScheduleArea(v: View) {
 		bottomSheetDialog?.dismiss()
 		SettingAreaVanActivity.show(this)
+	}
+	
+	fun setupAgenda(v: View) {
+		bottomSheetDialog?.dismiss()
+		SettingAgendaActivity.show(this)
 	}
 	
 	fun controlAgenda(v: View) {

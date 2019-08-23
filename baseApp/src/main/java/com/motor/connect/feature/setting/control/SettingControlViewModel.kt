@@ -18,16 +18,13 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 		
 		model = areaModels[pos]
-		selectNavigateUi(false)
+		selectNavigateUi()
 	}
 	
-	private fun selectNavigateUi(agenda: Boolean?) {
-		when {
-			agenda!! -> mView?.fetchDataAgenda(model.areaVans)
-			else -> mView?.fetchDataManual(model.areaVans)
-		}
+	private fun selectNavigateUi() {
+		mView?.fetchData(model.areaVans)
 		//set default data
-		clearDataSet(agenda)
+//		clearDataSet(agenda)
 	}
 	
 	fun getPhoneNumber(): String {
@@ -46,58 +43,26 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
 		Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, vanModels)
 	}
 	
-	fun updateDataChange(position: Int) {
-		areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
-		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
-		model.areaVans[position] = Hawk.get<VanModel>(MotorConstants.KEY_PUT_VAN_MODEL)
-		areaModels[pos] = model
-		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
-	}
-	
-	fun updateAgendaWorking(isAgenda: Boolean) {
+	fun updateAgendaWorking() {
 		areaModels = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 		
 		model = areaModels[pos]
-		model.agenda = isAgenda
 		areaModels[pos] = model
 		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
 		
 		//Update UI
-		selectNavigateUi(isAgenda)
+		selectNavigateUi()
 	}
 	
 	fun prepareDataSendSms() {
 		val vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
 		var items: MutableList<VanModel> = mutableListOf()
-		if (model.agenda) {
-			vanModels.forEach {
-				if (!it.duration.isNullOrEmpty() && it.schedule.isNotEmpty()
-						&& !it.duration.contentEquals("00")) {
-					items.add(it)
-				}
-			}
-			mView?.prepareDataForAgenda(items)
-		} else {
-			vanModels.forEach {
-				if (it.manual) {
-					items.add(it)
-				}
-			}
-			mView?.prepareDataForManual(items)
-		}
-	}
-	
-	fun getDataZoneAvailable(items: MutableList<VanModel>): Pair<MutableList<VanModel>, MutableList<VanModel>> {
-		var zone1: MutableList<VanModel> = mutableListOf()
-		var zone2: MutableList<VanModel> = mutableListOf()
-		
-		items.forEachIndexed { index, element ->
-			when {
-				index < 8 -> zone1.add(element)
-				else -> zone2.add(element)
+		vanModels.forEach {
+			if (it.manual) {
+				items.add(it)
 			}
 		}
-		return Pair(zone1, zone2)
+		mView?.prepareDataSMS(items)
 	}
 }
