@@ -42,8 +42,6 @@ class SettingAgendaAdapter(val onClick: SettingAgendaActivity) : RecyclerView.Ad
     override fun getItemCount() = areaVan.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        var repeatModel: RepeatModel = areaVan[position]?.repeatModel
         vanModel = areaVan[position]
         (holder as ItemViewHolder).areaName.text = "Van " + getVanId(position + 1)
         holder.areaId.text = getVanId(position + 1)
@@ -236,6 +234,7 @@ class SettingAgendaAdapter(val onClick: SettingAgendaActivity) : RecyclerView.Ad
                 holder.schedule4.visibility = View.GONE
             }
         }
+        holder.setIsRecyclable(false)
     }
 
 

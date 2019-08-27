@@ -160,6 +160,7 @@ class SettingAreaVanAdapter(val onClick: SettingAreaVanActivity) : RecyclerView.
             repeatModel.statusCN = holder.cn.isChecked
             itemClick.onCheckRepeat(position, repeatModel)
         }
+        holder.setIsRecyclable(false)
     }
 
     private fun checkStatusButton(step: Int, holder: ItemViewHolder) {
