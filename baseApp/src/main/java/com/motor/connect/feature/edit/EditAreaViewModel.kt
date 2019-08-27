@@ -55,5 +55,6 @@ class EditAreaViewModel(mView: EditAreaView?, mModel: BaseModel)
 		dataArea = Hawk.get(MotorConstants.KEY_PUT_AREA_LIST)
 		dataArea[position].areaVans = vansUsed
 		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, dataArea)
+		Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, vansUsed)
 	}
 }

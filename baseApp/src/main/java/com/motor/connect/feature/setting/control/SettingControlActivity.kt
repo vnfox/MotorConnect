@@ -9,7 +9,6 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.telephony.SmsManager
-import android.util.Log
 import android.view.View
 import com.motor.connect.R
 import com.motor.connect.base.BaseModel
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.setting_control_view.*
 
 
 class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, SettingControlViewModel>(),
-		SettingControlView {
+		SettingControlView, SettingControlAdapter.ItemListener {
 	
 	companion object {
 		fun show(context: Context) {
@@ -50,11 +49,9 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		
 		txt_title.text = getString(R.string.setting_control_title)
 		btn_action_right.text = getString(R.string.setting_control_apply)
-		//Adapter item click
-		manualAdapter = SettingControlAdapter()
 		
-		//rc_control.adapter = agendaAdapter
-		rc_control.layoutManager = GridLayoutManager(this, 1)
+		//Adapter item click
+		manualAdapter = SettingControlAdapter(this)
 		viewModel.initViewModel()
 		return mBinding
 	}
@@ -63,7 +60,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		rc_control.adapter = manualAdapter
 		rc_control.layoutManager = GridLayoutManager(this, 1)
 		manualAdapter?.setData(areaVans)
-		rc_control.adapter?.notifyDataSetChanged()
+		manualAdapter?.notifyDataSetChanged()
 	}
 	
 	fun actionLeft(v: View) {
@@ -85,7 +82,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		isSpontaneous = true
 		btn_manual.background = getDrawable(R.drawable.bg_button_unselected)
 		btn_spontaneous.background = getDrawable(R.drawable.bg_button_selected)
-		viewModel.clearDataSet(false)
+		//viewModel.clearDataSet(false)
 		handler.post {
 			onSetDurationForSpontaneous()
 		}
@@ -96,6 +93,10 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 		} catch (e: InterruptedException) {
 			e.printStackTrace()
 		}
+	}
+	
+	override fun onChangeStatus(position: Int, holder: SettingControlAdapter.ItemViewHolder) {
+		viewModel.updateDataChange(position, holder.switch.isChecked)
 	}
 	
 	override fun prepareDataSMS(items: MutableList<VanModel>) {
@@ -124,8 +125,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 			smsContent.append("001")
 		}
 		
-		Log.d("hqdat","======== sms  ====    $smsContent")
-		//checkGrantedPermissionSms(smsContent.toString())
+		checkGrantedPermissionSms(smsContent.toString())
 	}
 	//=============== Spontaneous =======================
 	
@@ -150,7 +150,7 @@ class SettingControlActivity : BaseViewActivity<SettingControlViewBinding, Setti
 				.setNegativeButton(getString(R.string.btn_huy), DialogInterface.OnClickListener(negativeClick))
 				.show()
 	}
-
+	
 	//Check Grant permission
 	private fun checkGrantedPermissionSms(smsContent: String) {
 		if (PermissionUtils.isGranted(this,

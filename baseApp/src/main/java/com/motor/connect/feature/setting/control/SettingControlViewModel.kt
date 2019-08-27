@@ -1,5 +1,6 @@
 package com.motor.connect.feature.setting.control
 
+import android.util.Log
 import com.motor.connect.base.BaseModel
 import com.motor.connect.base.BaseViewModel
 import com.motor.connect.feature.model.AreaModel
@@ -18,29 +19,16 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
 		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
 		
 		model = areaModels[pos]
-		selectNavigateUi()
+		mView?.fetchData(model.areaVans)
 	}
 	
 	private fun selectNavigateUi() {
-		mView?.fetchData(model.areaVans)
-		//set default data
-//		clearDataSet(agenda)
+		val vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
+		mView?.fetchData(vanModels)
 	}
 	
 	fun getPhoneNumber(): String {
 		return model.areaPhone
-	}
-	
-	fun clearDataSet(agenda: Boolean) {
-		val vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
-		vanModels.forEach {
-			it.manual = false
-		}
-		model.areaVans.forEach {
-			it.manual = false
-		}
-		model.agenda = agenda
-		Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, vanModels)
 	}
 	
 	fun updateAgendaWorking() {
@@ -56,13 +44,22 @@ class SettingControlViewModel(mView: SettingControlView?, mModel: BaseModel)
 	}
 	
 	fun prepareDataSendSms() {
-		val vanModels: MutableList<VanModel> = Hawk.get(MotorConstants.KEY_PUT_LIST_VAN_MODEL)
 		var items: MutableList<VanModel> = mutableListOf()
-		vanModels.forEach {
-			if (it.manual) {
-				items.add(it)
+		model.areaVans.forEachIndexed { index, vanModel ->
+			if(vanModel.manual){
+				items.add(vanModel)
 			}
 		}
 		mView?.prepareDataSMS(items)
+	}
+	
+	fun updateDataChange(position: Int, checked: Boolean) {
+		var vanModels: MutableList<VanModel> = model.areaVans
+		vanModels[position].manual = checked
+		Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, vanModels)
+		val pos = Hawk.get<Int>(MotorConstants.KEY_POSITION)
+		model.areaVans = vanModels
+		areaModels[pos] = model
+		Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
 	}
 }

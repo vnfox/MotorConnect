@@ -2,6 +2,7 @@ package com.motor.connect.feature.setting.control
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SwitchCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +11,23 @@ import com.motor.connect.R
 import com.motor.connect.feature.adapter.BindableAdapter
 import com.motor.connect.feature.model.AreaModel
 import com.motor.connect.feature.model.VanModel
+import com.motor.connect.feature.setting.van.SettingAreaVanAdapter
 import com.motor.connect.utils.MotorConstants
 import com.motor.connect.utils.getVanId
 import com.orhanobut.hawk.Hawk
+import kotlinx.android.synthetic.main.item_view_manual_control.view.*
 
 
-class SettingControlAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class SettingControlAdapter(val onClick: SettingControlActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 		BindableAdapter<VanModel> {
 	
 	private var areaVan = emptyList<VanModel>()
+	lateinit var itemClick: ItemListener
 	
 	override fun setData(items: List<VanModel>) {
 		areaVan = items
 		notifyDataSetChanged()
+		itemClick = onClick
 	}
 	
 	override fun changedPositions(positions: Set<Int>) {
@@ -39,15 +44,21 @@ class SettingControlAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 		(holder as ItemViewHolder).vanNumber.text = getVanId(position + 1)
 		holder.vanId.text = "Van " + areaVan[position].vanId
-		when {
-			areaVan[position].manual -> holder.switchStatus.text = "ON"
-			else -> holder.switchStatus.text = "OFF"
-		}
+		holder.switch.isChecked = areaVan[position].manual
 		holder.switch.setOnCheckedChangeListener { _, isChecked ->
-			areaVan[position].manual = isChecked
-			areaVan[position].vanId = (position + 1).toString()
-			Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, areaVan)
+			when {
+				isChecked -> {
+					holder.switchStatus.text = "ON"
+					holder.switch.isChecked = true
+				}
+				else -> {
+					holder.switchStatus.text = "OFF"
+					holder.switch.isChecked = false
+				}
+			}
+			itemClick.onChangeStatus(position, holder)
 		}
+		holder.setIsRecyclable(false)
 	}
 	
 	class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -56,5 +67,11 @@ class SettingControlAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 		var vanNumber: TextView = itemView.findViewById(R.id.area) as TextView
 		var switch: SwitchCompat = itemView.findViewById(R.id.switch_control) as SwitchCompat
 		var switchStatus: TextView = itemView.findViewById(R.id.switch_status) as TextView
+	}
+	
+	interface ItemListener {
+		
+		fun onChangeStatus(position: Int, holder: ItemViewHolder)
+		
 	}
 }

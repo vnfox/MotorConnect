@@ -32,6 +32,7 @@ class AddAreaViewModel(mView: AddAreaView?, mModel: BaseModel)
         dataModel.schedule = schedule
         areaModels.add(dataModel)
         Hawk.put(MotorConstants.KEY_PUT_AREA_LIST, areaModels)
+        Hawk.put(MotorConstants.KEY_PUT_LIST_VAN_MODEL, dataModel.areaVans)
 
         mView?.goBackMainScreen()
     }
